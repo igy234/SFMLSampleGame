@@ -20,7 +20,7 @@ MenuStateManager::MenuStateManager(shared_ptr<RenderWindow> window)
 	V.push_back(b3);
 	menuLayout.ObtainVector(V);
 
-
+	//xd
 }
 
 
