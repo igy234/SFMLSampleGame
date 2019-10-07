@@ -6,13 +6,13 @@
 MenuLayout::MenuLayout(shared_ptr<RenderWindow> window)
 	:BaseLayout(window)
 {
-	if (!this->MenuTexture.loadFromFile("Resources/Images/menu1.jpg"))
+	if (!this->BackgroundTexture.loadFromFile("Resources/Images/menu1.jpg"))
 	{
 		cerr << "Error while loading Menu Texture" << endl; //error handling
 		system("pause");
 	}
 	
-	MenuBackgorund.setTexture(MenuTexture);
+	BackgroundSprite.setTexture(BackgroundTexture);
 	
 	
 }
@@ -24,12 +24,19 @@ MenuLayout::~MenuLayout()
 
 void MenuLayout::Show()
 {
-	Window->draw(MenuBackgorund);
+	Window->draw(BackgroundSprite);
+	Window->draw(*ButtonObjectsMap["Play"]); // . get() nie dzia³a ale * bierze nam zwykly obiekt a nie shared_ptr, wywlekamy to na co ten shared ptr wskazuje
+	Window->draw(*ButtonObjectsMap["Deck"]);
+	Window->draw(*ButtonObjectsMap["Quit"]);
+	Window->draw(ButtonObjectsMap["Play"]->GetText());
+	Window->draw(ButtonObjectsMap["Deck"]->GetText());
+	Window->draw(ButtonObjectsMap["Quit"]->GetText());
 	
 }
 
-void MenuLayout::ObtainVector(vector<reference_wrapper<BaseGuiElement>> V)
+void MenuLayout::ObtainVector(vector<shared_ptr<IGuiElement>> V)
 {
+	BaseLayout::ObtainVector(V); //zapisuje sobie na pó¿niej (ewentualnie)
 	ColumnMaker columnMaker(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldThree, EnumScreenFields::FieldFour);
 	columnMaker.OrganizePosition(V);
 	/*RowMaker rowMaker(window->getSize().x, window->getSize().y, EnumScreenFields::FieldThree, EnumScreenFields::FieldFour);

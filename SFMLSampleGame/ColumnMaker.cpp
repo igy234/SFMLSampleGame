@@ -15,7 +15,7 @@ ColumnMaker::~ColumnMaker()
 {
 }
 
-void ColumnMaker::OrganizePosition(const vector<reference_wrapper<BaseGuiElement>> &v) 
+void ColumnMaker::OrganizePosition(const vector<shared_ptr<IGuiElement>> &v) 
 {
 	int padding = 0;
 	int LastHeight = 0;
@@ -35,18 +35,18 @@ void ColumnMaker::OrganizePosition(const vector<reference_wrapper<BaseGuiElement
 			LastHeight = (*iterator).get().GetHeight();
 		}
 	}*/
-	FieldX= FieldX + WidthFactor / 2;
-	for (reference_wrapper<BaseGuiElement> element : v)
+	FieldX = FieldX + WidthFactor / 2;
+	for (auto element : v)
 	{
-		element.get().SetPositionX(FieldX);
+		element->SetPositionX(FieldX);
 		if (IsFirst) 
 		{
-			padding += element.get().GetPadding(); 
+			padding += element->GetPadding();
 			IsFirst = false; 
 		}
-		else padding += element.get().GetPadding() + element.get().GetHeight() / 2 + LastHeight / 2;
+		else padding += element->GetPadding() + element->GetHeight() / 2 + LastHeight / 2;
 
-		element.get().SetPositionY(FieldY + padding);
-		LastHeight = element.get().GetHeight();
+		element->SetPositionY(FieldY + padding);
+		LastHeight = element->GetHeight();
 	}
 }

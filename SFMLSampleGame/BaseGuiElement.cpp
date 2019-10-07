@@ -3,7 +3,7 @@
 
 
 BaseGuiElement::BaseGuiElement(int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback)
-	:PositionX(positionX),PositionY(positionY),ObjectWidth(objectWidth),ObjectHeight(objectHeight), Callback(callback)
+	:PositionX(positionX), PositionY(positionY), ObjectWidth(objectWidth), ObjectHeight(objectHeight), Callback(callback)
 {
 }
 
@@ -24,7 +24,7 @@ float BaseGuiElement::GetPositionX()
 {
 	return PositionX;
 }
-float BaseGuiElement::GetPoisitionY()
+float BaseGuiElement::GetPositionY()
 {
 	return PositionY;
 }
@@ -62,4 +62,14 @@ void BaseGuiElement::action()
 	}
 	Callback->action();
 
+}
+
+void BaseGuiElement::Highlight()
+{
+	IsHighlighted = true;
+}
+
+void BaseGuiElement::Unhighlight()
+{
+	IsHighlighted = false;
 }

@@ -6,7 +6,6 @@ class MenuStateManager : public BaseStateManager
 {
 protected:
 	MenuLayout menuLayout;
-	ButtonObject b1, b2, b3;
 public:
 	MenuStateManager(shared_ptr<RenderWindow> window);
 	~MenuStateManager();

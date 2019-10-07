@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 
-class FontProvider //poczatek zycia na poczatku programu koniec na koncu
+class FontProvider //poczatek zycia na poczatku programu koniec na koncu singleton
 {
 private:
 	FontProvider();

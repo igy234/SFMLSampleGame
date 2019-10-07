@@ -10,6 +10,6 @@ public:
 	void Show() override;
 	MenuLayout(shared_ptr<RenderWindow> window);
 	~MenuLayout();
-	void ObtainVector(vector<reference_wrapper<BaseGuiElement>> V);
+	void ObtainVector(vector<shared_ptr<IGuiElement>> V) override;
 };
 

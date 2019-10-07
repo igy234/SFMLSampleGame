@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Menu.h"
+#include "Menu(stare).h"
 
 Menu::Menu(const float& width, const float& height)
 {

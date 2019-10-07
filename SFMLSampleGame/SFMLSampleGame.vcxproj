@@ -174,7 +174,7 @@
     <ClInclude Include="IGuiElement.h" />
     <ClInclude Include="ILayout.h" />
     <ClInclude Include="IStateManager.h" />
-    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Menu%28stare%29.h" />
     <ClInclude Include="BaseLayout.h" />
     <ClInclude Include="MenuLayout.h" />
     <ClInclude Include="MenuStateManager.h" />
@@ -205,6 +205,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -14,7 +14,7 @@ public:
 	virtual float GetWidth() override;
 	virtual float GetHeight() override;
 	virtual float GetPositionX() override;
-	virtual float GetPoisitionY() override;
+	virtual float GetPositionY() override;
 	virtual float GetPadding() override;
 	virtual void SetWidth(float width) override;
 	virtual void SetHeight(float height) override;
@@ -22,7 +22,10 @@ public:
 	virtual void SetPositionY(float y) override;
 	virtual void SetPadding(float padding) override;
 	virtual void action() override;
+	virtual void Highlight() override;
+	virtual void Unhighlight() override;
 	BaseGuiElement(int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback = nullptr);
 	~BaseGuiElement();
+	bool IsHighlighted;
 };
 

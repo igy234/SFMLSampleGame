@@ -2,7 +2,7 @@
 #include "BaseStateManager.h"
 
 
-BaseStateManager::BaseStateManager(shared_ptr<RenderWindow> window)
+BaseStateManager::BaseStateManager(shared_ptr<RenderWindow> window) 
 	: Window(window)
 {
 

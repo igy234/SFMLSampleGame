@@ -15,7 +15,7 @@ RowMaker::~RowMaker()
 {
 }
 
-void RowMaker::OrganizePosition(const vector<reference_wrapper<BaseGuiElement>> &v)
+void RowMaker::OrganizePosition(const vector<shared_ptr<IGuiElement >> &v)
 {
 	/*if (v.size())
 	{
@@ -34,10 +34,10 @@ void RowMaker::OrganizePosition(const vector<reference_wrapper<BaseGuiElement>> 
 	}*/
 	
 	int padding = 0;
-	for (reference_wrapper<BaseGuiElement> element : v)
+	for (auto element:v)
 	{
-		element.get().SetPositionY(FieldY);
-		element.get().SetPositionX(FieldX + padding);
-		padding += element.get().GetPadding() + element.get().GetWidth();
+		element->SetPositionY(FieldY);
+		element->SetPositionX(FieldX + padding);
+		padding += element->GetPadding() + element->GetWidth();
 	}
 }

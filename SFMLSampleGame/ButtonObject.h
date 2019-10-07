@@ -12,6 +12,8 @@ public:
 	virtual void SetPositionX(float x) override;
 	virtual void SetPositionY(float y) override;
 	virtual void SetPadding(float padding) override;
+	virtual void Highlight() override;
+	virtual void Unhighlight() override;
 	Text& GetText();
 public:
 	ButtonObject(string label, int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback = nullptr);

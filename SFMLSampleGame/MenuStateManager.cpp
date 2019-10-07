@@ -5,22 +5,26 @@
 
 MenuStateManager::MenuStateManager(shared_ptr<RenderWindow> window)
 	:BaseStateManager(window), 
-	menuLayout(window),
-	b1("Play", 0, 0, 175, 50), 
-	b2("Deck", 0, 0, 150, 50), 
-	b3("Quit", 0, 0, 200, 50, make_shared<CloseWindowCallback>(Window)) 
+	menuLayout(window)	
 {
-	b1.SetPadding(25);
-	b2.SetPadding(25);
-	b3.SetPadding(25);
+	shared_ptr<ButtonObject> b1 = make_shared<ButtonObject>("Play", 0, 0, 200, 50); // taki nowy konstruktor
+	shared_ptr<ButtonObject> b2 = make_shared<ButtonObject>("Deck", 0, 0, 200, 50);
+	shared_ptr<ButtonObject> b3 = make_shared<ButtonObject>("Quit", 0, 0, 200, 50, make_shared<CloseWindowCallback>(Window));
+	b1->SetPadding(25);
+	b2->SetPadding(25);
+	b3->SetPadding(25);
 
-	vector<reference_wrapper<BaseGuiElement>> V;
+	vector<shared_ptr<IGuiElement>> V;
 	V.push_back(b1);
 	V.push_back(b2);
 	V.push_back(b3);
 	menuLayout.ObtainVector(V);
-
-	//xd
+	
+	map<string, shared_ptr<ButtonObject>> M;
+	M["Play"] = b1;
+	M["Deck"] = b2;
+	M["Quit"] = b3;
+	menuLayout.ObtainButtonsMap(M);
 }
 
 
@@ -40,7 +44,6 @@ void MenuStateManager::HandleEvent(const Event& evnt)
 		{
 
 		case Keyboard::Return:
-			b1.action();
 			break;
 		}
 		break;
@@ -129,12 +132,7 @@ void MenuStateManager::DrawWindowContents()
 	//	window.draw(ball);
 	//	window.display();
 	menuLayout.Show();
-	Window->draw(b1);
-	Window->draw(b2);
-	Window->draw(b3);
-	Window->draw(b1.GetText());
-	Window->draw(b2.GetText());
-	Window->draw(b3.GetText());
+	
 }
 
 void MenuStateManager::HandleMouseEvent(const Event& evnt)
@@ -166,4 +164,6 @@ void MenuStateManager::HandleMouseEvent(const Event& evnt)
 		//	break;
 		//}
 	}
+
+	menuLayout.HandleMouseEvent(evnt);
 }

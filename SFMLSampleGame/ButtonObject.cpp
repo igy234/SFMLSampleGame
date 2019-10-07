@@ -23,7 +23,7 @@ ButtonObject::ButtonObject(string label, int positionX, int positionY, float obj
 	ButtonLabel.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f); //srodkuj origin w kwadracie
 	
 	setOutlineColor(Color::White);
-	setOutlineThickness(Thickness); //grubosc krawedzi klawiasza 
+	setOutlineThickness(Thickness); //grubosc krawedzi buttonu 
 	SetPoints(); //anty-clockwise!!!!!
 }
 
@@ -63,7 +63,7 @@ void ButtonObject::SetPadding(float padding)
 
 void ButtonObject::SetPoints()
 {
-	int HalfButtonHeight = ObjectHeight / 2; // we want 25px so half/2
+	int HalfButtonHeight = ObjectHeight / 2; 
 	setPoint(0, Vector2f(0.f, 0.f)); //lewy skrajny 
 	setPoint(1, Vector2f(HalfButtonHeight, HalfButtonHeight)); //lewy dolny
 	setPoint(2, Vector2f(ObjectWidth - HalfButtonHeight, HalfButtonHeight)); //prawy dolny
@@ -74,4 +74,16 @@ void ButtonObject::SetPoints()
 Text& ButtonObject::GetText()
 {
 	return ButtonLabel;
+}
+
+void ButtonObject::Highlight()
+{
+	BaseGuiElement::Highlight();
+	ButtonLabel.setFillColor(Color::Red);
+}
+
+void ButtonObject::Unhighlight()
+{
+	BaseGuiElement::Unhighlight();
+	ButtonLabel.setFillColor(Color::White);
 }
