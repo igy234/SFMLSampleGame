@@ -31,10 +31,10 @@ void BaseLayout::HandleMouseEvent(const Event& evnt)
 	case Event::MouseButtonPressed:
 		if (evnt.mouseButton.button == sf::Mouse::Left)
 		{
-			for (auto elementPair : ButtonObjectsMap)
+			for (auto elementPair : GuiElements)
 			{
 				float btnWidth, btnHeight, btnPositionX, btnPositionY;
-				auto btnObject = elementPair.second; //first -> name(string), second -> value(buttonObject), bo mapa to zbiór obiektów posiadaj¹cych 2 wartoœci. 
+				auto btnObject = elementPair; //first -> name(string), second -> value(buttonObject), bo mapa to zbiór obiektów posiadaj¹cych 2 wartoœci. 
 				btnPositionX = btnObject->GetPositionX();
 				btnPositionY = btnObject->GetPositionY();
 				btnWidth = btnObject->GetWidth();
@@ -48,10 +48,10 @@ void BaseLayout::HandleMouseEvent(const Event& evnt)
 		}
 		break;
 	case Event::MouseMoved:
-		for (auto elementPair : ButtonObjectsMap)
+		for (auto elementPair : GuiElements)
 		{
 			float btnWidth, btnHeight, btnPositionX, btnPositionY;
-			auto btnObject = elementPair.second; //first -> name(string), second -> value(buttonObject), bo mapa to zbiór obiektów posiadaj¹cych 2 wartoœci. 
+			auto btnObject = elementPair; //first -> name(string), second -> value(buttonObject), bo mapa to zbiór obiektów posiadaj¹cych 2 wartoœci. 
 			btnPositionX = btnObject->GetPositionX();
 			btnPositionY = btnObject->GetPositionY();
 			btnWidth = btnObject->GetWidth();
@@ -59,12 +59,12 @@ void BaseLayout::HandleMouseEvent(const Event& evnt)
 			if ((evnt.mouseMove.x >= (btnPositionX - btnWidth / 2) && evnt.mouseMove.x < (btnPositionX + btnWidth / 2)) && // quick maths
 				(evnt.mouseMove.y >= (btnPositionY - btnHeight / 2) && evnt.mouseMove.y <= (btnPositionY + btnHeight / 2)))
 			{
-				cout << " dzia³a h" << endl;
+				//cout << " dzia³a h" << endl;
 				btnObject->Highlight();
 			}
 			else
 			{
-				cout << " niedzia³a h" << endl;
+				//cout << " niedzia³a h" << endl;
 				btnObject->Unhighlight();
 			}
 		}

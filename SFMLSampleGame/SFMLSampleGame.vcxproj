@@ -167,6 +167,9 @@
     <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="CloseWindowCallback.h" />
     <ClInclude Include="ColumnMaker.h" />
+    <ClInclude Include="DeckCallback.h" />
+    <ClInclude Include="DeckLayout.h" />
+    <ClInclude Include="DeckStateManager.h" />
     <ClInclude Include="EnumScreenFields.h" />
     <ClInclude Include="FontProvider.h" />
     <ClInclude Include="Game.h" />
@@ -174,12 +177,18 @@
     <ClInclude Include="IGuiElement.h" />
     <ClInclude Include="ILayout.h" />
     <ClInclude Include="IStateManager.h" />
+    <ClInclude Include="IStateOperator.h" />
     <ClInclude Include="Menu%28stare%29.h" />
     <ClInclude Include="BaseLayout.h" />
+    <ClInclude Include="MenuCallback.h" />
     <ClInclude Include="MenuLayout.h" />
     <ClInclude Include="MenuStateManager.h" />
+    <ClInclude Include="PlayCallback.h" />
+    <ClInclude Include="PlayLayout.h" />
+    <ClInclude Include="PlayStateManager.h" />
     <ClInclude Include="RectangleObject.h" />
     <ClInclude Include="RowMaker.h" />
+    <ClInclude Include="StateOperator.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -190,15 +199,23 @@
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="CloseWindowCallback.cpp" />
     <ClCompile Include="ColumnMaker.cpp" />
+    <ClCompile Include="DeckCallback.cpp" />
+    <ClCompile Include="DeckLayout.cpp" />
+    <ClCompile Include="DeckStateManager.cpp" />
     <ClCompile Include="FontProvider.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="BaseLayout.cpp" />
+    <ClCompile Include="MenuCallback.cpp" />
     <ClCompile Include="MenuLayout.cpp" />
     <ClCompile Include="MenuStateManager.cpp" />
+    <ClCompile Include="PlayCallback.cpp" />
+    <ClCompile Include="PlayLayout.cpp" />
+    <ClCompile Include="PlayStateManager.cpp" />
     <ClCompile Include="RectangleObject.cpp" />
     <ClCompile Include="RowMaker.cpp" />
     <ClCompile Include="SFMLSampleGame.cpp" />
+    <ClCompile Include="StateOperator.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
