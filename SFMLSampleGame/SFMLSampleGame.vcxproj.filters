@@ -101,7 +101,7 @@
     <ClInclude Include="DeckLayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IMatchStateManager.h">
+    <ClInclude Include="ShuffleManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -178,8 +178,12 @@
     <ClCompile Include="DeckLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShuffleManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>
