@@ -101,6 +101,9 @@
     <ClInclude Include="DeckLayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IMatchStateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -158,9 +161,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayLayout.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StateOperator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayCallback.cpp">

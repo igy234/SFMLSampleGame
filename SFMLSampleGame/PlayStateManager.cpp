@@ -4,7 +4,7 @@
 #include "CloseWindowCallback.h"
 #include "DeckCallback.h"
 
-PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator> currentManager)
+PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<GameState>> currentManager)
 	:BaseStateManager(window, currentManager),
 	playLayout(window)
 {

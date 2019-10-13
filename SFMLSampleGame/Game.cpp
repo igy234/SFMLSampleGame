@@ -3,7 +3,7 @@
 #include "StateOperator.h"
 
 Game::Game()
-	: StateHandler(make_shared<StateOperator>())
+	: StateHandler(make_shared<StateOperator<GameState>>())
 	, Window(make_shared<RenderWindow>(VideoMode(WindowSizeX, WindowSizeY), "Game development in progress...", Style::Titlebar | Style::Close)) //lista inicjalizacyjna "doklejenie konstruktora"
 	, MenuManager(make_shared<MenuStateManager>(Window, StateHandler))
 	, DeckManager(make_shared<DeckStateManager>(Window, StateHandler))

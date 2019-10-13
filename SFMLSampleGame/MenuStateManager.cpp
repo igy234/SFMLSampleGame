@@ -4,7 +4,7 @@
 #include "PlayCallback.h"
 #include "DeckCallback.h"
 
-MenuStateManager::MenuStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator> currentManager)
+MenuStateManager::MenuStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<GameState>> currentManager)
 	:BaseStateManager(window, currentManager), 
 	menuLayout(window)	
 {

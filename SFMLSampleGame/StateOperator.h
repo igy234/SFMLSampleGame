@@ -1,13 +1,20 @@
 #pragma once
 #include "IStateOperator.h"
-class StateOperator : public IStateOperator
+
+
+template<typename T>
+class StateOperator : public IStateOperator<T>
 {
 protected:
-	GameState CurrentState = GameState::Menu;
+	T CurrentState;
 public:
-	StateOperator();
-	~StateOperator();
-	virtual void SetNewState(GameState state) override;
-	virtual GameState GetCurrentState() override;
+	virtual void SetNewState(T state) override
+	{
+		CurrentState = state;
+	}
+	virtual T GetCurrentState() override
+	{
+		return CurrentState;
+	}
 };
 

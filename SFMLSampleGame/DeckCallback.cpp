@@ -2,7 +2,7 @@
 #include "DeckCallback.h"
 
 
-DeckCallback::DeckCallback(shared_ptr<IStateOperator> currentManager)
+DeckCallback::DeckCallback(shared_ptr<IStateOperator<GameState>> currentManager)
 	:CurrentManager(currentManager)
 {
 }

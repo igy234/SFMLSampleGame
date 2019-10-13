@@ -9,7 +9,7 @@
 class Game
 {
 private:
-	shared_ptr<IStateOperator> StateHandler;
+	shared_ptr<IStateOperator<GameState>> StateHandler;
 	int WindowSizeX = 1920;
 	int WindowSizeY = 1080;
 	shared_ptr<RenderWindow> Window; //shared ptr to klasa z auto managerowaniem pamiecia (new i delette)

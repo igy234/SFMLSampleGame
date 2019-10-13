@@ -2,7 +2,7 @@
 #include "MenuCallback.h"
 
 
-MenuCallback::MenuCallback(shared_ptr<IStateOperator> currentManager)
+MenuCallback::MenuCallback(shared_ptr<IStateOperator<GameState>> currentManager)
 :CurrentManager(currentManager)
 {
 }

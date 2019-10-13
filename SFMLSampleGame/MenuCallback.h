@@ -4,9 +4,9 @@
 class MenuCallback : public ICallback
 {
 protected:
-	shared_ptr<IStateOperator> CurrentManager;
+	shared_ptr<IStateOperator<GameState>> CurrentManager;
 public:
-	MenuCallback(shared_ptr<IStateOperator> currentManager);
+	MenuCallback(shared_ptr<IStateOperator<GameState>> currentManager);
 	MenuCallback();
 	~MenuCallback();
 	virtual void action() override;

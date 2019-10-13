@@ -9,7 +9,7 @@ public:
 	void HandleEvent(const Event& evnt) override;
 	void DrawWindowContents() override;
 	void HandleMouseEvent(const Event& evnt) override;
-	PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator> currentManager);
+	PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<GameState>> currentManager);
 	~PlayStateManager();
 };
 

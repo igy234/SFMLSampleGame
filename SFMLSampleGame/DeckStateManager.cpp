@@ -5,7 +5,7 @@
 #include "PlayCallback.h"
 
 
-DeckStateManager::DeckStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator> currentManager)
+DeckStateManager::DeckStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<GameState>> currentManager)
 	:BaseStateManager(window, currentManager),
 	deckLayout(window)
 {

@@ -8,11 +8,17 @@ enum class GameState
 
 };
 
+enum class MatchState
+{
+	Shuffle,
+	Ingame
+};
+
+template<typename T>
 class IStateOperator
 {
 public:
-	virtual void SetNewState(GameState state) = 0;
-	virtual GameState GetCurrentState() = 0;
-
+	virtual void SetNewState(T state) = 0;
+	virtual T GetCurrentState() = 0;
 };
 

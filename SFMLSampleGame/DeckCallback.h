@@ -4,9 +4,9 @@
 class DeckCallback : public ICallback
 {
 protected:
-	shared_ptr<IStateOperator> CurrentManager;
+	shared_ptr<IStateOperator<GameState>> CurrentManager;
 public:
-	DeckCallback(shared_ptr<IStateOperator> currentManager);
+	DeckCallback(shared_ptr<IStateOperator<GameState>> currentManager);
 	~DeckCallback();
 	virtual void action() override;
 };

@@ -2,7 +2,7 @@
 #include "PlayCallback.h"
 
 
-PlayCallback::PlayCallback(shared_ptr<IStateOperator> currentManager)
+PlayCallback::PlayCallback(shared_ptr<IStateOperator<GameState>> currentManager)
 	:CurrentManager(currentManager)
 {
 }

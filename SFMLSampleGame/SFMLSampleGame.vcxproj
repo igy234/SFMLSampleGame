@@ -176,6 +176,7 @@
     <ClInclude Include="ICallback.h" />
     <ClInclude Include="IGuiElement.h" />
     <ClInclude Include="ILayout.h" />
+    <ClInclude Include="IMatchStateManager.h" />
     <ClInclude Include="IStateManager.h" />
     <ClInclude Include="IStateOperator.h" />
     <ClInclude Include="Menu%28stare%29.h" />
@@ -215,7 +216,6 @@
     <ClCompile Include="RectangleObject.cpp" />
     <ClCompile Include="RowMaker.cpp" />
     <ClCompile Include="SFMLSampleGame.cpp" />
-    <ClCompile Include="StateOperator.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
