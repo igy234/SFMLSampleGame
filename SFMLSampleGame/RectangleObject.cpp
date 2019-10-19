@@ -2,12 +2,12 @@
 #include "RectangleObject.h"
 
 
-RectangleObject::RectangleObject(int positionX, int positionY, float objectWidth, float objectHeight)
+RectangleObject::RectangleObject(int positionX, int positionY, float objectWidth, float objectHeight, Color color)
 	:BaseGuiElement(positionX, positionY, objectWidth, objectHeight), RectangleSize(objectWidth, objectHeight)
 {
 	setPosition(positionX, positionY);
 	//setOrigin(positionX / 2, positionY / 2);
-	setFillColor(Color::Green);
+	setFillColor(color);
 	setSize(RectangleSize);
 }
 

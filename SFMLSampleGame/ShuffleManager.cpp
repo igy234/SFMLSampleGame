@@ -2,11 +2,12 @@
 #include "ShuffleManager.h"
 
 
-ShuffleManager::ShuffleManager()
-{
-}
+//ShuffleManager::ShuffleManager()
+//{
+//
+//}
 
 
-ShuffleManager::~ShuffleManager()
-{
-}
+//ShuffleManager::~ShuffleManager()
+//{
+//}

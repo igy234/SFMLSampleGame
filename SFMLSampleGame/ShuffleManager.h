@@ -4,7 +4,7 @@ class ShuffleManager :
 	public BaseStateManager
 {
 public:
-	ShuffleManager();
-	~ShuffleManager();
+	//ShuffleManager();
+	//~ShuffleManager();
 };
 

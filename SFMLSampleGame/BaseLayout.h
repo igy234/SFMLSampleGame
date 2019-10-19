@@ -5,8 +5,6 @@ class BaseLayout : public ILayout
 {
 protected:
 	shared_ptr<RenderWindow> Window;
-	int WidthFactor;
-	int HeightFactor;
 	Texture BackgroundTexture; //zmienic nazwe pozniej 
 	Sprite BackgroundSprite;
 	vector <shared_ptr<IGuiElement>> GuiElements;

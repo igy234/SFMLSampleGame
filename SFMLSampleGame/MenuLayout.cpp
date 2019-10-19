@@ -6,7 +6,7 @@
 MenuLayout::MenuLayout(shared_ptr<RenderWindow> window)
 	:BaseLayout(window)
 {
-	if (!this->BackgroundTexture.loadFromFile("Resources/Images/menu1.jpg"))
+	if (!this->BackgroundTexture.loadFromFile("Resources/Images/menu.jpg"))
 	{
 		cerr << "Error while loading Menu Texture" << endl; //error handling
 		system("pause");
@@ -37,7 +37,7 @@ void MenuLayout::Show()
 void MenuLayout::ObtainVector(vector<shared_ptr<IGuiElement>> V)
 {
 	BaseLayout::ObtainVector(V); //zapisuje sobie na pó¿niej (ewentualnie)
-	ColumnMaker columnMaker(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldThree, EnumScreenFields::FieldFour);
+	ColumnMaker columnMaker(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldSix, EnumScreenFields::FieldEight);
 	columnMaker.OrganizePosition(V);
 	/*RowMaker rowMaker(window->getSize().x, window->getSize().y, EnumScreenFields::FieldThree, EnumScreenFields::FieldFour);
 	vector<reference_wrapper<BaseGuiElement>> Ve;

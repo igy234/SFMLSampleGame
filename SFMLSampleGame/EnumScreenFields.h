@@ -7,7 +7,12 @@ enum class EnumScreenFields
 	FieldThree,
 	FieldFour,
 	FieldFive,
-
+	FieldSix,
+	FieldSeven,
+	FieldEight,
+	FieldNine,
+	FieldTen,
+	FieldEleven,
 
 	COUNT
 };

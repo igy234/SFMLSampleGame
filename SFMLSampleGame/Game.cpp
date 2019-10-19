@@ -11,6 +11,7 @@ Game::Game()
 	
 	
 {
+	StateHandler->SetNewState(GameState::Menu);
 	StateSwitch();
 }
 

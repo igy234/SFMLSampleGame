@@ -9,7 +9,8 @@ public:
 	virtual void SetHeight(float height) override;
 	virtual void SetPositionX(float x) override;
 	virtual void SetPositionY(float y) override;
-	RectangleObject(int positionX, int positionY, float objectWidth, float objectHeight);
+	RectangleObject(int positionX, int positionY, float objectWidth, float objectHeight, Color color = Color(0, 0, 0, 0));
+	RectangleObject() :RectangleObject(0, 0, 0, 0) {};
 	~RectangleObject();
 };
 

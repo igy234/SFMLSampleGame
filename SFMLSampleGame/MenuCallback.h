@@ -7,7 +7,6 @@ protected:
 	shared_ptr<IStateOperator<GameState>> CurrentManager;
 public:
 	MenuCallback(shared_ptr<IStateOperator<GameState>> currentManager);
-	MenuCallback();
 	~MenuCallback();
 	virtual void action() override;
 };

@@ -1,13 +1,11 @@
 #include "stdafx.h"
 #include "RowMaker.h"
-
+#include "Utils.h"
 
 RowMaker::RowMaker(int windowX, int windowY, EnumScreenFields row, EnumScreenFields column)
 {
-	float WidthFactor = windowX / static_cast<int> (EnumScreenFields::COUNT); //iloœæ kolumn i wierszy
-	float HeightFactor = windowY / static_cast<int> (EnumScreenFields::COUNT);
-	FieldX = static_cast<int>(row) * WidthFactor;
-	FieldY = static_cast<int>(column) * HeightFactor;
+	int widthFactor, heightFactor;
+	tie(FieldX, FieldY, widthFactor, heightFactor) = CalcualteStartingPoint(windowX, windowY, row, column); //wypakowuje tupla do poszczegolnych wartosci ktore s¹ w tie
 }
 
 
