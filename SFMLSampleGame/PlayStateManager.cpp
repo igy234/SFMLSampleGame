@@ -8,9 +8,10 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	:BaseStateManager(window, currentManager),
 	playLayout(window)
 {
-	shared_ptr<ButtonObject> b1 = make_shared<ButtonObject>("Play", 0, 0, 200, 50, make_shared<MenuCallback>(currentManager)); // taki nowy konstruktor
-	shared_ptr<ButtonObject> b2 = make_shared<ButtonObject>("Deck", 0, 0, 200, 50, make_shared<DeckCallback>(currentManager));
-	shared_ptr<ButtonObject> b3 = make_shared<ButtonObject>("Quit", 0, 0, 200, 50, make_shared<CloseWindowCallback>(Window));
+	shared_ptr<ButtonObject> b1 = make_shared<ButtonObject>("Menu", 0, 0, 200, 50, make_shared<MenuCallback>(currentManager));
+	shared_ptr<ButtonObject> b2 = make_shared<ButtonObject>("Pass", 0, 0, 200, 50, make_shared<MenuCallback>(currentManager));
+	shared_ptr<ButtonObject> b3 = make_shared<ButtonObject>("End Exchange", 0, 0, 250, 50, make_shared<MenuCallback>(currentManager));
+
 	b1->SetPadding(25);
 	b2->SetPadding(25);
 	b3->SetPadding(25);
@@ -22,9 +23,9 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	playLayout.ObtainVector(V);
 
 	map<string, shared_ptr<ButtonObject>> M;
-	M["Play"] = b1;
-	M["Deck"] = b2;
-	M["Quit"] = b3;
+	M["Menu"] = b1;
+	M["Pass"] = b2;
+	M["EndExchange"] = b3;
 	playLayout.ObtainButtonsMap(M);
 }
 

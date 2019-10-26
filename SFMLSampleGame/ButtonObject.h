@@ -14,6 +14,7 @@ public:
 	virtual void SetPadding(float padding) override;
 	virtual void Highlight() override;
 	virtual void Unhighlight() override;
+	virtual void Draw(shared_ptr<RenderWindow> window) override;
 	Text& GetText();
 public:
 	ButtonObject(string label, int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback = nullptr);

@@ -13,7 +13,7 @@ RowMaker::~RowMaker()
 {
 }
 
-void RowMaker::OrganizePosition(const vector<shared_ptr<IGuiElement >> &v)
+void RowMaker::OrganizePosition(const vector<shared_ptr<IGuiElement>> &v)
 {
 	/*if (v.size())
 	{
@@ -31,11 +31,21 @@ void RowMaker::OrganizePosition(const vector<shared_ptr<IGuiElement >> &v)
 		}
 	}*/
 	
-	int padding = 0;
+	int padding = StarterWidthPadding;
 	for (auto element:v)
 	{
-		element->SetPositionY(FieldY);
+		element->SetPositionY(FieldY + StarterHeightPadding);
 		element->SetPositionX(FieldX + padding);
 		padding += element->GetPadding() + element->GetWidth();
 	}
+}
+
+void RowMaker::SetStarterWidthPadding(int padding)
+{
+	StarterWidthPadding = padding;
+}
+
+void RowMaker::SetStarterHeightPadding(int padding)
+{
+	StarterHeightPadding = padding;
 }

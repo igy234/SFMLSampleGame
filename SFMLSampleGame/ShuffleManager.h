@@ -1,10 +1,13 @@
 #pragma once
-#include "BaseStateManager.h"
-class ShuffleManager :
-	public BaseStateManager
+#include "stdafx.h"
+
+class ShuffleManager 
 {
+protected:
+
 public:
-	//ShuffleManager();
-	//~ShuffleManager();
+	ShuffleManager();
+	~ShuffleManager();
+	Color GenerateColor();
 };
 

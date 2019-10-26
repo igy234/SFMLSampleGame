@@ -14,7 +14,7 @@ ColumnMaker::~ColumnMaker()
 
 void ColumnMaker::OrganizePosition(const vector<shared_ptr<IGuiElement>> &v) 
 {
-	int padding = 0;
+	int padding = StarterHeightPadding;
 	int LastHeight = 0;
 	bool IsFirst = true;
 	/*if (v.size())
@@ -46,4 +46,16 @@ void ColumnMaker::OrganizePosition(const vector<shared_ptr<IGuiElement>> &v)
 		element->SetPositionY(FieldY + padding);
 		LastHeight = element->GetHeight();
 	}
+
+	
+}
+
+void ColumnMaker::SetStarterWidthPadding(int padding)
+{
+	StarterWidthPadding = padding;
+}
+
+void ColumnMaker::SetStarterHeightPadding(int padding)
+{
+	StarterHeightPadding = padding;
 }

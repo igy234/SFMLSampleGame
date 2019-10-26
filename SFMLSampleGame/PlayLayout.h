@@ -7,14 +7,10 @@ protected:
 	const int ThicknessShift =  2;
 	const int Thickness = 2;
 	void SetPoints() {};
-	RectangleObject BackDrop;
-	RectangleObject ScoreRectangle;
-	RectangleObject HandRectangle;
-	RectangleObject UpperOponentRectangle;
-	RectangleObject LowerOponentRectangle;
-	RectangleObject UpperPlayerRectangle;
-	RectangleObject LowerPlayerRectangle;
-	RectangleObject PreviewCardRectangle;
+	vector<RectangleObject> UiLines;
+	vector<shared_ptr<IGuiElement>> UserHandCards;
+	vector<shared_ptr<IGuiElement>> EnemyHandCards;
+	vector<shared_ptr<IGuiElement>> TurnAndCardsInformationRectangles;
 public:
 	void Show() override;
 	PlayLayout(shared_ptr<RenderWindow> window);

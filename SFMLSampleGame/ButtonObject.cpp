@@ -87,3 +87,11 @@ void ButtonObject::Unhighlight()
 	BaseGuiElement::Unhighlight();
 	ButtonLabel.setFillColor(Color::White);
 }
+
+void ButtonObject::Draw(shared_ptr<RenderWindow> window)
+{
+	window->draw(*this); //potrzebny zwykly obiekt dlatego *this (bo this to pointer)
+	window->draw(ButtonLabel);
+}
+
+

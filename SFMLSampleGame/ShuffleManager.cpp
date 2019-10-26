@@ -2,12 +2,16 @@
 #include "ShuffleManager.h"
 
 
-//ShuffleManager::ShuffleManager()
-//{
-//
-//}
+ShuffleManager::ShuffleManager()
+{
+	srand(time(NULL));
+}
 
 
-//ShuffleManager::~ShuffleManager()
-//{
-//}
+ShuffleManager::~ShuffleManager()
+{
+}
+Color ShuffleManager::GenerateColor() 
+{
+	return Color(rand() % 255, rand() % 255, rand() % 255);
+}

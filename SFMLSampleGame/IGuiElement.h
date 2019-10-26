@@ -17,6 +17,6 @@ public:
 	virtual void action() = 0;
 	virtual void Highlight() = 0;
 	virtual void Unhighlight() = 0;
-
+	virtual void Draw(shared_ptr<RenderWindow> window) = 0;
 };
 
