@@ -113,6 +113,9 @@
     <ClInclude Include="CardModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PreviewCard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -191,6 +194,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CardModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PreviewCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -2,7 +2,7 @@
 #include "IStateOperator.h"
 
 
-template<typename T>
+template<typename T> //dowolna klasa
 class StateOperator : public IStateOperator<T>
 {
 protected:

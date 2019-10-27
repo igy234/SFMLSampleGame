@@ -9,6 +9,7 @@ protected:
 	float ObjectWidth, ObjectHeight, Padding;
 	bool Visible = true;
 	shared_ptr<ICallback> Callback = nullptr; // na dzieñ dobry wszystkie wynulowane
+	bool IsHighlighted=false;
 
 public:
 	virtual float GetWidth() override;
@@ -24,8 +25,11 @@ public:
 	virtual void action() override;
 	virtual void Highlight() override;
 	virtual void Unhighlight() override;
+	virtual bool GetIsHighlighted() override;
+	virtual Texture GetTexture() override { return {}; };
 	BaseGuiElement(int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback = nullptr);
 	~BaseGuiElement();
-	bool IsHighlighted;
+
+
 };
 

@@ -12,16 +12,16 @@ BaseCard::BaseCard(int positionX, int positionY, float objectWidth, float object
 		system("pause");
 	}
 
-	
+	CardTexture.setSmooth(true);
 	CardSprite.setTexture(CardTexture);
 	CardSprite.setPosition(positionX, positionY);
 	
-	// below rescaling to ideal size
+	 //below rescaling to ideal size
 	CardSprite.setScale(
 		objectWidth / CardSprite.getLocalBounds().width,
 		objectHeight / CardSprite.getLocalBounds().height);
 	
-	CardTexture.setSmooth(true);
+	
 }
 
 
@@ -45,17 +45,35 @@ void BaseCard::SetHeight(float height) //1 is default
 void BaseCard::SetPositionX(float x)
 {
 	RectangleObject::SetPositionX(x);
-	CardSprite.setPosition(x, PositionY);
+	CardSprite.setPosition(static_cast<int>(x), PositionY);
 }
 
 void BaseCard::SetPositionY(float y)
 {
 	RectangleObject::SetPositionY(y);
-	CardSprite.setPosition(PositionX, y);
+	CardSprite.setPosition(PositionX, static_cast<int>(y));
 }
 
 void BaseCard::Draw(shared_ptr<RenderWindow> window) 
 {
 	window->draw(*this);
 	window->draw(CardSprite);
+}
+
+Texture BaseCard::GetTexture()
+{
+	return CardTexture;
+}
+
+void BaseCard::Highlight()
+{
+	BaseGuiElement::Highlight();
+	setOutlineThickness(2);
+	setOutlineColor(Color(255, 216, 55));
+}
+
+void BaseCard::Unhighlight()
+{
+	BaseGuiElement::Unhighlight();
+	setOutlineThickness(0);
 }

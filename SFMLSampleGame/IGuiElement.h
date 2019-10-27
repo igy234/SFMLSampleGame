@@ -18,5 +18,8 @@ public:
 	virtual void Highlight() = 0;
 	virtual void Unhighlight() = 0;
 	virtual void Draw(shared_ptr<RenderWindow> window) = 0;
+	virtual Texture GetTexture() = 0;
+	virtual bool GetIsHighlighted() = 0;
+
 };
 

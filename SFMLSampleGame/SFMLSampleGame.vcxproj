@@ -192,6 +192,7 @@
     <ClInclude Include="PlayCallback.h" />
     <ClInclude Include="PlayLayout.h" />
     <ClInclude Include="PlayStateManager.h" />
+    <ClInclude Include="PreviewCard.h" />
     <ClInclude Include="RectangleObject.h" />
     <ClInclude Include="RowMaker.h" />
     <ClInclude Include="ShuffleManager.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="PlayCallback.cpp" />
     <ClCompile Include="PlayLayout.cpp" />
     <ClCompile Include="PlayStateManager.cpp" />
+    <ClCompile Include="PreviewCard.cpp" />
     <ClCompile Include="RectangleObject.cpp" />
     <ClCompile Include="RowMaker.cpp" />
     <ClCompile Include="SFMLSampleGame.cpp" />

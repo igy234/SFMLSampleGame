@@ -73,3 +73,9 @@ void BaseGuiElement::Unhighlight()
 {
 	IsHighlighted = false;
 }
+
+
+bool BaseGuiElement::GetIsHighlighted()
+{
+	return IsHighlighted;
+}

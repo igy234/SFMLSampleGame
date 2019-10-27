@@ -8,6 +8,6 @@ protected:
 public:
 	ShuffleManager();
 	~ShuffleManager();
-	Color GenerateColor();
+	
 };
 

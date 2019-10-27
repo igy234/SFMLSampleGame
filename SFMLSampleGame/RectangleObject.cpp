@@ -72,3 +72,15 @@ void RectangleObject::Draw(shared_ptr<RenderWindow> window)
 		window->draw(Label.value());
 	}
 }
+
+void RectangleObject::Highlight()
+{
+	BaseGuiElement::Highlight();
+	setFillColor(Color(255, 216, 55, 50));
+}
+
+void RectangleObject::Unhighlight()
+{
+	BaseGuiElement::Unhighlight();
+	setFillColor(Color(255, 216, 55, 0));
+}

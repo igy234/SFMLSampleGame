@@ -31,41 +31,39 @@ void BaseLayout::HandleMouseEvent(const Event& evnt)
 	case Event::MouseButtonPressed:
 		if (evnt.mouseButton.button == sf::Mouse::Left)
 		{
-			for (auto elementPair : GuiElements)
+			for (auto element : GuiElements)
 			{
-				float btnWidth, btnHeight, btnPositionX, btnPositionY;
-				auto btnObject = elementPair; //first -> name(string), second -> value(buttonObject), bo mapa to zbiór obiektów posiadaj¹cych 2 wartoœci. 
-				btnPositionX = btnObject->GetPositionX();
-				btnPositionY = btnObject->GetPositionY();
-				btnWidth = btnObject->GetWidth();
-				btnHeight = btnObject->GetHeight();
-				if ((evnt.mouseButton.x >= (btnPositionX - btnWidth / 2) && evnt.mouseButton.x < (btnPositionX + btnWidth / 2)) && // quick maths
-					(evnt.mouseButton.y >= (btnPositionY - btnHeight / 2) && evnt.mouseButton.y <= (btnPositionY + btnHeight / 2)))
+				float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;
+				GuiElementPositionX = element->GetPositionX();
+				GuiElementPositionY = element->GetPositionY();
+				GuiElementWidth = element->GetWidth();
+				GuiElementHeight = element->GetHeight();
+				if ((evnt.mouseButton.x >= (GuiElementPositionX - GuiElementWidth / 2) && evnt.mouseButton.x < (GuiElementPositionX + GuiElementWidth / 2)) && // quick maths
+					(evnt.mouseButton.y >= (GuiElementPositionY - GuiElementHeight / 2) && evnt.mouseButton.y <= (GuiElementPositionY + GuiElementHeight / 2)))
 				{
-					btnObject->action();
+					element->action();
 				}
 			}
 		}
 		break;
 	case Event::MouseMoved:
-		for (auto elementPair : GuiElements)
+		for (auto element : GuiElements)
 		{
-			float btnWidth, btnHeight, btnPositionX, btnPositionY;
-			auto btnObject = elementPair; //first -> name(string), second -> value(buttonObject), bo mapa to zbiór obiektów posiadaj¹cych 2 wartoœci. 
-			btnPositionX = btnObject->GetPositionX();
-			btnPositionY = btnObject->GetPositionY();
-			btnWidth = btnObject->GetWidth();
-			btnHeight = btnObject->GetHeight();
-			if ((evnt.mouseMove.x >= (btnPositionX - btnWidth / 2) && evnt.mouseMove.x < (btnPositionX + btnWidth / 2)) && // quick maths
-				(evnt.mouseMove.y >= (btnPositionY - btnHeight / 2) && evnt.mouseMove.y <= (btnPositionY + btnHeight / 2)))
+			float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;
+			GuiElementPositionX = element->GetPositionX();
+			GuiElementPositionY = element->GetPositionY();
+			GuiElementWidth = element->GetWidth();
+			GuiElementHeight = element->GetHeight();
+			if ((evnt.mouseMove.x >= (GuiElementPositionX - GuiElementWidth / 2) && evnt.mouseMove.x < (GuiElementPositionX + GuiElementWidth / 2)) && // quick maths
+				(evnt.mouseMove.y >= (GuiElementPositionY - GuiElementHeight / 2) && evnt.mouseMove.y <= (GuiElementPositionY + GuiElementHeight / 2)))
 			{
 				//cout << " dzia³a h" << endl;
-				btnObject->Highlight();
+				element->Highlight();
 			}
 			else
 			{
 				//cout << " niedzia³a h" << endl;
-				btnObject->Unhighlight();
+				element->Unhighlight();
 			}
 		}
 	break;

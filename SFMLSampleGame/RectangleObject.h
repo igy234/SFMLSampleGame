@@ -11,6 +11,8 @@ public:
 	virtual void SetPositionX(float x) override;
 	virtual void SetPositionY(float y) override;
 	virtual void Draw(shared_ptr<RenderWindow> window) override;
+	virtual void Highlight() override;
+	virtual void Unhighlight() override;
 	RectangleObject(int positionX, int positionY, float objectWidth, float objectHeight, Color color = Color(0, 0, 0, 0), string text = "");
 	RectangleObject() : RectangleObject(0, 0, 0, 0) {};
 	~RectangleObject();
