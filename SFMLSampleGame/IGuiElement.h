@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-
+//interface for GuiElements holding getters, setters, hihghlighters and drawers
 class IGuiElement
 {
 public:

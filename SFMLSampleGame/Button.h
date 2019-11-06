@@ -3,11 +3,13 @@
 
 #define MAX_NUMBER_OF_ITEMS 3
 
+
+//unused class
 class Button : public Drawable
 {
 public:
 	Button(string description, float t_x, float t_y);
-	Button() = delete; //usuwamy domyœlny ¿eby zrobiæ swój
+	Button() = delete; //usuwam domyœlny ¿eby zrobiæ swój
 	~Button() = default;
 	int GetPressedItem() { return selectedItemIndex; }
 	void HighlightButton(int x, int y); 

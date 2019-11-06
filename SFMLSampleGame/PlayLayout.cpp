@@ -11,6 +11,11 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window)
 	:BaseLayout(window),	
 	CardPreview(0,0,0,0)
 {
+
+	int FieldX, FieldY, WidthFactor, HeightFactor, WindowSizeX, WindowSizeY;
+	WindowSizeX = Window->getSize().x;
+	WindowSizeY = Window->getSize().y;
+
 	if (!this->BackgroundTexture.loadFromFile("Resources/Images/rain.png"))
 	{
 		cerr << "Error while loading Menu Texture" << endl; //error handling
@@ -18,18 +23,14 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window)
 	}
 
 	BackgroundSprite.setTexture(BackgroundTexture);
+
 	RectangleObject BackDrop(0, 0, Window->getSize().x, Window->getSize().y);
 	BackDrop.setOrigin(0, 0);
 	BackDrop.setFillColor(Color(0, 0, 0, 175));
 	BackDrop.setOutlineThickness(Thickness);
 	UiLines.push_back(BackDrop);
-
-	int FieldX, FieldY, WidthFactor, HeightFactor, WindowSizeX, WindowSizeY;
-
-	WindowSizeX = Window->getSize().x;
-	WindowSizeY = Window->getSize().y;
 	
-	ShuffleManager shuffle;
+	//ShuffleManager shuffle;
 
 	for (int i = 0; i <7; ++i)
 	{
@@ -48,6 +49,8 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window)
 	rowMakerUserHandCards.SetStarterHeightPadding(4);
 	rowMakerUserHandCards.OrganizePosition(UserHandCards);
 
+	//region information rectangles
+	#pragma region InfoRectangles
 	int i = 10;
 	shared_ptr<RectangleObject> EnemyCardsCounter = make_shared<RectangleObject>(0, 0, 260, 60, Color(255, 0, 0, 50), "Enemy has " + to_string(i) + " cards");
 	EnemyCardsCounter->SetPadding(10);
@@ -65,9 +68,16 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window)
 	ColumnMaker columnMakerTurnAndCards(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldTen, EnumScreenFields::FieldOne);
 	columnMakerTurnAndCards.SetStarterHeightPadding(30);
 	columnMakerTurnAndCards.OrganizePosition(TurnAndCardsInformationRectangles);
+	
+	shared_ptr<RectangleObject> ExchangeCardsInfo = make_shared<RectangleObject>(0, 0, 400, 100, Color(255, 0, 0, 50), "Please exchange your cards");
+	ExchangeCardsInfo->setOutlineThickness(Thickness);
+	ExchangeCardsPopup.push_back(ExchangeCardsInfo);
+	ColumnMaker columnMakerExchangeCards(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldFive, EnumScreenFields::FieldSeven);
+	columnMakerTurnAndCards.SetStarterHeightPadding(50);
+	columnMakerExchangeCards.OrganizePosition(ExchangeCardsPopup);
+#pragma endregion InfoRectangles 
 
-
-	//region
+	//region UiLines
 	#pragma region GridLayout
 	tie(FieldX, FieldY, WidthFactor, HeightFactor) = CalcualteStartingPoint(WindowSizeX, WindowSizeY, EnumScreenFields::FieldOne, EnumScreenFields::FieldOne);
 	RectangleObject ScoreRectangle;
@@ -118,7 +128,7 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window)
 	UiLines.push_back(UpperOponentRectangle);
 	#pragma endregion GridLayout 
 	
-	//x poczatkowy y poczatkowy szerokosc i wysokoœæ
+	//starting x, starting y, width and heightfor given field of net
 	tie(FieldX, FieldY, WidthFactor, HeightFactor) = CalcualteStartingPoint(WindowSizeX, WindowSizeY, EnumScreenFields::FieldNine, EnumScreenFields::FieldThree);
 	CardPreview.SetPositionX(FieldX + PreviewPadding);
 	CardPreview.SetPositionY(FieldY);
@@ -152,14 +162,18 @@ void PlayLayout::Show()
 	{
 		element->Draw(Window);
 	}
-
+	
+	for (auto element : ExchangeCardsPopup)
+	{
+		element->Draw(Window);
+	}
 	//Window->draw(CardPreviewSprite);
 	CardPreview.Draw(Window);
 }
 
 void PlayLayout::ObtainVector(vector<shared_ptr<IGuiElement>> V)
 {
-	BaseLayout::ObtainVector(V); //zapisuje sobie na pó¿niej (ewentualnie)
+	BaseLayout::ObtainVector(V); //saved for later (eventually)
 	ColumnMaker columnMaker(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldTen, EnumScreenFields::FieldNine);
 	columnMaker.OrganizePosition(V);
 }
@@ -193,37 +207,53 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 					element->Unhighlight();
 				}
 			}
+
 		}
 		break;
 	case Event::MouseMoved:
-			float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;
-			vector<reference_wrapper<RectangleObject>> TwoRectangles; //zwyk³y wektor tworzy kopie obiektów, dlatego potrzebujemy reference wrappera który bierze referencje na dane obiekty
-			TwoRectangles.push_back(UiLines[3]);
-			TwoRectangles.push_back(UiLines[4]);
+		bool NoCardsHighlighted = true;
+		float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;
+		vector<reference_wrapper<RectangleObject>> TwoFieldRectangles; //zwyk³y wektor tworzy kopie obiektów, dlatego potrzebuje reference wrappera który bierze referencje na dane obiekty
+		TwoFieldRectangles.push_back(UiLines[3]);
+		TwoFieldRectangles.push_back(UiLines[4]);
+		
+		for (auto card : UserHandCards) {
 				
-			for (auto card : UserHandCards) {
-				
-				if (card->GetIsHighlighted())
+			if (card->GetIsHighlighted())
+			{
+				NoCardsHighlighted = false;
+				for (auto element : TwoFieldRectangles)
 				{
-					for (auto element : TwoRectangles)
+					GuiElementPositionX = element.get().getPosition().x;
+					GuiElementPositionY = element.get().getPosition().y;
+					GuiElementWidth = element.get().getSize().x;
+					GuiElementHeight = element.get().getSize().y;
+					if ((evnt.mouseMove.x >= (GuiElementPositionX) && evnt.mouseMove.x < (GuiElementPositionX + GuiElementWidth)) && // quick maths
+						(evnt.mouseMove.y >= (GuiElementPositionY) && evnt.mouseMove.y <= (GuiElementPositionY + GuiElementHeight)))
 					{
-						GuiElementPositionX = element.get().getPosition().x;
-						GuiElementPositionY = element.get().getPosition().y;
-						GuiElementWidth = element.get().getSize().x;
-						GuiElementHeight = element.get().getSize().y;
-						if ((evnt.mouseMove.x >= (GuiElementPositionX) && evnt.mouseMove.x < (GuiElementPositionX + GuiElementWidth)) && // quick maths
-							(evnt.mouseMove.y >= (GuiElementPositionY) && evnt.mouseMove.y <= (GuiElementPositionY + GuiElementHeight)))
-						{
-							element.get().Highlight();
-
-						}
-						else
-						{
-							element.get().Unhighlight();
-						}
+						element.get().Highlight();
+					}
+					else
+					{
+						element.get().Unhighlight();
 					}
 				}
 			}
+		}
+		if (NoCardsHighlighted)
+		{
+			for (auto element : TwoFieldRectangles)
+			{
+				element.get().Unhighlight();
+			}
+		}
+
 		break;
 	}
+}
+
+void PlayLayout::HandleExchangeCardsInformation()
+{
+
+
 }

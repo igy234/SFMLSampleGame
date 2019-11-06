@@ -2,14 +2,16 @@
 #include "IGuiElement.h"
 #include "FontProvider.h"
 #include "ICallback.h"
+
+// Base class for most gui elements holding its parameters setters and getters
 class BaseGuiElement : public IGuiElement
 {
 protected:
-	int PositionX, PositionY;
+	int PositionX, PositionY; 
 	float ObjectWidth, ObjectHeight, Padding;
 	bool Visible = true;
-	shared_ptr<ICallback> Callback = nullptr; // na dzieñ dobry wszystkie wynulowane
-	bool IsHighlighted=false;
+	shared_ptr<ICallback> Callback = nullptr;  // Callbacks for state managers, at the beggining set to nullptr
+	bool IsHighlighted=false; //at the begining none of the objects is highlighted 
 
 public:
 	virtual float GetWidth() override;
@@ -22,12 +24,12 @@ public:
 	virtual void SetPositionX(float x) override;
 	virtual void SetPositionY(float y) override;
 	virtual void SetPadding(float padding) override;
-	virtual void action() override;
-	virtual void Highlight() override;
-	virtual void Unhighlight() override;
-	virtual bool GetIsHighlighted() override;
-	virtual Texture GetTexture() override { return {}; };
-	BaseGuiElement(int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback = nullptr);
+	virtual void action() override; // showing error if callback is nullptr and performing action of given callback
+	virtual void Highlight() override; //Seting Ishighlighted as true
+	virtual void Unhighlight() override; //Seting Ishighlighted as false
+	virtual bool GetIsHighlighted() override; 
+	virtual Texture GetTexture() override { return {}; }; //overriding for use in lower levels of inheritance
+	BaseGuiElement(int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback = nullptr); //constructor with default callback set to nullptr
 	~BaseGuiElement();
 
 

@@ -4,8 +4,7 @@
 
 RowMaker::RowMaker(int windowX, int windowY, EnumScreenFields row, EnumScreenFields column)
 {
-	int widthFactor, heightFactor;
-	tie(FieldX, FieldY, widthFactor, heightFactor) = CalcualteStartingPoint(windowX, windowY, row, column); //wypakowuje tupla do poszczegolnych wartosci ktore s¹ w tie
+	tie(FieldX, FieldY, WidthFactor, HeightFactor) = CalcualteStartingPoint(windowX, windowY, row, column); //wypakowuje tupla do poszczegolnych wartosci ktore s¹ w tie
 }
 
 

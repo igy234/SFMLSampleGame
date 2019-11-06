@@ -1,14 +1,15 @@
 #pragma once
 #include "stdafx.h"
-
-class FontProvider //poczatek zycia na poczatku programu koniec na koncu singleton
+//start of existing at the begining of the program and end of existing at the end of the program
+//singleton holding font 
+class FontProvider 
 {
 private:
-	FontProvider();
+	FontProvider(); //loading font from file
 	Font font;
 
 public:
-	static FontProvider& instance();
-	Font& GetFont();
+	static FontProvider& instance(); //creation of static Instance and return of it 
+	Font& GetFont(); //getter for font
 };
 

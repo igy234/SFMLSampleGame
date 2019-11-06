@@ -57,10 +57,7 @@ void DeckStateManager::HandleEvent(const Event& evnt)
 
 void DeckStateManager::DrawWindowContents()
 {
-
-
 	deckLayout.Show();
-
 }
 
 void DeckStateManager::HandleMouseEvent(const Event& evnt)

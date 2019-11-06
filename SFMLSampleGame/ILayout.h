@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "IGuiElement.h"
 #include "ButtonObject.h"
-
+// interface for layout classes, holding display methods, and methods obtaining gui elements, also handling of mouse events
 class ILayout
 {
 public:

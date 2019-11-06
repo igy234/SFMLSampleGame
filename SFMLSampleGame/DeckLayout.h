@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseLayout.h"
+//class not used yet
 class DeckLayout : public BaseLayout
 {
 public:

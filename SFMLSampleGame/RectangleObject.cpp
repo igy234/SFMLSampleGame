@@ -18,12 +18,12 @@ RectangleObject::RectangleObject(int positionX, int positionY, float objectWidth
 		label.setPosition(positionX, positionY);
 		label.setFillColor(Color::White);
 
-		setOrigin(objectWidth / 2, objectHeight / 2); //origin sprawia ¿e œrodek buttona rysuje nam siê w koordynatach startowych pola naszej siatki
+		setOrigin(objectWidth / 2, objectHeight / 2); //origin makes that the center of rectangle is in the starting cooridnates of ields net
 
-		FloatRect textRect = label.getLocalBounds(); //wyznacz kwadrat do oko³a textu
-		label.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f); //srodkuj origin w kwadracie
+		FloatRect textRect = label.getLocalBounds(); //make a rectangle around text
+		label.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f); //center the origin inside the rectangle
 
-		Label = label; //wkladamy wartoœæ label do pude³ka optional Label
+		Label = label; //label is optional
 	}
 }
 
@@ -66,7 +66,7 @@ void RectangleObject::SetPositionY(float y)
 
 void RectangleObject::Draw(shared_ptr<RenderWindow> window)
 {
-	window->draw(*this); //potrzebny zwykly obiekt dlatego *this (bo this to pointer)
+	window->draw(*this); //Object needed thats why *this(because this is a pointer)
 	if (Label.has_value())
 	{
 		window->draw(Label.value());

@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseStateManager.h"
 #include "DeckLayout.h"
+//class not used yet
 class DeckStateManager : public BaseStateManager
 {
 protected:

@@ -1,6 +1,8 @@
 #pragma once
 #include "ILayout.h"
 #include "IGuiElement.h"
+
+// Base layout of window holding window, background texture and spirte. Vector of GuiElements and map of buttons
 class BaseLayout : public ILayout
 {
 protected:
@@ -12,9 +14,9 @@ protected:
 public:
 	virtual void Show() = 0;
 	BaseLayout(shared_ptr<RenderWindow> window);
-	void ObtainVector(vector<shared_ptr<IGuiElement>> V) override;
-	void ObtainButtonsMap(map<string, shared_ptr<ButtonObject>> M) override;
-	void HandleMouseEvent(const Event& evnt) override;
+	void ObtainVector(vector<shared_ptr<IGuiElement>> V) override; // obtains vector of gui elements
+	void ObtainButtonsMap(map<string, shared_ptr<ButtonObject>> M) override; // obtains map of buttons
+	void HandleMouseEvent(const Event& evnt) override; //handling mouse movement (highlighting gui elements and calling callbacks for state managers)
 	~BaseLayout();
 };
 

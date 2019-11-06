@@ -5,7 +5,7 @@
 
 ColumnMaker::ColumnMaker(int windowX, int windowY, EnumScreenFields row, EnumScreenFields column)
 {
-	tie(FieldX, FieldY, WidthFactor, HeightFactor) = CalcualteStartingPoint(windowX, windowY, row, column); //wypakowuje tupla do poszczegolnych wartosci ktore s¹ w tie
+	tie(FieldX, FieldY, WidthFactor, HeightFactor) = CalcualteStartingPoint(windowX, windowY, row, column); //extracts tuple to appropriate arguments in tie
 }
 
 ColumnMaker::~ColumnMaker()

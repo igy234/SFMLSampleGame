@@ -7,23 +7,21 @@ ButtonObject::ButtonObject(string label, int positionX, int positionY, float obj
 {
 	
 
-	ButtonLabel.setFont(FontProvider::instance().GetFont());
+	ButtonLabel.setFont(FontProvider::instance().GetFont()); //singleton fontProvider usesd to get font
 	ButtonLabel.setString(label);
 	ButtonLabel.setPosition(positionX, positionY);
 	ButtonLabel.setFillColor(Color::White);
 	
-	setPosition(positionX, positionY); //ustawia pierwszy punkt convexu
-	setPointCount(6); // ustawia ilosc punktów convexu
-	setFillColor(Color(255, 0, 0, 50)); // kolor, ostatnie to przezroczystosc 
-	//convex.setTexture(&BtnTexture);
+	setPosition(positionX, positionY); //sets the first point of convex
+	setPointCount(6); // sets total number of oconvex points
+	setFillColor(Color(255, 0, 0, 50)); // color 
+	setOrigin(objectWidth / 2, 0); //sprawia ¿e œrodek buttona rysuje nam siê w koordynatach startowych pola siatki
 	
-	setOrigin(objectWidth / 2, 0); //origin sprawia ¿e œrodek buttona rysuje nam siê w koordynatach startowych pola naszej siatki
-	
-	FloatRect textRect = ButtonLabel.getLocalBounds(); //wyznacz kwadrat do oko³a textu
-	ButtonLabel.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f); //srodkuj origin w kwadracie
+	FloatRect textRect = ButtonLabel.getLocalBounds(); //make a rectangle around text
+	ButtonLabel.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f); //set the origin in rectangle
 	
 	setOutlineColor(Color::White);
-	setOutlineThickness(Thickness); //grubosc krawedzi buttonu 
+	setOutlineThickness(Thickness); 
 	SetPoints(); //anty-clockwise!!!!!
 }
 
@@ -64,12 +62,12 @@ void ButtonObject::SetPadding(float padding)
 void ButtonObject::SetPoints()
 {
 	int HalfButtonHeight = ObjectHeight / 2; 
-	setPoint(0, Vector2f(0.f, 0.f)); //lewy skrajny 
-	setPoint(1, Vector2f(HalfButtonHeight, HalfButtonHeight)); //lewy dolny
-	setPoint(2, Vector2f(ObjectWidth - HalfButtonHeight, HalfButtonHeight)); //prawy dolny
-	setPoint(3, Vector2f(ObjectWidth, 0.f)); //prawy skrajny
-	setPoint(4, Vector2f(ObjectWidth - HalfButtonHeight, -HalfButtonHeight)); //prawy górny
-	setPoint(5, Vector2f(HalfButtonHeight, -HalfButtonHeight)); //lewy górny
+	setPoint(0, Vector2f(0.f, 0.f)); //left  
+	setPoint(1, Vector2f(HalfButtonHeight, HalfButtonHeight)); //bottom left
+	setPoint(2, Vector2f(ObjectWidth - HalfButtonHeight, HalfButtonHeight)); //bottom right
+	setPoint(3, Vector2f(ObjectWidth, 0.f)); //right
+	setPoint(4, Vector2f(ObjectWidth - HalfButtonHeight, -HalfButtonHeight)); //top right
+	setPoint(5, Vector2f(HalfButtonHeight, -HalfButtonHeight)); //top left
 }
 Text& ButtonObject::GetText()
 {
@@ -90,7 +88,7 @@ void ButtonObject::Unhighlight()
 
 void ButtonObject::Draw(shared_ptr<RenderWindow> window)
 {
-	window->draw(*this); //potrzebny zwykly obiekt dlatego *this (bo this to pointer)
+	window->draw(*this); //Object needed thats why *this(because this is a pointer)
 	window->draw(ButtonLabel);
 }
 

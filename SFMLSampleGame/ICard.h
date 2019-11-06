@@ -1,4 +1,6 @@
 #pragma once
+
+//interface for Card classes
 class ICard
 {
 

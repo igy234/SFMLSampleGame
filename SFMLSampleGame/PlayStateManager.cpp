@@ -41,14 +41,14 @@ void PlayStateManager::HandleEvent(const Event& evnt)
 	case Event::Closed: //jeœli zamknij x to zamknij okno
 		Window->close();
 		break;
-	case Event::KeyReleased:
+	/*case Event::KeyReleased:
 		switch (evnt.key.code)
 		{
 
 		case Keyboard::Return:
 			break;
 		}
-		break;
+		break;*/
 		
 	}
 
@@ -57,10 +57,7 @@ void PlayStateManager::HandleEvent(const Event& evnt)
 
 void PlayStateManager::DrawWindowContents()
 {
-
-	
 	playLayout.Show();
-
 }
 
 void PlayStateManager::HandleMouseEvent(const Event& evnt)
@@ -71,12 +68,6 @@ void PlayStateManager::HandleMouseEvent(const Event& evnt)
 		cout << "mouse x: " << evnt.mouseButton.x << endl;
 		cout << "mouse y: " << evnt.mouseButton.y << endl;
 	}
-
-
-	if (evnt.mouseButton.button == sf::Mouse::Left)
-	{
-		
-	}
-
+	
 	playLayout.HandleMouseEvent(evnt);
 }
