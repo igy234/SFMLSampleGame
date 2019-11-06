@@ -2,11 +2,12 @@
 #include "BaseCard.h"
 
 
-BaseCard::BaseCard(int positionX, int positionY, float objectWidth, float objectHeight, Color color)
-	: RectangleObject(positionX, positionY, objectWidth, objectHeight, color) 
+BaseCard::BaseCard(shared_ptr<ICardModel> model, int positionX, int positionY, float objectWidth, float objectHeight, Color color)
+	: RectangleObject(positionX, positionY, objectWidth, objectHeight, color),
+	Model(model)
 {
 
-	if (!this->CardTexture.loadFromFile("Resources/Images/test_card.jpg"))
+	if (!this->CardTexture.loadFromFile("Resources/Images/" + Model->GetName() + ".jpg"))
 	{
 		cerr << "Error while loading Menu Texture" << endl; //error handling
 		system("pause");

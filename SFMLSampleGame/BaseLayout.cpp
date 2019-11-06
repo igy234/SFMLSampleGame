@@ -19,11 +19,6 @@ void BaseLayout::ObtainVector(vector<shared_ptr<IGuiElement>> V)
 	GuiElements = V;
 }
 
-void BaseLayout::ObtainButtonsMap(map<string, shared_ptr<ButtonObject>> M) 
-{
-	ButtonObjectsMap = M;
-}
-
 void BaseLayout::HandleMouseEvent(const Event& evnt)
 {
 	switch (evnt.type)

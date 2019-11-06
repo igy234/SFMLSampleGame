@@ -22,11 +22,6 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	V.push_back(b3);
 	playLayout.ObtainVector(V);
 
-	map<string, shared_ptr<ButtonObject>> M;
-	M["Menu"] = b1;
-	M["Pass"] = b2;
-	M["EndExchange"] = b3;
-	playLayout.ObtainButtonsMap(M);
 }
 
 
@@ -41,18 +36,10 @@ void PlayStateManager::HandleEvent(const Event& evnt)
 	case Event::Closed: //jeœli zamknij x to zamknij okno
 		Window->close();
 		break;
-	/*case Event::KeyReleased:
-		switch (evnt.key.code)
-		{
-
-		case Keyboard::Return:
-			break;
-		}
-		break;*/
-		
 	}
 
 	HandleMouseEvent(evnt);
+
 }
 
 void PlayStateManager::DrawWindowContents()

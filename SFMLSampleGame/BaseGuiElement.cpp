@@ -79,3 +79,8 @@ bool BaseGuiElement::GetIsHighlighted()
 {
 	return IsHighlighted;
 }
+
+void BaseGuiElement::setVisibility(bool visible)
+{
+	Visible = visible;
+}

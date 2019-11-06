@@ -169,12 +169,15 @@
     <ClInclude Include="BaseStateManager.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonObject.h" />
-    <ClInclude Include="CardModel.h" />
+    <ClInclude Include="CardFactory.h" />
+    <ClInclude Include="BaseCardModel.h" />
+    <ClInclude Include="CardModels.h" />
     <ClInclude Include="CloseWindowCallback.h" />
     <ClInclude Include="ColumnMaker.h" />
     <ClInclude Include="DeckCallback.h" />
     <ClInclude Include="DeckLayout.h" />
     <ClInclude Include="DeckStateManager.h" />
+    <ClInclude Include="EnumCardName.h" />
     <ClInclude Include="EnumScreenFields.h" />
     <ClInclude Include="FontProvider.h" />
     <ClInclude Include="Game.h" />
@@ -206,7 +209,9 @@
     <ClCompile Include="BaseStateManger.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
-    <ClCompile Include="CardModel.cpp" />
+    <ClCompile Include="CardFactory.cpp" />
+    <ClCompile Include="BaseCardModel.cpp" />
+    <ClCompile Include="CardModels.cpp" />
     <ClCompile Include="CloseWindowCallback.cpp" />
     <ClCompile Include="ColumnMaker.cpp" />
     <ClCompile Include="DeckCallback.cpp" />

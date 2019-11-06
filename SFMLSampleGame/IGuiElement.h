@@ -20,6 +20,7 @@ public:
 	virtual void Draw(shared_ptr<RenderWindow> window) = 0;
 	virtual Texture GetTexture() = 0;
 	virtual bool GetIsHighlighted() = 0;
+	virtual void setVisibility(bool visible) = 0;
 
 };
 

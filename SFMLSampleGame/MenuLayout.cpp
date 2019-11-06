@@ -25,17 +25,10 @@ MenuLayout::~MenuLayout()
 void MenuLayout::Show()
 {
 	Window->draw(BackgroundSprite);
-	for (auto element : ButtonObjectsMap)
+	for (auto element : GuiElements)
 	{
-		element.second->Draw(Window);
+		element->Draw(Window);
 	}
-	/*Window->draw(*ButtonObjectsMap["Play"]); 
-	Window->draw(*ButtonObjectsMap["Deck"]);
-	Window->draw(*ButtonObjectsMap["Quit"]);
-	Window->draw(ButtonObjectsMap["Play"]->GetText());
-	Window->draw(ButtonObjectsMap["Deck"]->GetText());
-	Window->draw(ButtonObjectsMap["Quit"]->GetText());*/
-	
 }
 
 void MenuLayout::ObtainVector(vector<shared_ptr<IGuiElement>> V)

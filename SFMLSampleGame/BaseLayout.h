@@ -15,7 +15,6 @@ public:
 	virtual void Show() = 0;
 	BaseLayout(shared_ptr<RenderWindow> window);
 	void ObtainVector(vector<shared_ptr<IGuiElement>> V) override; // obtains vector of gui elements
-	void ObtainButtonsMap(map<string, shared_ptr<ButtonObject>> M) override; // obtains map of buttons
 	void HandleMouseEvent(const Event& evnt) override; //handling mouse movement (highlighting gui elements and calling callbacks for state managers)
 	~BaseLayout();
 };

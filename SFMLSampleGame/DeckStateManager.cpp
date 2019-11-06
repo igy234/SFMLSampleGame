@@ -22,11 +22,6 @@ DeckStateManager::DeckStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	V.push_back(b3);
 	deckLayout.ObtainVector(V);
 
-	map<string, shared_ptr<ButtonObject>> M;
-	M["Play"] = b1;
-	M["Deck"] = b2;
-	M["Quit"] = b3;
-	deckLayout.ObtainButtonsMap(M);
 }
 
 

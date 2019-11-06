@@ -66,10 +66,13 @@ void RectangleObject::SetPositionY(float y)
 
 void RectangleObject::Draw(shared_ptr<RenderWindow> window)
 {
-	window->draw(*this); //Object needed thats why *this(because this is a pointer)
-	if (Label.has_value())
+	if (Visible)
 	{
-		window->draw(Label.value());
+		window->draw(*this); //Object needed thats why *this(because this is a pointer)
+		if (Label.has_value())
+		{
+			window->draw(Label.value());
+		}
 	}
 }
 

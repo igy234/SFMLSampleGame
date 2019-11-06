@@ -28,6 +28,7 @@ public:
 	virtual void Highlight() override; //Seting Ishighlighted as true
 	virtual void Unhighlight() override; //Seting Ishighlighted as false
 	virtual bool GetIsHighlighted() override; 
+	virtual void setVisibility(bool visible) override;
 	virtual Texture GetTexture() override { return {}; }; //overriding for use in lower levels of inheritance
 	BaseGuiElement(int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback = nullptr); //constructor with default callback set to nullptr
 	~BaseGuiElement();

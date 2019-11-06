@@ -5,7 +5,7 @@
 #include "RectangleObject.h"
 #include "Utils.h"
 #include "BaseCard.h"
-
+#include "CardFactory.h"
 
 PlayLayout::PlayLayout(shared_ptr<RenderWindow> window)
 	:BaseLayout(window),	
@@ -30,19 +30,21 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window)
 	BackDrop.setOutlineThickness(Thickness);
 	UiLines.push_back(BackDrop);
 	
-	//ShuffleManager shuffle;
+	ShuffleManager shuffle;
+	CardFactory factory;
 
 	for (int i = 0; i <7; ++i)
 	{
-		UserHandCards.push_back(make_shared<BaseCard>(0, 0, 163, 230));
+		auto card = factory.CreateCard(shuffle.GenerateRandomCardNameEnum());
+		UserHandCards.push_back(card);
 		UserHandCards[i]->SetPadding(10);
 	}
 
-	for (int i = 0; i < 7; ++i)
+	/*for (int i = 0; i < 7; ++i)
 	{
 		EnemyHandCards.push_back(make_shared<BaseCard>(0, 0, 163, 185));
 		EnemyHandCards[i]->SetPadding(10);
-	}
+	}*/
 
 	RowMaker rowMakerUserHandCards(window->getSize().x, window->getSize().y, EnumScreenFields::FieldTwo, EnumScreenFields::FieldNine);
 	rowMakerUserHandCards.SetStarterWidthPadding(10);
@@ -69,12 +71,7 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window)
 	columnMakerTurnAndCards.SetStarterHeightPadding(30);
 	columnMakerTurnAndCards.OrganizePosition(TurnAndCardsInformationRectangles);
 	
-	shared_ptr<RectangleObject> ExchangeCardsInfo = make_shared<RectangleObject>(0, 0, 400, 100, Color(255, 0, 0, 50), "Please exchange your cards");
-	ExchangeCardsInfo->setOutlineThickness(Thickness);
-	ExchangeCardsPopup.push_back(ExchangeCardsInfo);
-	ColumnMaker columnMakerExchangeCards(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldFive, EnumScreenFields::FieldSeven);
-	columnMakerTurnAndCards.SetStarterHeightPadding(50);
-	columnMakerExchangeCards.OrganizePosition(ExchangeCardsPopup);
+	HandleExchangeCardsInformation();
 #pragma endregion InfoRectangles 
 
 	//region UiLines
@@ -133,7 +130,6 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window)
 	CardPreview.SetPositionX(FieldX + PreviewPadding);
 	CardPreview.SetPositionY(FieldY);
 	//CardPreviewSprite.setScale(HalfScale, HalfScale);
-
 }
 
 PlayLayout::~PlayLayout()
@@ -148,9 +144,9 @@ void PlayLayout::Show()
 		element.Draw(Window);
 	}
 	
-	for (auto element : ButtonObjectsMap)
+	for (auto element : GuiElements)
 	{
-		element.second->Draw(Window);
+		element->Draw(Window);
 	}
 
 	for (auto element : TurnAndCardsInformationRectangles)
@@ -254,6 +250,12 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 
 void PlayLayout::HandleExchangeCardsInformation()
 {
+	shared_ptr<RectangleObject> ExchangeCardsInfo = make_shared<RectangleObject>(0, 0, 400, 100, Color(255, 0, 0, 50), "Please exchange your cards");
+	ExchangeCardsInfo->setOutlineThickness(Thickness);
+	ExchangeCardsInfo->SetPadding(0);
+	ExchangeCardsPopup.push_back(ExchangeCardsInfo);
+	ColumnMaker columnMakerExchangeCards(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldFive, EnumScreenFields::FieldEight);
+	columnMakerExchangeCards.OrganizePosition(ExchangeCardsPopup);
 
-
+	//ExchangeCardsInfo->setVisibility(false);
 }

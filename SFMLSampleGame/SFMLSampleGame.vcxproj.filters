@@ -110,10 +110,19 @@
     <ClInclude Include="ICardModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CardModel.h">
+    <ClInclude Include="PreviewCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PreviewCard.h">
+    <ClInclude Include="EnumCardName.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CardFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CardModels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseCardModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -193,10 +202,16 @@
     <ClCompile Include="BaseCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CardModel.cpp">
+    <ClCompile Include="PreviewCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PreviewCard.cpp">
+    <ClCompile Include="CardFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CardModels.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCardModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
