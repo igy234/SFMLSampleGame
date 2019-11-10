@@ -13,7 +13,8 @@ enum class GameState
 enum class MatchState
 {
 	Shuffle,
-	Ingame
+	Ingame,
+	Endgame
 };
 
 template<typename T>

@@ -16,7 +16,6 @@ protected:
 	PreviewCard CardPreview; //holding  object of PreviewCard class responsible for managing card preview
 	vector<RectangleObject> UiLines; //vecotr of rectangles creating UI lines
 	vector<shared_ptr<IGuiElement>> UserHandCards; //vector holding cards in user's hand
-	vector<shared_ptr<IGuiElement>> EnemyHandCards; //vector holding cards in AI's hand
 	vector<shared_ptr<IGuiElement>> TurnAndCardsInformationRectangles; //vector holding rectangles with information about how many cards does an AI has and who's turn is durring match
 	vector<shared_ptr<IGuiElement>> ExchangeCardsPopup; //holding rectangle with information about exchanging cards
 public:
@@ -24,7 +23,7 @@ public:
 	void Show() override;
 	
 	// loading background texture, creation of all gui elements used in play state and setting their postion
-	PlayLayout(shared_ptr<RenderWindow> window);
+	PlayLayout(shared_ptr<RenderWindow> window, vector<shared_ptr<IGuiElement>> userHandCards); //vector holding cards in user's hand);
 	
 	~PlayLayout();
 	

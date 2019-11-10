@@ -177,6 +177,7 @@
     <ClInclude Include="DeckCallback.h" />
     <ClInclude Include="DeckLayout.h" />
     <ClInclude Include="DeckStateManager.h" />
+    <ClInclude Include="EndgameStateManager.h" />
     <ClInclude Include="EnumCardName.h" />
     <ClInclude Include="EnumScreenFields.h" />
     <ClInclude Include="FontProvider.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="ICardModel.h" />
     <ClInclude Include="IGuiElement.h" />
     <ClInclude Include="ILayout.h" />
+    <ClInclude Include="IngameStateManager.h" />
     <ClInclude Include="IStateManager.h" />
     <ClInclude Include="IStateOperator.h" />
     <ClInclude Include="BaseLayout.h" />
@@ -198,7 +200,8 @@
     <ClInclude Include="PreviewCard.h" />
     <ClInclude Include="RectangleObject.h" />
     <ClInclude Include="RowMaker.h" />
-    <ClInclude Include="ShuffleManager.h" />
+    <ClInclude Include="GenerateCards.h" />
+    <ClInclude Include="ShuffleStateManager.h" />
     <ClInclude Include="StateOperator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Utils.h" />
@@ -206,7 +209,6 @@
   <ItemGroup>
     <ClCompile Include="BaseCard.cpp" />
     <ClCompile Include="BaseGuiElement.cpp" />
-    <ClCompile Include="BaseStateManger.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="CardFactory.cpp" />
@@ -217,9 +219,11 @@
     <ClCompile Include="DeckCallback.cpp" />
     <ClCompile Include="DeckLayout.cpp" />
     <ClCompile Include="DeckStateManager.cpp" />
+    <ClCompile Include="EndgameStateManager.cpp" />
     <ClCompile Include="FontProvider.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="BaseLayout.cpp" />
+    <ClCompile Include="IngameStateManager.cpp" />
     <ClCompile Include="MenuCallback.cpp" />
     <ClCompile Include="MenuLayout.cpp" />
     <ClCompile Include="MenuStateManager.cpp" />
@@ -230,7 +234,8 @@
     <ClCompile Include="RectangleObject.cpp" />
     <ClCompile Include="RowMaker.cpp" />
     <ClCompile Include="SFMLSampleGame.cpp" />
-    <ClCompile Include="ShuffleManager.cpp" />
+    <ClCompile Include="GenerateCards.cpp" />
+    <ClCompile Include="ShuffleStateManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -95,9 +95,6 @@
     <ClInclude Include="DeckLayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShuffleManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -125,6 +122,18 @@
     <ClInclude Include="BaseCardModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ShuffleStateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IngameStateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EndgameStateManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GenerateCards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -140,9 +149,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MenuStateManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseStateManger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BaseLayout.cpp">
@@ -193,9 +199,6 @@
     <ClCompile Include="DeckLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShuffleManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -212,6 +215,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BaseCardModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShuffleStateManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IngameStateManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EndgameStateManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GenerateCards.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

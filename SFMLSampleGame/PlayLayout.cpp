@@ -7,9 +7,10 @@
 #include "BaseCard.h"
 #include "CardFactory.h"
 
-PlayLayout::PlayLayout(shared_ptr<RenderWindow> window)
+PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, vector<shared_ptr<IGuiElement>> userHandCards) //vector holding cards in user's hand)
 	:BaseLayout(window),	
-	CardPreview(0,0,0,0)
+	CardPreview(0,0,0,0),
+	UserHandCards(userHandCards)
 {
 
 	int FieldX, FieldY, WidthFactor, HeightFactor, WindowSizeX, WindowSizeY;
@@ -30,15 +31,14 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window)
 	BackDrop.setOutlineThickness(Thickness);
 	UiLines.push_back(BackDrop);
 	
-	ShuffleManager shuffle;
-	CardFactory factory;
 
-	for (int i = 0; i <7; ++i)
+
+	/*for (int i = 0; i <7; ++i)
 	{
 		auto card = factory.CreateCard(shuffle.GenerateRandomCardNameEnum());
 		UserHandCards.push_back(card);
 		UserHandCards[i]->SetPadding(10);
-	}
+	}*/
 
 	/*for (int i = 0; i < 7; ++i)
 	{
