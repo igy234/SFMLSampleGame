@@ -40,6 +40,24 @@ void BaseLayout::HandleMouseEvent(const Event& evnt)
 				}
 			}
 		}
+
+		for (auto element : GuiElemtnsForCurrentState)
+		{
+			if (!element->GetIsUserInteractive())
+			{
+				continue;
+			}
+			float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;
+			GuiElementPositionX = element->GetPositionX();
+			GuiElementPositionY = element->GetPositionY();
+			GuiElementWidth = element->GetWidth();
+			GuiElementHeight = element->GetHeight();
+			if ((evnt.mouseButton.x >= (GuiElementPositionX - GuiElementWidth / 2) && evnt.mouseButton.x < (GuiElementPositionX + GuiElementWidth / 2)) && // quick maths
+				(evnt.mouseButton.y >= (GuiElementPositionY - GuiElementHeight / 2) && evnt.mouseButton.y <= (GuiElementPositionY + GuiElementHeight / 2)))
+			{
+				element->action();
+			}
+		}
 		break;
 	case Event::MouseMoved:
 		for (auto element : GuiElements)
@@ -61,6 +79,36 @@ void BaseLayout::HandleMouseEvent(const Event& evnt)
 				element->Unhighlight();
 			}
 		}
+
+		for (auto element : GuiElemtnsForCurrentState)
+		{
+			if (!element->GetIsUserInteractive())
+			{
+				continue;
+			}
+
+			float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;
+			GuiElementPositionX = element->GetPositionX();
+			GuiElementPositionY = element->GetPositionY();
+			GuiElementWidth = element->GetWidth();
+			GuiElementHeight = element->GetHeight();
+			if ((evnt.mouseMove.x >= (GuiElementPositionX - GuiElementWidth / 2) && evnt.mouseMove.x < (GuiElementPositionX + GuiElementWidth / 2)) && // quick maths
+				(evnt.mouseMove.y >= (GuiElementPositionY - GuiElementHeight / 2) && evnt.mouseMove.y <= (GuiElementPositionY + GuiElementHeight / 2)))
+			{
+				//cout << " dzia³a h" << endl;
+				element->Highlight();
+			}
+			else
+			{
+				//cout << " niedzia³a h" << endl;
+				element->Unhighlight();
+			}
+		}
 	break;
 	}
+}
+
+void BaseLayout::SetGuiElementsForCurrentState(vector<shared_ptr<IGuiElement>> V)
+{
+	GuiElemtnsForCurrentState = V;
 }

@@ -6,6 +6,7 @@
 class ILayout
 {
 public:
+	virtual void SetGuiElementsForCurrentState(vector<shared_ptr<IGuiElement>> V) = 0;
 	virtual void Show() = 0;
 	virtual void ObtainVector(vector<shared_ptr<IGuiElement>> V) = 0;
 	virtual void HandleMouseEvent(const Event& evnt) = 0;

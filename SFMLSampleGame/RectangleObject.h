@@ -16,6 +16,7 @@ public:
 	virtual void Draw(shared_ptr<RenderWindow> window) override; //drawing components of class and label if has value
 	virtual void Highlight() override; //filling the inside of rectangle with color and setting isHighlighted to true
 	virtual void Unhighlight() override; //deafult color and setting isHighlighted to false
+	void SetText(string txt);
 
 	//creating gui elements and managing optional label assigned to them
 	RectangleObject(int positionX, int positionY, float objectWidth, float objectHeight, Color color = Color(0, 0, 0, 0), string text = "");

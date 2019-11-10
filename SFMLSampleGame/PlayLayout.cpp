@@ -6,11 +6,13 @@
 #include "Utils.h"
 #include "BaseCard.h"
 #include "CardFactory.h"
+#include "ICardOperator.h"
 
-PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, vector<shared_ptr<IGuiElement>> userHandCards) //vector holding cards in user's hand)
+PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards, shared_ptr<IStateManager>& currentManager, shared_ptr<RectangleObject> exchangeCardsInfo) //vector holding cards in user's hand)
 	:BaseLayout(window),	
 	CardPreview(0,0,0,0),
-	UserHandCards(userHandCards)
+	UserHandCards(userHandCards),
+	CurrentManager(currentManager)
 {
 
 	int FieldX, FieldY, WidthFactor, HeightFactor, WindowSizeX, WindowSizeY;
@@ -49,7 +51,7 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, vector<shared_ptr<IGuiEl
 	RowMaker rowMakerUserHandCards(window->getSize().x, window->getSize().y, EnumScreenFields::FieldTwo, EnumScreenFields::FieldNine);
 	rowMakerUserHandCards.SetStarterWidthPadding(10);
 	rowMakerUserHandCards.SetStarterHeightPadding(4);
-	rowMakerUserHandCards.OrganizePosition(UserHandCards);
+	rowMakerUserHandCards.OrganizePosition(*UserHandCards);
 
 	//region information rectangles
 	#pragma region InfoRectangles
@@ -71,7 +73,7 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, vector<shared_ptr<IGuiEl
 	columnMakerTurnAndCards.SetStarterHeightPadding(30);
 	columnMakerTurnAndCards.OrganizePosition(TurnAndCardsInformationRectangles);
 	
-	HandleExchangeCardsInformation();
+	
 #pragma endregion InfoRectangles 
 
 	//region UiLines
@@ -129,7 +131,6 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, vector<shared_ptr<IGuiEl
 	tie(FieldX, FieldY, WidthFactor, HeightFactor) = CalcualteStartingPoint(WindowSizeX, WindowSizeY, EnumScreenFields::FieldNine, EnumScreenFields::FieldThree);
 	CardPreview.SetPositionX(FieldX + PreviewPadding);
 	CardPreview.SetPositionY(FieldY);
-	//CardPreviewSprite.setScale(HalfScale, HalfScale);
 }
 
 PlayLayout::~PlayLayout()
@@ -154,12 +155,12 @@ void PlayLayout::Show()
 		element->Draw(Window);
 	}
 	
-	for (auto element : UserHandCards)
+	for (auto element : *UserHandCards)
 	{
 		element->Draw(Window);
 	}
 	
-	for (auto element : ExchangeCardsPopup)
+	for (auto element : GuiElemtnsForCurrentState)
 	{
 		element->Draw(Window);
 	}
@@ -169,9 +170,12 @@ void PlayLayout::Show()
 
 void PlayLayout::ObtainVector(vector<shared_ptr<IGuiElement>> V)
 {
+	//auto vect = GuiElements;
 	BaseLayout::ObtainVector(V); //saved for later (eventually)
 	ColumnMaker columnMaker(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldTen, EnumScreenFields::FieldNine);
 	columnMaker.OrganizePosition(V);
+
+	//GuiElements.insert(GuiElements.end(), vect.begin(), vect.end());
 }
 
 void PlayLayout::HandleMouseEvent(const Event& evnt)
@@ -182,7 +186,7 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 	case Event::MouseButtonPressed:
 		if (evnt.mouseButton.button == sf::Mouse::Left)
 		{
-			for (auto element : UserHandCards)
+			for (auto element : *UserHandCards)
 			{
 				float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;
 				GuiElementPositionX = element->GetPositionX();
@@ -192,16 +196,37 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 				if ((evnt.mouseButton.x >= GuiElementPositionX && evnt.mouseButton.x < (GuiElementPositionX + GuiElementWidth)) && // quick maths
 					(evnt.mouseButton.y >= GuiElementPositionY && evnt.mouseButton.y <= (GuiElementPositionY + GuiElementHeight)))
 				{
-					
 					CardPreview.SetTexture(element->GetTexture());
-					//CardPreviewTexture = element->GetTexture();
-					//CardPreviewSprite.setTexture(CardPreviewTexture);
 					element->Highlight();
 				}
 				else
 				{
 					element->Unhighlight();
 				}
+			}
+
+			
+
+		}
+
+		if (evnt.mouseButton.button == sf::Mouse::Right)
+		{
+			for (auto element : *UserHandCards)
+			{
+				float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;
+				GuiElementPositionX = element->GetPositionX();
+				GuiElementPositionY = element->GetPositionY();
+				GuiElementWidth = element->GetWidth();
+				GuiElementHeight = element->GetHeight();
+				if ((evnt.mouseButton.x >= GuiElementPositionX && evnt.mouseButton.x < (GuiElementPositionX + GuiElementWidth)) && // quick maths
+					(evnt.mouseButton.y >= GuiElementPositionY && evnt.mouseButton.y <= (GuiElementPositionY + GuiElementHeight)))
+				{
+					if (auto cardOperator = dynamic_pointer_cast<ICardOperator>(CurrentManager))
+					{
+						cardOperator->PerformCardOperation(element);
+					}
+				}
+
 			}
 
 		}
@@ -213,7 +238,7 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 		TwoFieldRectangles.push_back(UiLines[3]);
 		TwoFieldRectangles.push_back(UiLines[4]);
 		
-		for (auto card : UserHandCards) {
+		for (auto card : *UserHandCards) {
 				
 			if (card->GetIsHighlighted())
 			{
@@ -236,6 +261,7 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 				}
 			}
 		}
+
 		if (NoCardsHighlighted)
 		{
 			for (auto element : TwoFieldRectangles)
@@ -248,14 +274,3 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 	}
 }
 
-void PlayLayout::HandleExchangeCardsInformation()
-{
-	shared_ptr<RectangleObject> ExchangeCardsInfo = make_shared<RectangleObject>(0, 0, 400, 100, Color(255, 0, 0, 50), "Please exchange your cards");
-	ExchangeCardsInfo->setOutlineThickness(Thickness);
-	ExchangeCardsInfo->SetPadding(0);
-	ExchangeCardsPopup.push_back(ExchangeCardsInfo);
-	ColumnMaker columnMakerExchangeCards(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldFive, EnumScreenFields::FieldEight);
-	columnMakerExchangeCards.OrganizePosition(ExchangeCardsPopup);
-
-	//ExchangeCardsInfo->setVisibility(false);
-}

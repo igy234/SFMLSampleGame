@@ -2,8 +2,9 @@
 #include "InGameStateManager.h"
 
 
-IngameStateManager::IngameStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<MatchState>> currentManager, shared_ptr<PlayLayout> playLayout)
+IngameStateManager::IngameStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<MatchState>> currentManager, shared_ptr<PlayLayout> playLayout, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards)
 	:BaseStateManager(window, currentManager),
+	UserHandCards(userHandCards),
 	Layout(playLayout)
 {
 }

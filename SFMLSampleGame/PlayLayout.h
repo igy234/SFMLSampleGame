@@ -2,6 +2,7 @@
 #include "BaseLayout.h"
 #include "RectangleObject.h"
 #include "PreviewCard.h"
+#include "IStateManager.h"
 
 //Class managing the play state layout
 //holding OutlineThicnkess, and shif of the guielements resultig from mentioned thickness.
@@ -15,15 +16,16 @@ protected:
 
 	PreviewCard CardPreview; //holding  object of PreviewCard class responsible for managing card preview
 	vector<RectangleObject> UiLines; //vecotr of rectangles creating UI lines
-	vector<shared_ptr<IGuiElement>> UserHandCards; //vector holding cards in user's hand
+	shared_ptr<vector<shared_ptr<IGuiElement>>> UserHandCards; //vector holding cards in user's hand
 	vector<shared_ptr<IGuiElement>> TurnAndCardsInformationRectangles; //vector holding rectangles with information about how many cards does an AI has and who's turn is durring match
-	vector<shared_ptr<IGuiElement>> ExchangeCardsPopup; //holding rectangle with information about exchanging cards
+	shared_ptr<IStateManager>& CurrentManager;
 public:
 	//method drawing all gui elements
 	void Show() override;
 	
 	// loading background texture, creation of all gui elements used in play state and setting their postion
-	PlayLayout(shared_ptr<RenderWindow> window, vector<shared_ptr<IGuiElement>> userHandCards); //vector holding cards in user's hand);
+	PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards, shared_ptr<IStateManager>& currentManager ,
+		shared_ptr<RectangleObject> exchangeCardsInfo); //vector holding cards in user's hand);
 	
 	~PlayLayout();
 	
@@ -31,6 +33,6 @@ public:
 	void HandleMouseEvent(const Event& evnt) override;
 
 	void ObtainVector(vector<shared_ptr<IGuiElement>> V) override; //obtaing vector of gui elements and puuting them below each other by using columnmaker
-	void HandleExchangeCardsInformation(); //nothing yet
+	
 };
 

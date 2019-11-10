@@ -7,5 +7,6 @@ public:
 	virtual void HandleEvent(const Event& evnt) = 0; 
 	virtual void DrawWindowContents() = 0;
 	virtual void HandleMouseEvent(const Event& evnt) = 0;
+
 };
 

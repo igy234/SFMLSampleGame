@@ -134,6 +134,12 @@
     <ClInclude Include="GenerateCards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ICardOperator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IngameCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -227,6 +233,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GenerateCards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IngameCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

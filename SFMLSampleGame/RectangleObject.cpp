@@ -87,3 +87,8 @@ void RectangleObject::Unhighlight()
 	BaseGuiElement::Unhighlight();
 	setFillColor(Color(255, 216, 55, 0));
 }
+
+void RectangleObject::SetText(string txt)
+{
+	Label.value().setString(txt);
+}

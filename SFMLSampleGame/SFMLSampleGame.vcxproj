@@ -185,8 +185,10 @@
     <ClInclude Include="ICallback.h" />
     <ClInclude Include="ICard.h" />
     <ClInclude Include="ICardModel.h" />
+    <ClInclude Include="ICardOperator.h" />
     <ClInclude Include="IGuiElement.h" />
     <ClInclude Include="ILayout.h" />
+    <ClInclude Include="IngameCallback.h" />
     <ClInclude Include="IngameStateManager.h" />
     <ClInclude Include="IStateManager.h" />
     <ClInclude Include="IStateOperator.h" />
@@ -223,6 +225,7 @@
     <ClCompile Include="FontProvider.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="BaseLayout.cpp" />
+    <ClCompile Include="IngameCallback.cpp" />
     <ClCompile Include="IngameStateManager.cpp" />
     <ClCompile Include="MenuCallback.cpp" />
     <ClCompile Include="MenuLayout.cpp" />

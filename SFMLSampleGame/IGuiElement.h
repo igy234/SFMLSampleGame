@@ -21,6 +21,8 @@ public:
 	virtual Texture GetTexture() = 0;
 	virtual bool GetIsHighlighted() = 0;
 	virtual void setVisibility(bool visible) = 0;
+	virtual bool GetIsUserInteractive() = 0;
+	virtual void SetIsUserInteractive(bool interactive) = 0;
 
 };
 

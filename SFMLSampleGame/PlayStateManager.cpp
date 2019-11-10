@@ -6,40 +6,53 @@
 #include "StateOperator.h"
 #include "GenerateCards.h"
 #include "CardFactory.h"
+#include "IngameCallback.h"
 
 PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<GameState>> currentManager)
 	:BaseStateManager(window, currentManager),
-	StateHandler(make_shared<StateOperator<MatchState>>())
+	StateHandler(make_shared<StateOperator<MatchState>>()),
+	UserHandCards(make_shared<vector<shared_ptr<IGuiElement>>>())
 {
+	auto changeInternalState = [this](MatchState state) //callback func
+	{
+		StateHandler->SetNewState(state);
+		StateSwitch();
+		playLayout->SetGuiElementsForCurrentState(vector<shared_ptr<IGuiElement>>());
+
+	};
+
+	auto ingameCallback = make_shared<IngameCallback>(changeInternalState);
 
 	shared_ptr<ButtonObject> b1 = make_shared<ButtonObject>("Menu", 0, 0, 200, 50, make_shared<MenuCallback>(currentManager));
 	shared_ptr<ButtonObject> b2 = make_shared<ButtonObject>("Pass", 0, 0, 200, 50, make_shared<MenuCallback>(currentManager));
-	shared_ptr<ButtonObject> b3 = make_shared<ButtonObject>("End Exchange", 0, 0, 250, 50, make_shared<MenuCallback>(currentManager));
+	
 
 	GenerateCards generate;
 	CardFactory factory;
 	for (int i = 0; i < 7; ++i)
 	{
 		auto card = factory.CreateCard(generate.GenerateRandomCardNameEnum());
-		UserHandCards.push_back(card);
-		UserHandCards[i]->SetPadding(10);
+		UserHandCards->push_back(card);
+		(*UserHandCards)[i]->SetPadding(10);
 	}
 
 
 	b1->SetPadding(25);
 	b2->SetPadding(25);
-	b3->SetPadding(25);
+	//b3->SetPadding(25);
 
-	playLayout = make_shared<PlayLayout>(window, UserHandCards);
+	shared_ptr<RectangleObject> ExchangeCardsInfo = make_shared<RectangleObject>(0, 0, 600, 100, Color(255, 0, 0, 50), "Exchange your cards, exchanges left: 5");
+
+	playLayout = make_shared<PlayLayout>(window, UserHandCards, CurrentManager, ExchangeCardsInfo);
 		
-	ShuffleManager = make_shared<ShuffleStateManager>(Window, StateHandler, playLayout);
-	IngameManager = make_shared<IngameStateManager>(Window, StateHandler, playLayout);
+	ShuffleManager = make_shared<ShuffleStateManager>(Window, StateHandler, playLayout, UserHandCards, ExchangeCardsInfo, ingameCallback);
+	IngameManager = make_shared<IngameStateManager>(Window, StateHandler, playLayout, UserHandCards);
 	EndgameManager = make_shared<EndgameStateManager>(Window, StateHandler, playLayout);
 
 	vector<shared_ptr<IGuiElement>> V;
 	V.push_back(b1);
 	V.push_back(b2);
-	V.push_back(b3);
+	//V.push_back(b3);
 	playLayout->ObtainVector(V);
 
 	StateHandler->SetNewState(MatchState::Shuffle); //default state is menu

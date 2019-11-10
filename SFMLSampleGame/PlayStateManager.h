@@ -16,7 +16,7 @@ private:
 	shared_ptr<IngameStateManager> IngameManager;
 	shared_ptr<EndgameStateManager> EndgameManager;
 	shared_ptr<IStateManager> CurrentManager;
-	vector<shared_ptr<IGuiElement>> UserHandCards; //vector holding cards in user's hand
+	shared_ptr<vector<shared_ptr<IGuiElement>>> UserHandCards; //vector holding cards in user's hand
 	vector<shared_ptr<IGuiElement>> EnemyHandCards; //vector holding cards in AI's hand
 public:
 	void StateSwitch();

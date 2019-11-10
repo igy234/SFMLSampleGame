@@ -5,7 +5,7 @@
 ButtonObject::ButtonObject(string label, int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback)
 	:BaseGuiElement(positionX, positionY, objectWidth, objectHeight, callback)
 {
-	
+	this->IsUserInteractive = true;
 
 	ButtonLabel.setFont(FontProvider::instance().GetFont()); //singleton fontProvider usesd to get font
 	ButtonLabel.setString(label);

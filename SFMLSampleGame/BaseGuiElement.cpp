@@ -84,3 +84,13 @@ void BaseGuiElement::setVisibility(bool visible)
 {
 	Visible = visible;
 }
+
+bool BaseGuiElement::GetIsUserInteractive()
+{
+	return IsUserInteractive;
+}
+
+void BaseGuiElement::SetIsUserInteractive(bool interactive)
+{
+	IsUserInteractive = interactive;
+}

@@ -14,6 +14,7 @@ protected:
 	bool IsHighlighted=false; //at the begining none of the objects is highlighted 
 
 public:
+	bool IsUserInteractive = false;
 	virtual float GetWidth() override;
 	virtual float GetHeight() override;
 	virtual float GetPositionX() override;
@@ -30,6 +31,8 @@ public:
 	virtual bool GetIsHighlighted() override; 
 	virtual void setVisibility(bool visible) override;
 	virtual Texture GetTexture() override { return {}; }; //overriding for use in lower levels of inheritance
+	virtual bool GetIsUserInteractive() override;
+	virtual void SetIsUserInteractive(bool interactive) override;
 	BaseGuiElement(int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback = nullptr); //constructor with default callback set to nullptr
 	~BaseGuiElement();
 
