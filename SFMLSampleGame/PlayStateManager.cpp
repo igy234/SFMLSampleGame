@@ -41,11 +41,10 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	b2->SetPadding(25);
 	//b3->SetPadding(25);
 
-	shared_ptr<RectangleObject> ExchangeCardsInfo = make_shared<RectangleObject>(0, 0, 600, 100, Color(255, 0, 0, 50), "Exchange your cards, exchanges left: 5");
 
-	playLayout = make_shared<PlayLayout>(window, UserHandCards, CurrentManager, ExchangeCardsInfo);
+	playLayout = make_shared<PlayLayout>(window, UserHandCards, CurrentManager);
 		
-	ShuffleManager = make_shared<ShuffleStateManager>(Window, StateHandler, playLayout, UserHandCards, ExchangeCardsInfo, ingameCallback);
+	ShuffleManager = make_shared<ShuffleStateManager>(Window, StateHandler, playLayout, UserHandCards, ingameCallback);
 	IngameManager = make_shared<IngameStateManager>(Window, StateHandler, playLayout, UserHandCards);
 	EndgameManager = make_shared<EndgameStateManager>(Window, StateHandler, playLayout);
 

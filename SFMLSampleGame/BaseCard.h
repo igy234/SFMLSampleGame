@@ -21,6 +21,7 @@ public:
 	virtual Texture GetTexture() override;  
 	virtual void Highlight() override; // sets appropriate color of outlinethickness of card, and marks that base gui element is highlighted 
 	virtual void Unhighlight() override; // removes outlinethickness of card, and marks that base gui element is unhighlighted
+	shared_ptr<ICardModel> GetModel();
 
 	// loading texture and setting it to sprite, rescalling it, default color implemented
 	BaseCard(shared_ptr<ICardModel> model, int positionX = 0, int positionY = 0, float objectWidth = 163, float objectHeight = 185, Color color = Color(0, 0, 0, 0));

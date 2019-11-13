@@ -8,7 +8,7 @@
 #include "CardFactory.h"
 #include "ICardOperator.h"
 
-PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards, shared_ptr<IStateManager>& currentManager, shared_ptr<RectangleObject> exchangeCardsInfo) //vector holding cards in user's hand)
+PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards, shared_ptr<IStateManager>& currentManager) //vector holding cards in user's hand)
 	:BaseLayout(window),	
 	CardPreview(0,0,0,0),
 	UserHandCards(userHandCards),
@@ -186,9 +186,10 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 	case Event::MouseButtonPressed:
 		if (evnt.mouseButton.button == sf::Mouse::Left)
 		{
+			bool WasCardHighlighted = false;
+			float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;
 			for (auto element : *UserHandCards)
 			{
-				float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;
 				GuiElementPositionX = element->GetPositionX();
 				GuiElementPositionY = element->GetPositionY();
 				GuiElementWidth = element->GetWidth();
@@ -198,15 +199,53 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 				{
 					CardPreview.SetTexture(element->GetTexture());
 					element->Highlight();
+					WasCardHighlighted = true;
+					if (auto cardOperator = dynamic_pointer_cast<ICardOperator>(CurrentManager))
+					{
+						cardOperator->PerformCardOperation(element, evnt.mouseButton.button);
+					}
 				}
 				else
 				{
 					element->Unhighlight();
+				
+				}
+			}
+		
+			vector<reference_wrapper<RectangleObject>> TwoFieldRectangles; //zwyk³y wektor tworzy kopie obiektów, dlatego potrzebuje reference wrappera który bierze referencje na dane obiekty
+			TwoFieldRectangles.push_back(UiLines[3]);
+			TwoFieldRectangles.push_back(UiLines[4]);
+			
+			for (int i = 0; i < TwoFieldRectangles.size(); ++i)
+			{
+				auto Battlefield = TwoFieldRectangles[i];
+				GuiElementPositionX = Battlefield.get().getPosition().x;
+				GuiElementPositionY = Battlefield.get().getPosition().y;
+				GuiElementWidth = Battlefield.get().getSize().x;
+				GuiElementHeight = Battlefield.get().getSize().y;
+				if ((evnt.mouseButton.x >= (GuiElementPositionX) && evnt.mouseButton.x < (GuiElementPositionX + GuiElementWidth)) && // quick maths
+					(evnt.mouseButton.y >= (GuiElementPositionY) && evnt.mouseButton.y <= (GuiElementPositionY + GuiElementHeight)))
+				{
+					//trzeba jakos sprawdzic w którym battlefieldzie by³o klikniete, dodac karte do wektora odpowiedniego battlefieldu, 
+					if (auto cardOperator = dynamic_pointer_cast<ICardOperator>(CurrentManager))
+					{
+						cardOperator->WhichBattlefield(static_cast<BattleField>(i));
+					}
+					//Battlefield.get().Highlight();
+				}
+				else
+				{
+					//Battlefield.get().Unhighlight();
 				}
 			}
 
-			
-
+			if (!WasCardHighlighted)
+			{
+				if (auto cardOperator = dynamic_pointer_cast<ICardOperator>(CurrentManager))
+				{
+					cardOperator->PerformCardOperation(nullptr, evnt.mouseButton.button);
+				}
+			}
 		}
 
 		if (evnt.mouseButton.button == sf::Mouse::Right)
@@ -223,7 +262,7 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 				{
 					if (auto cardOperator = dynamic_pointer_cast<ICardOperator>(CurrentManager))
 					{
-						cardOperator->PerformCardOperation(element);
+						cardOperator->PerformCardOperation(element, evnt.mouseButton.button);
 					}
 				}
 
@@ -231,6 +270,7 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 
 		}
 		break;
+
 	case Event::MouseMoved:
 		bool NoCardsHighlighted = true;
 		float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;

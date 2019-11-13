@@ -24,8 +24,7 @@ public:
 	void Show() override;
 	
 	// loading background texture, creation of all gui elements used in play state and setting their postion
-	PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards, shared_ptr<IStateManager>& currentManager ,
-		shared_ptr<RectangleObject> exchangeCardsInfo); //vector holding cards in user's hand);
+	PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards, shared_ptr<IStateManager>& currentManager); //vector holding cards in user's hand);
 	
 	~PlayLayout();
 	

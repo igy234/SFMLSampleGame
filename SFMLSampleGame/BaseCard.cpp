@@ -78,3 +78,8 @@ void BaseCard::Unhighlight()
 	BaseGuiElement::Unhighlight();
 	setOutlineThickness(0);
 }
+
+shared_ptr<ICardModel> BaseCard::GetModel()
+{
+	return Model;
+}

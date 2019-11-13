@@ -5,13 +5,14 @@
 #include "RowMaker.h"
 
 ShuffleStateManager::ShuffleStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<MatchState>> currentManager, shared_ptr<PlayLayout> playLayout, 
-	shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards, shared_ptr<RectangleObject> exchangeCardsInfo, shared_ptr<ICallback> ingameCall)
+	shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards, shared_ptr<ICallback> ingameCall)
 	:BaseStateManager(window, currentManager),
 	UserHandCards(userHandCards),
 	Layout(playLayout),
-	ExchangeCardsInfo(exchangeCardsInfo),
 	ingameCallback(ingameCall)
 {
+	ExchangeCardsInfo = make_shared<RectangleObject>(0, 0, 600, 100, Color(255, 0, 0, 50), "Exchange your cards, exchanges left: 5");
+
 	b3 = make_shared<ButtonObject>("End Exchange", 0, 0, 250, 50, ingameCallback);
 	vector<shared_ptr<IGuiElement>> TempVec;
 	TempVec.push_back(ExchangeCardsInfo);
@@ -48,26 +49,28 @@ void ShuffleStateManager::HandleEvent(const Event& evnt)
 
 }
 
-void ShuffleStateManager::PerformCardOperation(shared_ptr<IGuiElement> card)
+void ShuffleStateManager::PerformCardOperation(shared_ptr<IGuiElement> card, Mouse::Button click)
 {
-	if (--ExchangeCount < 0)
+	if (click == Mouse::Button::Right)
 	{
-		ingameCallback->action();
-		return;
+		if (--ExchangeCount < 1)
+		{
+			ingameCallback->action();
+			return;
+		}
+
+		ExchangeCardsInfo->SetText("Exchange your cards, exchanges left: " + to_string(ExchangeCount));
+		GenerateCards generate;
+		CardFactory factory;
+		shared_ptr<IGuiElement> newCard;
+
+		newCard = factory.CreateCard(generate.GenerateRandomCardNameEnum());
+
+		newCard->SetPositionX(card->GetPositionX());
+		newCard->SetPositionY(card->GetPositionY());
+
+		replace(UserHandCards->begin(), UserHandCards->end(), card, newCard);
 	}
-		
-	ExchangeCardsInfo->SetText("Exchange your cards, exchanges left: " + to_string(ExchangeCount));
-	GenerateCards generate;
-	CardFactory factory;
-	shared_ptr<IGuiElement> newCard;
-
-	newCard = factory.CreateCard(generate.GenerateRandomCardNameEnum());
-
-	newCard->SetPositionX(card->GetPositionX());
-	newCard->SetPositionY(card->GetPositionY());
-
-	replace(UserHandCards->begin(), UserHandCards->end(), card, newCard);
-	
 }
 
 void ShuffleStateManager::HandleExchangeCardsInformation()

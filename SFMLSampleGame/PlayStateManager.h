@@ -18,6 +18,8 @@ private:
 	shared_ptr<IStateManager> CurrentManager;
 	shared_ptr<vector<shared_ptr<IGuiElement>>> UserHandCards; //vector holding cards in user's hand
 	vector<shared_ptr<IGuiElement>> EnemyHandCards; //vector holding cards in AI's hand
+	shared_ptr<vector<shared_ptr<IGuiElement>>> FirstUserBattleField;
+	shared_ptr<vector<shared_ptr<IGuiElement>>> SecondUserBattleField;
 public:
 	void StateSwitch();
 	void HandleEvent(const Event& evnt) override; //handling all types of events ie close window
