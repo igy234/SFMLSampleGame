@@ -2,5 +2,7 @@
 enum class BattleField
 {
 	Lower,
-	Upper
+	Upper,
+
+	Count
 };

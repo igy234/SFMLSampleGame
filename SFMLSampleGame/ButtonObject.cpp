@@ -2,7 +2,7 @@
 #include "ButtonObject.h"
 
 
-ButtonObject::ButtonObject(string label, int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback)
+ButtonObject::ButtonObject(string label, int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback, int opacity)
 	:BaseGuiElement(positionX, positionY, objectWidth, objectHeight, callback)
 {
 	this->IsUserInteractive = true;
@@ -14,7 +14,7 @@ ButtonObject::ButtonObject(string label, int positionX, int positionY, float obj
 	
 	setPosition(positionX, positionY); //sets the first point of convex
 	setPointCount(6); // sets total number of oconvex points
-	setFillColor(Color(255, 0, 0, 50)); // color 
+	setFillColor(Color(255, 0, 0, opacity)); // color 
 	setOrigin(objectWidth / 2, 0); //sprawia ¿e œrodek buttona rysuje nam siê w koordynatach startowych pola siatki
 	
 	FloatRect textRect = ButtonLabel.getLocalBounds(); //make a rectangle around text
@@ -92,4 +92,8 @@ void ButtonObject::Draw(shared_ptr<RenderWindow> window)
 	window->draw(ButtonLabel);
 }
 
+void ButtonObject::SetSpecialBackgroundColor(Color color)
+{
+	setFillColor(color);
+}
 

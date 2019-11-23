@@ -11,22 +11,7 @@ ShuffleStateManager::ShuffleStateManager(shared_ptr<RenderWindow> window, shared
 	Layout(playLayout),
 	ingameCallback(ingameCall)
 {
-	ExchangeCardsInfo = make_shared<RectangleObject>(0, 0, 600, 100, Color(255, 0, 0, 50), "Exchange your cards, exchanges left: 5");
-
-	b3 = make_shared<ButtonObject>("End Exchange", 0, 0, 250, 50, ingameCallback);
-	vector<shared_ptr<IGuiElement>> TempVec;
-	TempVec.push_back(ExchangeCardsInfo);
-	TempVec.push_back(b3);
-	Layout->SetGuiElementsForCurrentState(TempVec);
-
-	ExchangeCardsInfo->setOutlineThickness(2);
-	ExchangeCardsInfo->SetPadding(0);
-	vector<shared_ptr<IGuiElement>> ExchangeCardsPopup; //holding rectangle with information about exchanging cards
-	ExchangeCardsPopup.push_back(ExchangeCardsInfo);
-	ExchangeCardsPopup.push_back(b3);
-	RowMaker rowMakerExchangeCards(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldFour, EnumScreenFields::FieldEight);
-	rowMakerExchangeCards.OrganizePosition(ExchangeCardsPopup);
-
+	initialize();
 }
 
 
@@ -73,9 +58,24 @@ void ShuffleStateManager::PerformCardOperation(shared_ptr<IGuiElement> card, Mou
 	}
 }
 
-void ShuffleStateManager::HandleExchangeCardsInformation()
+void ShuffleStateManager::initialize()
 {
-	
+	ExchangeCount = 100;
+	ExchangeCardsInfo = make_shared<RectangleObject>(0, 0, 600, 100, Color(255, 0, 0, 50), "Exchange your cards, exchanges left: 5");
 
-	//ExchangeCardsInfo->setVisibility(false);
+	b3 = make_shared<ButtonObject>("End Exchange", 0, 0, 250, 50, ingameCallback);
+	vector<shared_ptr<IGuiElement>> TempVec;
+	TempVec.push_back(ExchangeCardsInfo);
+	TempVec.push_back(b3);
+	Layout->SetGuiElementsForCurrentState(TempVec);
+
+	ExchangeCardsInfo->setOutlineThickness(2);
+	ExchangeCardsInfo->SetPadding(0);
+	vector<shared_ptr<IGuiElement>> ExchangeCardsPopup; //holding rectangle with information about exchanging cards
+	ExchangeCardsPopup.push_back(ExchangeCardsInfo);
+	ExchangeCardsPopup.push_back(b3);
+	RowMaker rowMakerExchangeCards(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldFour, EnumScreenFields::FieldEight);
+	rowMakerExchangeCards.OrganizePosition(ExchangeCardsPopup);
+
 }
+

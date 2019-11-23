@@ -13,5 +13,6 @@ public:
 	void HandleEvent(const Event& evnt) = 0;
 	void DrawWindowContents() = 0;
 	void HandleMouseEvent(const Event& evnt) = 0;
+	virtual void initialize() {};
 };
 

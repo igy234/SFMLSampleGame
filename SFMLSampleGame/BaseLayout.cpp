@@ -112,3 +112,9 @@ void BaseLayout::SetGuiElementsForCurrentState(vector<shared_ptr<IGuiElement>> V
 {
 	GuiElemtnsForCurrentState = V;
 }
+
+void BaseLayout::AddGuiElementToCurrentState(shared_ptr<IGuiElement> E)
+
+{
+	GuiElemtnsForCurrentState.push_back(E);
+}

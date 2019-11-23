@@ -11,14 +11,15 @@
 PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<GameState>> currentManager)
 	:BaseStateManager(window, currentManager),
 	StateHandler(make_shared<StateOperator<MatchState>>()),
-	UserHandCards(make_shared<vector<shared_ptr<IGuiElement>>>())
+	UserHandCards(make_shared<vector<shared_ptr<IGuiElement>>>()),
+	EnemyHandCards(make_shared<vector<shared_ptr<IGuiElement>>>())
 {
 	auto changeInternalState = [this](MatchState state) //callback func
 	{
 		StateHandler->SetNewState(state);
 		StateSwitch();
 		playLayout->SetGuiElementsForCurrentState(vector<shared_ptr<IGuiElement>>());
-
+		this->getManager()->initialize();
 	};
 
 	auto ingameCallback = make_shared<IngameCallback>(changeInternalState);
@@ -36,6 +37,13 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 		(*UserHandCards)[i]->SetPadding(10);
 	}
 
+	for (int i = 0; i < 7; ++i)
+	{
+		auto card = factory.CreateCard(generate.GenerateRandomCardNameEnum());
+		EnemyHandCards->push_back(card);
+		(*EnemyHandCards)[i]->SetPadding(10);
+	}
+
 
 	b1->SetPadding(25);
 	b2->SetPadding(25);
@@ -45,7 +53,7 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	playLayout = make_shared<PlayLayout>(window, UserHandCards, CurrentManager);
 		
 	ShuffleManager = make_shared<ShuffleStateManager>(Window, StateHandler, playLayout, UserHandCards, ingameCallback);
-	IngameManager = make_shared<IngameStateManager>(Window, StateHandler, playLayout, UserHandCards);
+	IngameManager = make_shared<IngameStateManager>(Window, StateHandler, playLayout, UserHandCards, EnemyHandCards, changeInternalState);
 	EndgameManager = make_shared<EndgameStateManager>(Window, StateHandler, playLayout);
 
 	vector<shared_ptr<IGuiElement>> V;
@@ -100,6 +108,7 @@ void PlayStateManager::StateSwitch()
 	switch (StateHandler->GetCurrentState())
 	{
 	case MatchState::Shuffle:
+
 		CurrentManager = ShuffleManager;
 		break;
 	case MatchState::Ingame:

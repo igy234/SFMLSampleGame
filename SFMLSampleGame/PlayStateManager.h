@@ -17,7 +17,7 @@ private:
 	shared_ptr<EndgameStateManager> EndgameManager;
 	shared_ptr<IStateManager> CurrentManager;
 	shared_ptr<vector<shared_ptr<IGuiElement>>> UserHandCards; //vector holding cards in user's hand
-	vector<shared_ptr<IGuiElement>> EnemyHandCards; //vector holding cards in AI's hand
+	shared_ptr<vector<shared_ptr<IGuiElement>>> EnemyHandCards; //vector holding cards in AI's hand
 	shared_ptr<vector<shared_ptr<IGuiElement>>> FirstUserBattleField;
 	shared_ptr<vector<shared_ptr<IGuiElement>>> SecondUserBattleField;
 public:
@@ -29,5 +29,9 @@ public:
 	// creation of buttons with appropriate callbacks and assigning them to vector of gui elements and to map with named strings
 	PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<GameState>> currentManager);
 	~PlayStateManager();
+
+
+
+	shared_ptr<IStateManager> getManager() { return CurrentManager; }
 };
 

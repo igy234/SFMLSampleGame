@@ -17,7 +17,7 @@ protected:
 	PreviewCard CardPreview; //holding  object of PreviewCard class responsible for managing card preview
 	vector<RectangleObject> UiLines; //vecotr of rectangles creating UI lines
 	shared_ptr<vector<shared_ptr<IGuiElement>>> UserHandCards; //vector holding cards in user's hand
-	vector<shared_ptr<IGuiElement>> TurnAndCardsInformationRectangles; //vector holding rectangles with information about how many cards does an AI has and who's turn is durring match
+	//vector<shared_ptr<IGuiElement>> TurnAndCardsInformationRectangles; //vector holding rectangles with information about how many cards does an AI has and who's turn is durring match
 	shared_ptr<IStateManager>& CurrentManager;
 public:
 	//method drawing all gui elements

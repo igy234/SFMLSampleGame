@@ -143,6 +143,15 @@
     <ClInclude Include="EnumBattlefield.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IOpponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Opponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShuffleCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -239,6 +248,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IngameCallback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Opponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShuffleCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include "PlayLayout.h"
 #include"ICardOperator.h"
 #include "BaseCard.h"
+
 class ShuffleStateManager :	public BaseStateManager, public ICardOperator
 {
 	shared_ptr<ICallback> ingameCallback;
@@ -18,9 +19,9 @@ public:
 	~ShuffleStateManager();
 	virtual void HandleMouseEvent(const Event& evnt) override;
 	virtual void HandleEvent(const Event& evnt) override;
-	void HandleExchangeCardsInformation(); //nothing yet
 
 	void PerformCardOperation(shared_ptr<IGuiElement> card, Mouse::Button click) override;
 	virtual void WhichBattlefield(BattleField battlfield) override {};
+	virtual void initialize() override;
 };
 

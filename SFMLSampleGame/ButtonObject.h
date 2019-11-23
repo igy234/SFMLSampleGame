@@ -19,8 +19,9 @@ public:
 	virtual void Draw(shared_ptr<RenderWindow> window) override; // drawing components of object and text label
 	Text& GetText(); 
 public:
+	void SetSpecialBackgroundColor(Color color);
 	//setting label, convex and text centered in rectangle 
-	ButtonObject(string label, int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback = nullptr);
+	ButtonObject(string label, int positionX, int positionY, float objectWidth, float objectHeight, shared_ptr<ICallback> callback = nullptr, int opacity = 50);
 	~ButtonObject();
 };
 

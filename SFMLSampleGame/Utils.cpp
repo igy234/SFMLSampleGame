@@ -9,3 +9,12 @@ tuple<int, int, int, int> CalcualteStartingPoint(int windowX, int windowY, EnumS
 	int FieldY = static_cast<int>(row) * HeightFactor; //starting point of field is basically number of field times fields size
 	return tuple<int, int, int, int>(FieldX, FieldY, WidthFactor, HeightFactor); 
 }
+
+int getRand(int n)
+{
+	if (n == 0)
+		return 0;
+	srand(time(NULL));
+	int Number = (rand() % n);
+	return Number;
+}

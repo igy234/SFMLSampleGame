@@ -18,6 +18,7 @@ public:
 	virtual void ObtainVector(vector<shared_ptr<IGuiElement>> V) override; // obtains vector of gui elements
 	virtual void HandleMouseEvent(const Event& evnt) override; //handling mouse movement (highlighting gui elements and calling callbacks for state managers)
 	virtual void SetGuiElementsForCurrentState(vector<shared_ptr<IGuiElement>> V) override;
+	virtual void AddGuiElementToCurrentState(shared_ptr<IGuiElement> E) override;
 	~BaseLayout();
 };
 

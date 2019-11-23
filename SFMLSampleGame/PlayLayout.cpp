@@ -7,6 +7,7 @@
 #include "BaseCard.h"
 #include "CardFactory.h"
 #include "ICardOperator.h"
+#include "Opponent.h"
 
 PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards, shared_ptr<IStateManager>& currentManager) //vector holding cards in user's hand)
 	:BaseLayout(window),	
@@ -34,20 +35,6 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared
 	UiLines.push_back(BackDrop);
 	
 
-
-	/*for (int i = 0; i <7; ++i)
-	{
-		auto card = factory.CreateCard(shuffle.GenerateRandomCardNameEnum());
-		UserHandCards.push_back(card);
-		UserHandCards[i]->SetPadding(10);
-	}*/
-
-	/*for (int i = 0; i < 7; ++i)
-	{
-		EnemyHandCards.push_back(make_shared<BaseCard>(0, 0, 163, 185));
-		EnemyHandCards[i]->SetPadding(10);
-	}*/
-
 	RowMaker rowMakerUserHandCards(window->getSize().x, window->getSize().y, EnumScreenFields::FieldTwo, EnumScreenFields::FieldNine);
 	rowMakerUserHandCards.SetStarterWidthPadding(10);
 	rowMakerUserHandCards.SetStarterHeightPadding(4);
@@ -55,23 +42,6 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared
 
 	//region information rectangles
 	#pragma region InfoRectangles
-	int i = 10;
-	shared_ptr<RectangleObject> EnemyCardsCounter = make_shared<RectangleObject>(0, 0, 260, 60, Color(255, 0, 0, 50), "Enemy has " + to_string(i) + " cards");
-	EnemyCardsCounter->SetPadding(10);
-	EnemyCardsCounter->setOutlineThickness(Thickness);
-	TurnAndCardsInformationRectangles.push_back(EnemyCardsCounter);
-
-
-	string s = "your";
-	string s2 = "Enemy's";
-	shared_ptr<RectangleObject> TurnDisplayer = make_shared<RectangleObject>(0, 0, 230, 60, Color(255, 0, 0, 50), s +" turn");
-	TurnDisplayer->SetPadding(10);
-	TurnDisplayer->setOutlineThickness(Thickness);
-	TurnAndCardsInformationRectangles.push_back(TurnDisplayer);
-	
-	ColumnMaker columnMakerTurnAndCards(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldTen, EnumScreenFields::FieldOne);
-	columnMakerTurnAndCards.SetStarterHeightPadding(30);
-	columnMakerTurnAndCards.OrganizePosition(TurnAndCardsInformationRectangles);
 	
 	
 #pragma endregion InfoRectangles 
@@ -150,10 +120,10 @@ void PlayLayout::Show()
 		element->Draw(Window);
 	}
 
-	for (auto element : TurnAndCardsInformationRectangles)
+	/*for (auto element : TurnAndCardsInformationRectangles)
 	{
 		element->Draw(Window);
-	}
+	}*/
 	
 	for (auto element : *UserHandCards)
 	{

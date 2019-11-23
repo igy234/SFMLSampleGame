@@ -191,12 +191,14 @@
     <ClInclude Include="ILayout.h" />
     <ClInclude Include="IngameCallback.h" />
     <ClInclude Include="IngameStateManager.h" />
+    <ClInclude Include="IOpponent.h" />
     <ClInclude Include="IStateManager.h" />
     <ClInclude Include="IStateOperator.h" />
     <ClInclude Include="BaseLayout.h" />
     <ClInclude Include="MenuCallback.h" />
     <ClInclude Include="MenuLayout.h" />
     <ClInclude Include="MenuStateManager.h" />
+    <ClInclude Include="Opponent.h" />
     <ClInclude Include="PlayCallback.h" />
     <ClInclude Include="PlayLayout.h" />
     <ClInclude Include="PlayStateManager.h" />
@@ -204,6 +206,7 @@
     <ClInclude Include="RectangleObject.h" />
     <ClInclude Include="RowMaker.h" />
     <ClInclude Include="GenerateCards.h" />
+    <ClInclude Include="ShuffleCallback.h" />
     <ClInclude Include="ShuffleStateManager.h" />
     <ClInclude Include="StateOperator.h" />
     <ClInclude Include="stdafx.h" />
@@ -231,6 +234,7 @@
     <ClCompile Include="MenuCallback.cpp" />
     <ClCompile Include="MenuLayout.cpp" />
     <ClCompile Include="MenuStateManager.cpp" />
+    <ClCompile Include="Opponent.cpp" />
     <ClCompile Include="PlayCallback.cpp" />
     <ClCompile Include="PlayLayout.cpp" />
     <ClCompile Include="PlayStateManager.cpp" />
@@ -239,6 +243,7 @@
     <ClCompile Include="RowMaker.cpp" />
     <ClCompile Include="SFMLSampleGame.cpp" />
     <ClCompile Include="GenerateCards.cpp" />
+    <ClCompile Include="ShuffleCallback.cpp" />
     <ClCompile Include="ShuffleStateManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
