@@ -65,7 +65,7 @@ void ShuffleStateManager::PerformCardOperation(shared_ptr<IGuiElement> card, Mou
 		shared_ptr<IGuiElement> newCard;
 
 		newCard = factory.CreateCard(generate.GenerateRandomCardNameEnum());
-
+		newCard->SetPadding(10);
 		newCard->SetPositionX(card->GetPositionX());
 		newCard->SetPositionY(card->GetPositionY());
 

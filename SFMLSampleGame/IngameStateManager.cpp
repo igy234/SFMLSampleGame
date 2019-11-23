@@ -9,7 +9,9 @@ IngameStateManager::IngameStateManager(shared_ptr<RenderWindow> window, shared_p
 	UserHandCards(userHandCards),
 	Layout(playLayout),
 	LowerUserBattleField(make_shared<vector<shared_ptr<IGuiElement>>>()),
-	UpperUserBattleField(make_shared<vector<shared_ptr<IGuiElement>>>())
+	UpperUserBattleField(make_shared<vector<shared_ptr<IGuiElement>>>()),
+	LowerEnemyBattleField(make_shared<vector<shared_ptr<IGuiElement>>>()),
+	UpperEnemyBattleField(make_shared<vector<shared_ptr<IGuiElement>>>())
 {
 
 	UserPointsRec = make_shared<RectangleObject>(0, 0, 150, 100, Color(255, 0, 0, 50), "99");
@@ -50,23 +52,16 @@ void IngameStateManager::PerformCardOperation(shared_ptr<IGuiElement> card, Mous
 	}
 }
 
-void IngameStateManager::WhichBattlefield(BattleField battlfield)
+void IngameStateManager::WhichBattlefield(BattleField battlefield)
 {
 	if (CurrentSelectedCard!=nullptr)
 	{
 		auto it = find(UserHandCards->begin(), UserHandCards->end(), CurrentSelectedCard);
 		UserHandCards->erase(it);
 
-		switch (battlfield)
-		{
-		case BattleField::Lower:
-			LowerUserBattleField->push_back(CurrentSelectedCard);
+		PlayCard(battlefield);
 
-			break;
-		case BattleField::Upper:
-			UpperUserBattleField->push_back(CurrentSelectedCard);
-			break;
-		}
+		
 		OrganizeCards();
 	}
 }
@@ -107,4 +102,10 @@ void IngameStateManager::OrganizeCards()
 	ColumnMaker columnMakerSumOfPoints(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldOne, EnumScreenFields::FieldThree);
 	columnMakerSumOfPoints.OrganizePosition({ EnemyPointsRec, UserPointsRec });
 	Layout->SetGuiElementsForCurrentState(vect);
+}
+
+void IngameStateManager::PlayCard(BattleField battlefield)
+{
+	auto card = static_pointer_cast<BaseCard>(CurrentSelectedCard);
+	card->GetModel()->CardSpecialAbility(CurrentSelectedCard, battlefield, UserHandCards, LowerUserBattleField, UpperUserBattleField, LowerEnemyBattleField, UpperEnemyBattleField);
 }

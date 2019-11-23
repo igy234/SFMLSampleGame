@@ -1,5 +1,6 @@
 #pragma once
 #include "ICardModel.h"
+
 class BaseCardModel :public ICardModel
 {
 private: 
@@ -12,6 +13,26 @@ public:
 	virtual void SetName(string name) override;
 	BaseCardModel(int strength, string name);
 	~BaseCardModel();
+	virtual void CardSpecialAbility(
+		shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards
+	) override 	{
+		switch (battlefield)
+		{
+		case BattleField::Lower:
+			userLowerBattlefieldCards->push_back(card);
+
+			break;
+		case BattleField::Upper:
+			userUpperBattlefieldCards->push_back(card);
+			break;
+		}
+	};
 
 };
 

@@ -8,7 +8,7 @@ class BaseGuiElement : public IGuiElement
 {
 protected:
 	int PositionX, PositionY; 
-	float ObjectWidth, ObjectHeight, Padding;
+	float ObjectWidth, ObjectHeight, Padding=0;
 	bool Visible = true;
 	shared_ptr<ICallback> Callback = nullptr;  // Callbacks for state managers, at the beggining set to nullptr
 	bool IsHighlighted=false; //at the begining none of the objects is highlighted 

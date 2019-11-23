@@ -4,11 +4,6 @@
 
 GenerateCards::GenerateCards()
 {
-	//struct timespec ts;
-	//std::clock_gettime(CLOCK_MONOTONIC, &ts);
-
-	///* using nano-seconds instead of seconds */
-	//srand((time_t)ts.tv_nsec);
 }
 
 

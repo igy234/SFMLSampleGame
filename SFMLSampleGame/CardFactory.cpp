@@ -16,6 +16,7 @@ shared_ptr<BaseCard> CardFactory::CreateCard(EnumCardName cardName)
 
 	auto CardName = EnumCardNameToModel(cardName);
 	auto card = make_shared<BaseCard>(CardName);
+	//card->SetPadding(0);
 	return card;
 }
 

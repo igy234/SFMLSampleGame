@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CardModels.h"
-
+#include "BaseCard.h"
 
 LoremIpsumModel::LoremIpsumModel()
 	: BaseCardModel(4, "Lorem Ipsum") 
@@ -10,6 +10,42 @@ LoremIpsumModel::LoremIpsumModel()
 
 LoremIpsumModel::~LoremIpsumModel()
 {
+}
+
+void IceQueenModel::CardSpecialAbility(
+	shared_ptr<IGuiElement> card,
+	BattleField battlefield,
+	ICardModel::CardsVector & userHandCards,
+	ICardModel::CardsVector & userLowerBattlefieldCards,
+	ICardModel::CardsVector & userUpperBattlefieldCards,
+	ICardModel::CardsVector & enemyLowerBattlefieldCards,
+	ICardModel::CardsVector & enemyUpperBattlefieldCards)
+{
+	ICardModel::CardsVector cardsVector = make_shared<vector<shared_ptr<IGuiElement>>>();
+	auto nix = make_shared<BaseCard>(make_shared<NixModel>());
+	nix->SetPadding(10);
+	auto nix2 = make_shared<BaseCard>(make_shared<NixModel>());
+	nix2->SetPadding(10);
+	card->SetPadding(10);
+	cout <<"padding ice queena,nix1,nix2 to"<< card->GetPadding() <<" " <<nix->GetPadding() << " "<< nix2->GetPadding() << endl;
+	cardsVector->push_back(nix);
+	cardsVector->push_back(card);
+	cardsVector->push_back(nix2);
+	
+	switch (battlefield)
+	{
+	case BattleField::Lower:
+		userLowerBattlefieldCards->insert(userLowerBattlefieldCards->end(), cardsVector->begin(), cardsVector->end());
+		break;
+
+	case BattleField::Upper:
+		userUpperBattlefieldCards->insert(userUpperBattlefieldCards->end(), cardsVector->begin(), cardsVector->end());
+		break;
+
+	}
+
+	//make_shared<NixModel>();
+	//make_shared<NixModel>();
 }
 
 IceQueenModel::IceQueenModel()

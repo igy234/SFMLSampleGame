@@ -1,11 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "BaseCard.h"
-enum class BattleField
-{
-	Lower,
-	Upper
-};
+#include "EnumBattlefield.h"
 class ICardOperator
 {
 public: 

@@ -11,6 +11,15 @@ public:
 class IceQueenModel : public BaseCardModel
 {
 public:
+	virtual void CardSpecialAbility(
+		shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards
+	) override;
 	IceQueenModel();
 	~IceQueenModel();
 };

@@ -140,6 +140,9 @@
     <ClInclude Include="IngameCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EnumBattlefield.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -238,8 +241,5 @@
     <ClCompile Include="IngameCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

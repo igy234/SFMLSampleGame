@@ -10,7 +10,7 @@ class ShuffleStateManager :	public BaseStateManager, public ICardOperator
 	shared_ptr<vector<shared_ptr<IGuiElement>>> UserHandCards; //vector holding cards in user's hand
 	shared_ptr<RectangleObject> ExchangeCardsInfo;
 	shared_ptr<ButtonObject> b3;
-	int ExchangeCount=5;
+	int ExchangeCount=100;
 public:
 	virtual void DrawWindowContents() override;
 	ShuffleStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<MatchState>> currentManager, shared_ptr<PlayLayout> playLayout, 

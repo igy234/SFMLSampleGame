@@ -10,7 +10,7 @@ DeckStateManager::DeckStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	deckLayout(window)
 {
 	shared_ptr<ButtonObject> b1 = make_shared<ButtonObject>("Play", 0, 0, 200, 50, make_shared<PlayCallback>(currentManager)); // taki nowy konstruktor
-	shared_ptr<ButtonObject> b2 = make_shared<ButtonObject>("Deck", 0, 0, 200, 50, make_shared<MenuCallback>(currentManager));
+	shared_ptr<ButtonObject> b2 = make_shared<ButtonObject>("Menu", 0, 0, 200, 50, make_shared<MenuCallback>(currentManager));
 	shared_ptr<ButtonObject> b3 = make_shared<ButtonObject>("Quit", 0, 0, 200, 50, make_shared<CloseWindowCallback>(Window));
 	b1->SetPadding(25);
 	b2->SetPadding(25);
