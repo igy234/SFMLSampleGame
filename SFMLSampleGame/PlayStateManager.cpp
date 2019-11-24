@@ -30,7 +30,7 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	ColumnMaker columnMaker(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldTen, EnumScreenFields::FieldNine);
 	columnMaker.OrganizePosition({ b1 });
 
-	RoundsRectangle = make_shared<RectangleObject>(0, 0, 600, 60, Color(255, 0, 0, 50), "Won rounds: 0   Lost Rounds:0   Total: 0/0");
+	RoundsRectangle = make_shared<RectangleObject>(0, 0, 600, 60, Color(255, 0, 0, 50), "Won rounds: 0 Lost Rounds: 0 Win Ratio: 0/0");
 	RoundsRectangle->setOutlineThickness(2);
 	ColumnMaker columnMakerRounds(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldFive, EnumScreenFields::FieldEleven);
 	columnMakerRounds.SetStarterHeightPadding(30);
@@ -55,7 +55,7 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	playLayout = make_shared<PlayLayout>(window, UserHandCards, CurrentManager);
 		
 	ShuffleManager = make_shared<ShuffleStateManager>(Window, StateHandler, playLayout, UserHandCards, ingameCallback);
-	IngameManager = make_shared<IngameStateManager>(Window, StateHandler, playLayout, UserHandCards, EnemyHandCards, changeInternalState);
+	IngameManager = make_shared<IngameStateManager>(Window, StateHandler, playLayout, UserHandCards, EnemyHandCards, changeInternalState, RoundsRectangle);
 	EndgameManager = make_shared<EndgameStateManager>(Window, StateHandler, playLayout);
 
 	vector<shared_ptr<IGuiElement>> V;

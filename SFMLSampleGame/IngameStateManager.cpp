@@ -12,7 +12,7 @@
 
 IngameStateManager::IngameStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<MatchState>> currentManager,
 	shared_ptr<PlayLayout> playLayout, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards,
-	shared_ptr<vector<shared_ptr<IGuiElement>>> enemyHandCards, function<void(MatchState)> callbackFunction)
+	shared_ptr<vector<shared_ptr<IGuiElement>>> enemyHandCards, function<void(MatchState)> callbackFunction, shared_ptr<RectangleObject> roundsRectangle)
 	:BaseStateManager(window, currentManager),
 	UserHandCards(userHandCards),
 	EnemyHandCards(enemyHandCards),
@@ -21,12 +21,13 @@ IngameStateManager::IngameStateManager(shared_ptr<RenderWindow> window, shared_p
 	UpperUserBattleField(make_shared<vector<shared_ptr<IGuiElement>>>()),
 	LowerEnemyBattleField(make_shared<vector<shared_ptr<IGuiElement>>>()),
 	UpperEnemyBattleField(make_shared<vector<shared_ptr<IGuiElement>>>()),
-	shuffleCallback(callbackFunction)
+	shuffleCallback(callbackFunction),
+	RoundsRectangle(roundsRectangle)
 {
 
 	UserPointsRec = make_shared<RectangleObject>(0, 0, 100, 70, Color(255, 0, 0, 50), "99");
 	EnemyPointsRec = make_shared<RectangleObject>(0, 0, 100, 70, Color(255, 0, 0, 50), "88");
-	UserPointsRec->SetPadding(290);
+	UserPointsRec->SetPadding(320);
 	EnemyPointsRec->SetPadding(0);
 	UserPointsRec->setOutlineThickness(2);
 	EnemyPointsRec->setOutlineThickness(2);
@@ -99,8 +100,8 @@ void IngameStateManager::WhichBattlefield(BattleField battlefield)
 
 void IngameStateManager::OrganizeCards()
 {
-	int UserSumOfPoints = 0;
-	int EnemySumOfPoints = 0;
+	UserSumOfPoints = 0;
+	EnemySumOfPoints = 0;
 	UserSumOfPoints += CalculateSumOfPoints(LowerUserBattleField);
 	UserSumOfPoints += CalculateSumOfPoints(UpperUserBattleField);
 	EnemySumOfPoints += CalculateSumOfPoints(LowerEnemyBattleField);
@@ -146,6 +147,17 @@ void IngameStateManager::initialize()
 	OrganizeCards();
 }
 
+void IngameStateManager::ResetRoundsScore()
+{
+	RoundsLost = 0;
+	RoundsWon = 0;
+}
+
+void IngameStateManager::UpdateRoundsRectangleText()
+{
+	RoundsRectangle->SetText("Won rounds: " + to_string(RoundsWon) + " Lost Rounds: " + to_string(RoundsLost) + " Win Ratio: " + to_string(RoundsWon) + "/" + to_string(RoundsLost + RoundsWon));
+}
+
 bool IngameStateManager::PlayCard(BattleField battlefield)
 {
 	
@@ -159,16 +171,47 @@ bool IngameStateManager::PlayCard(BattleField battlefield)
 	if (!opponent->GetNumberOfCards() && !UserHandCards->size())
 	{
 		//shuffleCallback(MatchState::Shuffle);
-		auto finishRound = [this]()
+		if (UserSumOfPoints > EnemySumOfPoints)
+			RoundsWon++;
+		else if(UserSumOfPoints == EnemySumOfPoints)
 		{
-			InitNewRound();
-			shuffleCallback(MatchState::Shuffle);
-		};
+			RoundsLost++;
+			RoundsWon++;
+		}
+		else
+			RoundsLost++;
 
-		shared_ptr<ButtonObject> NextRoundButton = make_shared<ButtonObject>("Next round", 800, 500, 200, 50, make_shared<ShuffleCallback>(finishRound), 200);
-		NextRoundButton->SetSpecialBackgroundColor(Color(80, 33, 40));
-		Layout->AddGuiElementToCurrentState(NextRoundButton);
-		// runda ++
+		UpdateRoundsRectangleText();
+
+		if (RoundsLost + RoundsWon >= 3)
+		{
+			auto finishRound = [this]()
+			{
+				InitNewRound();
+				ResetRoundsScore();
+				UpdateRoundsRectangleText();
+				shuffleCallback(MatchState::Shuffle);
+			};
+
+			shared_ptr<ButtonObject> NextRoundButton = make_shared<ButtonObject>("Reset", 800, 500, 200, 50, make_shared<ShuffleCallback>(finishRound), 200);
+			NextRoundButton->SetSpecialBackgroundColor(Color(80, 33, 40));
+			Layout->AddGuiElementToCurrentState(NextRoundButton);
+			// runda ++
+		}
+		else
+		{
+			auto finishRound = [this]()
+			{
+				InitNewRound();
+				shuffleCallback(MatchState::Shuffle);
+			};
+
+			shared_ptr<ButtonObject> NextRoundButton = make_shared<ButtonObject>("Next Round", 800, 500, 200, 50, make_shared<ShuffleCallback>(finishRound), 200);
+			NextRoundButton->SetSpecialBackgroundColor(Color(80, 33, 40));
+			Layout->AddGuiElementToCurrentState(NextRoundButton);
+			// runda ++
+		}
+			
 		return true;
 	}
 

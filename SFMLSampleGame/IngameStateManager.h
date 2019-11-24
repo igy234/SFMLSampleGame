@@ -9,6 +9,10 @@
 
 class IngameStateManager : public BaseStateManager, public ICardOperator
 {
+	int UserSumOfPoints = 0;
+	int EnemySumOfPoints = 0;
+	int RoundsLost = 0;
+	int RoundsWon = 0;
 	bool IsPlayerTurn;
 	function<void(MatchState)> shuffleCallback;
 	shared_ptr<IOpponent> opponent;
@@ -22,6 +26,7 @@ class IngameStateManager : public BaseStateManager, public ICardOperator
 	shared_ptr<vector<shared_ptr<IGuiElement>>> UpperEnemyBattleField;
 	shared_ptr<RectangleObject> UserPointsRec;
 	shared_ptr<RectangleObject> EnemyPointsRec;
+	shared_ptr<RectangleObject> RoundsRectangle;
 
 	shared_ptr<RectangleObject> EnemyCardsCounter;
 	shared_ptr<RectangleObject> TurnDisplayer;
@@ -36,7 +41,8 @@ public:
 		shared_ptr<IStateOperator<MatchState>> currentManager,
 		shared_ptr<PlayLayout> playLayout,
 		shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards,
-		shared_ptr<vector<shared_ptr<IGuiElement>>> enemyHandCards, function<void(MatchState)> callbackFunction);
+		shared_ptr<vector<shared_ptr<IGuiElement>>> enemyHandCards, function<void(MatchState)> callbackFunction,
+		shared_ptr<RectangleObject> roundsRectangle);
 
 	~IngameStateManager();
 	virtual void HandleMouseEvent(const Event& evnt) override;
@@ -48,5 +54,8 @@ public:
 	void OrganizeCards();
 
 	virtual void initialize() override;
+
+	void ResetRoundsScore();
+	void UpdateRoundsRectangleText();
 };
 
