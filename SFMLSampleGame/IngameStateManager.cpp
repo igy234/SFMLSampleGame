@@ -39,7 +39,7 @@ IngameStateManager::IngameStateManager(shared_ptr<RenderWindow> window, shared_p
 	TurnDisplayer->setOutlineThickness(2);
 
 	opponent = make_shared<Opponent>(EnemyHandCards, LowerUserBattleField, UpperUserBattleField, LowerEnemyBattleField, UpperEnemyBattleField);
-	IsPlayerTurn = false;// static_cast<bool>(getRand(1));
+	IsPlayerTurn = static_cast<bool>(getRand(1));
 	if (!IsPlayerTurn)
 	{
 		opponent->MakeMove();
@@ -165,6 +165,13 @@ bool IngameStateManager::PlayCard(BattleField battlefield)
 	card->GetModel()->CardSpecialAbility(CurrentSelectedCard, battlefield, UserHandCards, LowerUserBattleField, UpperUserBattleField, LowerEnemyBattleField, UpperEnemyBattleField);
 
 	opponent->MakeMove();
+	if (EnemyHandCards->size() && !UserHandCards->size())
+	{
+		while (EnemyHandCards->size())
+		{
+			opponent->MakeMove();
+		}
+	}
 
 	OrganizeCards();
 
@@ -193,7 +200,7 @@ bool IngameStateManager::PlayCard(BattleField battlefield)
 				shuffleCallback(MatchState::Shuffle);
 			};
 
-			shared_ptr<ButtonObject> NextRoundButton = make_shared<ButtonObject>("Reset", 800, 500, 200, 50, make_shared<ShuffleCallback>(finishRound), 200);
+			shared_ptr<ButtonObject> NextRoundButton = make_shared<ButtonObject>("Restart Game", 800, 500, 220, 50, make_shared<ShuffleCallback>(finishRound), 200);
 			NextRoundButton->SetSpecialBackgroundColor(Color(80, 33, 40));
 			Layout->AddGuiElementToCurrentState(NextRoundButton);
 			// runda ++

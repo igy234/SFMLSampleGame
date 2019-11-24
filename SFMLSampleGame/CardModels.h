@@ -1,6 +1,38 @@
 #pragma once
 #include "stdafx.h"
 #include "BaseCardModel.h"
+
+class DragonCardModel : public BaseCardModel
+{
+public:
+	DragonCardModel(int strength, string name);
+	virtual void CardSpecialAbility(
+		shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards
+	) override;
+};
+
+class ScholarCardModel : public BaseCardModel
+{
+public:
+	ScholarCardModel(int strength, string name);
+	virtual void CardSpecialAbility(
+		shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards
+	) override;
+};
+
+
 class LoremIpsumModel : public BaseCardModel
 {
 public:
@@ -34,6 +66,15 @@ public:
 class BombGoblinModel : public BaseCardModel
 {
 public:
+	virtual void CardSpecialAbility(
+		shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards
+	) override;
 	BombGoblinModel();
 	~BombGoblinModel();
 };
@@ -52,14 +93,14 @@ public:
 	~OctoEyenormousModel();
 };
 
-class Scholar1Model : public BaseCardModel
+class Scholar1Model : public ScholarCardModel
 {
 public:
 	Scholar1Model();
 	~Scholar1Model();
 };
 
-class Scholar2Model : public BaseCardModel
+class Scholar2Model : public ScholarCardModel
 {
 public:
 	Scholar2Model();
@@ -80,21 +121,21 @@ public:
 	~FireMageModel();
 };
 
-class GreenDragonModel : public BaseCardModel
+class GreenDragonModel : public DragonCardModel
 {
 public:
 	GreenDragonModel();
 	~GreenDragonModel();
 };
 
-class YellowDragonModel : public BaseCardModel
+class YellowDragonModel : public DragonCardModel
 {
 public:
 	YellowDragonModel();
 	~YellowDragonModel();
 };
 
-class RedDragonModel : public BaseCardModel
+class RedDragonModel : public DragonCardModel
 {
 public:
 	RedDragonModel();

@@ -30,7 +30,6 @@ void Opponent::MakeMove()
 	HandCards->erase(HandCards->begin() + cardIndex);
 	auto card = static_pointer_cast<BaseCard>(currentSelectedCard);
 	card->GetModel()->CardSpecialAbility(currentSelectedCard, battlefield, HandCards, LowerEnemyBattleField, UpperEnemyBattleField, LowerUserBattleField, UpperUserBattleField);
-
 }
 
 
