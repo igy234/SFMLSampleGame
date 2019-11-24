@@ -24,8 +24,8 @@ IngameStateManager::IngameStateManager(shared_ptr<RenderWindow> window, shared_p
 	shuffleCallback(callbackFunction)
 {
 
-	UserPointsRec = make_shared<RectangleObject>(0, 0, 150, 100, Color(255, 0, 0, 50), "99");
-	EnemyPointsRec = make_shared<RectangleObject>(0, 0, 150, 100, Color(255, 0, 0, 50), "88");
+	UserPointsRec = make_shared<RectangleObject>(0, 0, 100, 70, Color(255, 0, 0, 50), "99");
+	EnemyPointsRec = make_shared<RectangleObject>(0, 0, 100, 70, Color(255, 0, 0, 50), "88");
 	UserPointsRec->SetPadding(290);
 	EnemyPointsRec->SetPadding(0);
 	UserPointsRec->setOutlineThickness(2);

@@ -19,6 +19,7 @@ protected:
 	shared_ptr<vector<shared_ptr<IGuiElement>>> UserHandCards; //vector holding cards in user's hand
 	//vector<shared_ptr<IGuiElement>> TurnAndCardsInformationRectangles; //vector holding rectangles with information about how many cards does an AI has and who's turn is durring match
 	shared_ptr<IStateManager>& CurrentManager;
+	shared_ptr<vector<shared_ptr<IGuiElement>>> DrawOnlyVector;
 public:
 	//method drawing all gui elements
 	void Show() override;
@@ -32,6 +33,6 @@ public:
 	void HandleMouseEvent(const Event& evnt) override;
 
 	void ObtainVector(vector<shared_ptr<IGuiElement>> V) override; //obtaing vector of gui elements and puuting them below each other by using columnmaker
-	
+	shared_ptr<vector<shared_ptr<IGuiElement>>> GetDrawOnlyContents();
 };
 

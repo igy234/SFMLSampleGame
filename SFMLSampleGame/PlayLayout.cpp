@@ -13,7 +13,8 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared
 	:BaseLayout(window),	
 	CardPreview(0,0,0,0),
 	UserHandCards(userHandCards),
-	CurrentManager(currentManager)
+	CurrentManager(currentManager),
+	DrawOnlyVector(make_shared<vector<shared_ptr<IGuiElement>>>())
 {
 
 	int FieldX, FieldY, WidthFactor, HeightFactor, WindowSizeX, WindowSizeY;
@@ -120,10 +121,6 @@ void PlayLayout::Show()
 		element->Draw(Window);
 	}
 
-	/*for (auto element : TurnAndCardsInformationRectangles)
-	{
-		element->Draw(Window);
-	}*/
 	
 	for (auto element : *UserHandCards)
 	{
@@ -134,18 +131,28 @@ void PlayLayout::Show()
 	{
 		element->Draw(Window);
 	}
-	//Window->draw(CardPreviewSprite);
+	
+	for (auto element : *DrawOnlyVector)
+	{
+		element->Draw(Window);
+	}
+	
 	CardPreview.Draw(Window);
+
 }
 
 void PlayLayout::ObtainVector(vector<shared_ptr<IGuiElement>> V)
 {
 	//auto vect = GuiElements;
 	BaseLayout::ObtainVector(V); //saved for later (eventually)
-	ColumnMaker columnMaker(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldTen, EnumScreenFields::FieldNine);
-	columnMaker.OrganizePosition(V);
+
 
 	//GuiElements.insert(GuiElements.end(), vect.begin(), vect.end());
+}
+
+shared_ptr<vector<shared_ptr<IGuiElement>>> PlayLayout::GetDrawOnlyContents()
+{
+	return DrawOnlyVector;
 }
 
 void PlayLayout::HandleMouseEvent(const Event& evnt)

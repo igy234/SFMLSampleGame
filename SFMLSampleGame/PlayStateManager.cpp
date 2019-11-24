@@ -7,6 +7,7 @@
 #include "GenerateCards.h"
 #include "CardFactory.h"
 #include "IngameCallback.h"
+#include "ColumnMaker.h"
 
 PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<IStateOperator<GameState>> currentManager)
 	:BaseStateManager(window, currentManager),
@@ -25,8 +26,15 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	auto ingameCallback = make_shared<IngameCallback>(changeInternalState);
 
 	shared_ptr<ButtonObject> b1 = make_shared<ButtonObject>("Menu", 0, 0, 200, 50, make_shared<MenuCallback>(currentManager));
-	shared_ptr<ButtonObject> b2 = make_shared<ButtonObject>("Pass", 0, 0, 200, 50, make_shared<MenuCallback>(currentManager));
-	
+	b1->SetPadding(25);
+	ColumnMaker columnMaker(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldTen, EnumScreenFields::FieldNine);
+	columnMaker.OrganizePosition({ b1 });
+
+	RoundsRectangle = make_shared<RectangleObject>(0, 0, 600, 60, Color(255, 0, 0, 50), "Won rounds: 0   Lost Rounds:0   Total: 0/0");
+	RoundsRectangle->setOutlineThickness(2);
+	ColumnMaker columnMakerRounds(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldFive, EnumScreenFields::FieldEleven);
+	columnMakerRounds.SetStarterHeightPadding(30);
+	columnMakerRounds.OrganizePosition({ RoundsRectangle });
 
 	GenerateCards generate;
 	CardFactory factory;
@@ -44,12 +52,6 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 		(*EnemyHandCards)[i]->SetPadding(10);
 	}
 
-
-	b1->SetPadding(25);
-	b2->SetPadding(25);
-	//b3->SetPadding(25);
-
-
 	playLayout = make_shared<PlayLayout>(window, UserHandCards, CurrentManager);
 		
 	ShuffleManager = make_shared<ShuffleStateManager>(Window, StateHandler, playLayout, UserHandCards, ingameCallback);
@@ -58,9 +60,9 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 
 	vector<shared_ptr<IGuiElement>> V;
 	V.push_back(b1);
-	V.push_back(b2);
-	//V.push_back(b3);
 	playLayout->ObtainVector(V);
+
+	playLayout->GetDrawOnlyContents()->push_back(RoundsRectangle);
 
 	StateHandler->SetNewState(MatchState::Shuffle); //default state is menu
 	StateSwitch();
