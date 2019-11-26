@@ -20,7 +20,8 @@ public:
 		ICardModel::CardsVector& userLowerBattlefieldCards,
 		ICardModel::CardsVector& userUpperBattlefieldCards,
 		ICardModel::CardsVector& enemyLowerBattlefieldCards,
-		ICardModel::CardsVector& enemyUpperBattlefieldCards
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
 	) override 	{
 		switch (battlefield)
 		{

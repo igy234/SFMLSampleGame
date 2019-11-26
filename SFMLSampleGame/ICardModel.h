@@ -19,7 +19,8 @@ public:
 		CardsVector& userLowerBattlefieldCards,
 		CardsVector& userUpperBattlefieldCards,
 		CardsVector& enemyLowerBattlefieldCards,
-		CardsVector& enemyUpperBattlefieldCards
+		CardsVector& enemyUpperBattlefieldCards, 
+		CardsVector& enemyHandCards
 	) = 0;
 };
 

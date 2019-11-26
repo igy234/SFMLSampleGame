@@ -22,7 +22,8 @@ void IceQueenModel::CardSpecialAbility(
 	ICardModel::CardsVector & userLowerBattlefieldCards,
 	ICardModel::CardsVector & userUpperBattlefieldCards,
 	ICardModel::CardsVector & enemyLowerBattlefieldCards,
-	ICardModel::CardsVector & enemyUpperBattlefieldCards)
+	ICardModel::CardsVector & enemyUpperBattlefieldCards,
+	ICardModel::CardsVector& enemyHandCards)
 {
 	ICardModel::CardsVector cardsVector = make_shared<vector<shared_ptr<IGuiElement>>>();
 	auto nix = make_shared<BaseCard>(make_shared<NixModel>());
@@ -72,7 +73,8 @@ void BombGoblinModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
 	ICardModel::CardsVector & userLowerBattlefieldCards,
 	ICardModel::CardsVector & userUpperBattlefieldCards,
 	ICardModel::CardsVector & enemyLowerBattlefieldCards,
-	ICardModel::CardsVector & enemyUpperBattlefieldCards)
+	ICardModel::CardsVector & enemyUpperBattlefieldCards,
+	ICardModel::CardsVector& enemyHandCards)
 {
 	int lowestStrength = std::numeric_limits<int>::max();
 	vector<shared_ptr<IGuiElement>> vect = *enemyLowerBattlefieldCards;
@@ -80,7 +82,7 @@ void BombGoblinModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
 
 	if (!vect.size()) 
 	{
-		BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards);
+		BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
 		return;
 	}
 	for (auto element : vect)
@@ -124,7 +126,7 @@ void BombGoblinModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
 		}
 
 	}
-	BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards);
+	BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
 	
 }
 
@@ -304,6 +306,29 @@ PikemanModel::~PikemanModel()
 {
 }
 
+void KingModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
+	BattleField battlefield,
+	ICardModel::CardsVector & userHandCards,
+	ICardModel::CardsVector & userLowerBattlefieldCards,
+	ICardModel::CardsVector & userUpperBattlefieldCards,
+	ICardModel::CardsVector & enemyLowerBattlefieldCards,
+	ICardModel::CardsVector & enemyUpperBattlefieldCards,
+	ICardModel::CardsVector& enemyHandCards)
+{
+	//TRZEBA DODAÆ ENEMY HAND CARDSS ALBO ZROBIÆ COŒ INNEGO!!!
+	if (!enemyHandCards->size())
+	{
+		BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
+		return;
+	}
+	else
+	{
+		int it = getRand(static_cast<int>(enemyHandCards->size()));
+		enemyHandCards->erase(enemyHandCards->begin() + it);
+		BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
+	}
+}
+
 KingModel::KingModel()
 	: BaseCardModel(4, "King")
 {
@@ -314,7 +339,7 @@ KingModel::~KingModel()
 }
 
 BloodyBlueModel::BloodyBlueModel()
-	: BaseCardModel(8, "Bloody Blue")
+	: DemonLordAndBloodyBlueModel(8, "Bloody Blue")
 {
 }
 
@@ -332,7 +357,7 @@ AdventurerModel::~AdventurerModel()
 }
 
 DemonLordModel::DemonLordModel()
-	: BaseCardModel(8, "Demon Lord")
+	: DemonLordAndBloodyBlueModel(8, "Demon Lord")
 {
 }
 
@@ -345,9 +370,15 @@ DragonCardModel::DragonCardModel(int strength, string name)
 
 }
 
-void DragonCardModel::CardSpecialAbility(shared_ptr<IGuiElement> card, BattleField battlefield, ICardModel::CardsVector & userHandCards, ICardModel::CardsVector & userLowerBattlefieldCards, ICardModel::CardsVector & userUpperBattlefieldCards, ICardModel::CardsVector & enemyLowerBattlefieldCards, ICardModel::CardsVector & enemyUpperBattlefieldCards)
+void DragonCardModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
+	BattleField battlefield, ICardModel::CardsVector & userHandCards,
+	ICardModel::CardsVector & userLowerBattlefieldCards,
+	ICardModel::CardsVector & userUpperBattlefieldCards,
+	ICardModel::CardsVector & enemyLowerBattlefieldCards,
+	ICardModel::CardsVector & enemyUpperBattlefieldCards, 
+	ICardModel::CardsVector& enemyHandCards)
 {
-	BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards);
+	BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
 	vector<shared_ptr<IGuiElement>> vect = *userLowerBattlefieldCards;
 	vect.insert(vect.begin(), userUpperBattlefieldCards->begin(), userUpperBattlefieldCards->end());
 	int yellowDragonCounter = 0;
@@ -401,16 +432,110 @@ ScholarCardModel::ScholarCardModel(int strength, string name)
 {
 }
 
-void ScholarCardModel::CardSpecialAbility(shared_ptr<IGuiElement> card, BattleField battlefield, ICardModel::CardsVector & userHandCards, ICardModel::CardsVector & userLowerBattlefieldCards, ICardModel::CardsVector & userUpperBattlefieldCards, ICardModel::CardsVector & enemyLowerBattlefieldCards, ICardModel::CardsVector & enemyUpperBattlefieldCards)
+void ScholarCardModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
+	BattleField battlefield, ICardModel::CardsVector & userHandCards,
+	ICardModel::CardsVector & userLowerBattlefieldCards
+	, ICardModel::CardsVector & userUpperBattlefieldCards,
+	ICardModel::CardsVector & enemyLowerBattlefieldCards,
+	ICardModel::CardsVector & enemyUpperBattlefieldCards,
+	ICardModel::CardsVector& enemyHandCards)
 {
 	GenerateCards generate;
 	CardFactory factory;
 	shared_ptr<IGuiElement> newCard;
 
-	BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards);
+	BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
 	newCard = factory.CreateCard(generate.GenerateRandomCardNameEnum());
 	newCard->SetPadding(10);
 	newCard->SetPositionX(card->GetPositionX());
 	newCard->SetPositionY(card->GetPositionY());
 	userHandCards->push_back(newCard);
+}
+
+DemonLordAndBloodyBlueModel::DemonLordAndBloodyBlueModel(int strength, string name)
+	:BaseCardModel(strength, name)
+{
+
+}
+
+void DemonLordAndBloodyBlueModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
+	BattleField battlefield,
+	ICardModel::CardsVector & userHandCards,
+	ICardModel::CardsVector & userLowerBattlefieldCards,
+	ICardModel::CardsVector & userUpperBattlefieldCards,
+	ICardModel::CardsVector & enemyLowerBattlefieldCards,
+	ICardModel::CardsVector & enemyUpperBattlefieldCards, 
+	ICardModel::CardsVector& enemyHandCards)
+{
+	int highestStrength = 0;
+	vector<shared_ptr<IGuiElement>> vect = *enemyLowerBattlefieldCards;
+	vect.insert(vect.begin(), enemyUpperBattlefieldCards->begin(), enemyUpperBattlefieldCards->end());
+	vect.insert(vect.begin(), userLowerBattlefieldCards->begin(), userLowerBattlefieldCards->end());
+	vect.insert(vect.begin(), userUpperBattlefieldCards->begin(), userUpperBattlefieldCards->end());
+
+	if (!vect.size())
+	{
+		BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
+		return;
+	}
+	for (auto element : vect)
+	{
+		auto card = static_pointer_cast<BaseCard>(element);
+		if (card->GetModel()->GetStrength() > highestStrength)
+		{
+			highestStrength = card->GetModel()->GetStrength();
+		}
+	}
+
+	vector<shared_ptr<IGuiElement>> StrongestCards;
+
+	for (auto element : vect)
+	{
+		auto card = static_pointer_cast<BaseCard>(element);
+		if (card->GetModel()->GetStrength() == highestStrength)
+		{
+			StrongestCards.push_back(card);
+		}
+	}
+
+	for (auto element : StrongestCards)
+	{
+		auto it = find(enemyLowerBattlefieldCards->begin(), enemyLowerBattlefieldCards->end(), element);
+		if (it != enemyLowerBattlefieldCards->end())
+		{
+			enemyLowerBattlefieldCards->erase(it);
+		}
+		else
+		{
+			auto it = find(enemyUpperBattlefieldCards->begin(), enemyUpperBattlefieldCards->end(), element);
+			if (it != enemyUpperBattlefieldCards->end())
+			{
+				enemyUpperBattlefieldCards->erase(it);
+			}
+			else
+			{
+				auto it = find(userLowerBattlefieldCards->begin(), userLowerBattlefieldCards->end(), element);
+				if (it != userLowerBattlefieldCards->end())
+				{
+					userLowerBattlefieldCards->erase(it);
+				}
+				else
+				{
+					auto it = find(userUpperBattlefieldCards->begin(), userUpperBattlefieldCards->end(), element);
+
+					if (it != userUpperBattlefieldCards->end())
+					{
+						userUpperBattlefieldCards->erase(it);
+					}
+					else
+					{
+						cerr << "DEMON LORD OR BLOODY BLUE CAUSED ERROR";
+					}
+				}
+			}
+		}
+
+	}
+	BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
+
 }

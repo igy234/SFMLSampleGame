@@ -13,7 +13,8 @@ public:
 		ICardModel::CardsVector& userLowerBattlefieldCards,
 		ICardModel::CardsVector& userUpperBattlefieldCards,
 		ICardModel::CardsVector& enemyLowerBattlefieldCards,
-		ICardModel::CardsVector& enemyUpperBattlefieldCards
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
 	) override;
 };
 
@@ -28,10 +29,26 @@ public:
 		ICardModel::CardsVector& userLowerBattlefieldCards,
 		ICardModel::CardsVector& userUpperBattlefieldCards,
 		ICardModel::CardsVector& enemyLowerBattlefieldCards,
-		ICardModel::CardsVector& enemyUpperBattlefieldCards
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
 	) override;
 };
 
+class DemonLordAndBloodyBlueModel : public BaseCardModel
+{
+public:
+	DemonLordAndBloodyBlueModel(int strength, string name);
+	virtual void CardSpecialAbility(
+		shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
+	) override;
+};
 
 class LoremIpsumModel : public BaseCardModel
 {
@@ -50,7 +67,8 @@ public:
 		ICardModel::CardsVector& userLowerBattlefieldCards,
 		ICardModel::CardsVector& userUpperBattlefieldCards,
 		ICardModel::CardsVector& enemyLowerBattlefieldCards,
-		ICardModel::CardsVector& enemyUpperBattlefieldCards
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
 	) override;
 	IceQueenModel();
 	~IceQueenModel();
@@ -73,7 +91,8 @@ public:
 		ICardModel::CardsVector& userLowerBattlefieldCards,
 		ICardModel::CardsVector& userUpperBattlefieldCards,
 		ICardModel::CardsVector& enemyLowerBattlefieldCards,
-		ICardModel::CardsVector& enemyUpperBattlefieldCards
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
 	) override;
 	BombGoblinModel();
 	~BombGoblinModel();
@@ -208,11 +227,21 @@ public:
 class KingModel : public BaseCardModel
 {
 public:
+	virtual void CardSpecialAbility(
+		shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
+	) override;
 	KingModel();
 	~KingModel();
 };
 
-class BloodyBlueModel : public BaseCardModel
+class BloodyBlueModel : public DemonLordAndBloodyBlueModel
 {
 public:
 	BloodyBlueModel();
@@ -226,7 +255,7 @@ public:
 	~AdventurerModel();
 };
 
-class DemonLordModel : public BaseCardModel
+class DemonLordModel : public DemonLordAndBloodyBlueModel
 {
 public:
 	DemonLordModel();

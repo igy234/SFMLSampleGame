@@ -6,30 +6,31 @@
 
 Opponent::Opponent(shared_ptr<vector<shared_ptr<IGuiElement>>> handCards, shared_ptr<vector<shared_ptr<IGuiElement>>> lowerUserBattleField, 
 	shared_ptr<vector<shared_ptr<IGuiElement>>> upperUserBattleField, shared_ptr<vector<shared_ptr<IGuiElement>>> lowerEnemyBattleField, 
-	shared_ptr<vector<shared_ptr<IGuiElement>>> upperEnemyBattleField)
-	: HandCards(handCards), 
+	shared_ptr<vector<shared_ptr<IGuiElement>>> upperEnemyBattleField, shared_ptr<vector<shared_ptr<IGuiElement>>> enemyHandCards)
+	: AiHandCards(handCards), 
 	LowerUserBattleField(lowerUserBattleField),
 	UpperUserBattleField(upperUserBattleField),
 	LowerEnemyBattleField(lowerEnemyBattleField),
-	UpperEnemyBattleField(upperEnemyBattleField)
+	UpperEnemyBattleField(upperEnemyBattleField),
+	EnemyHandCards(enemyHandCards)
 {
 }
 
 int Opponent::GetNumberOfCards()
 {
-	return HandCards->size();
+	return AiHandCards->size();
 }
 
 void Opponent::MakeMove()
 {
-	if (!HandCards->size())
+	if (!AiHandCards->size())
 		return;
-	int cardIndex = getRand(HandCards->size()-1);
+	int cardIndex = getRand(AiHandCards->size()-1);
 	BattleField battlefield = static_cast<BattleField>(getRand(static_cast<int>(BattleField::Count)));
-	auto currentSelectedCard = (*HandCards)[cardIndex];
-	HandCards->erase(HandCards->begin() + cardIndex);
+	auto currentSelectedCard = (*AiHandCards)[cardIndex];
+	AiHandCards->erase(AiHandCards->begin() + cardIndex);
 	auto card = static_pointer_cast<BaseCard>(currentSelectedCard);
-	card->GetModel()->CardSpecialAbility(currentSelectedCard, battlefield, HandCards, LowerEnemyBattleField, UpperEnemyBattleField, LowerUserBattleField, UpperUserBattleField);
+	card->GetModel()->CardSpecialAbility(currentSelectedCard, battlefield, AiHandCards, LowerEnemyBattleField, UpperEnemyBattleField, LowerUserBattleField, UpperUserBattleField, EnemyHandCards);
 }
 
 
