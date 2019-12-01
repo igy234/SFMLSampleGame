@@ -5,8 +5,9 @@
 #include "CardFactory.h"
 #include "Utils.h"
 
+
 LoremIpsumModel::LoremIpsumModel()
-	: BaseCardModel(4, "Lorem Ipsum") 
+	: BaseCardModel(4, "Lorem Ipsum", 4) 
 {
 }
 
@@ -48,8 +49,17 @@ void IceQueenModel::CardSpecialAbility(
 	}
 }
 
+float IceQueenModel::CalculatePlayCoefficient(shared_ptr<IGuiElement> card, BattleField battlefield, ICardModel::CardsVector & userHandCards, ICardModel::CardsVector & userLowerBattlefieldCards, ICardModel::CardsVector & userUpperBattlefieldCards, ICardModel::CardsVector & enemyLowerBattlefieldCards, ICardModel::CardsVector & enemyUpperBattlefieldCards, ICardModel::CardsVector & enemyHandCards)
+{
+	float Impact = 4;
+	return (Strength +
+		Impact +
+		RiskAllCards[enemyHandCards->size()][Strength - 1] +
+		RiskIceQueen[userLowerBattlefieldCards->size()][userUpperBattlefieldCards->size()]) / ExpectedValue;
+}
+
 IceQueenModel::IceQueenModel()
-	: BaseCardModel(4, "Ice Queen")
+	: BaseCardModel(4, "Ice Queen", 8)
 {
 }
 
@@ -59,7 +69,7 @@ IceQueenModel::~IceQueenModel()
 
 
 NixModel::NixModel()
-	: BaseCardModel(2, "Nix")
+	: BaseCardModel(2, "Nix", 2)
 {
 }
 
@@ -130,8 +140,41 @@ void BombGoblinModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
 	
 }
 
+float BombGoblinModel::CalculatePlayCoefficient(shared_ptr<IGuiElement> card, BattleField battlefield, ICardModel::CardsVector & userHandCards, ICardModel::CardsVector & userLowerBattlefieldCards, ICardModel::CardsVector & userUpperBattlefieldCards, ICardModel::CardsVector & enemyLowerBattlefieldCards, ICardModel::CardsVector & enemyUpperBattlefieldCards, ICardModel::CardsVector & enemyHandCards)
+{
+	vector<shared_ptr<IGuiElement>> dragons = FindAllDragons(enemyLowerBattlefieldCards, enemyUpperBattlefieldCards);
+	float Impact = 0;
+	float WeakestStrength = numeric_limits<int>::max();;
+	vector<shared_ptr<IGuiElement>> vectE = *enemyLowerBattlefieldCards;
+	vectE.insert(vectE.begin(), enemyUpperBattlefieldCards->begin(), enemyUpperBattlefieldCards->end());
+
+
+	for (auto element : vectE)
+	{
+		auto strenght = static_pointer_cast<BaseCard>(element)->GetModel()->GetStrength();
+		if (strenght < WeakestStrength)
+			WeakestStrength = strenght;
+	}
+
+	int counter = 0;
+	for (auto element : vectE)
+	{
+		if (static_pointer_cast<BaseCard>(element)->GetModel()->GetStrength() == WeakestStrength)
+		{
+			counter++;
+		}
+	}
+
+	Impact = WeakestStrength * counter;
+	return (Strength + 
+		Impact +
+		RiskAllCards[enemyHandCards->size()][Strength-1] +
+		RiskDestroyingCardsDependingOnDragons[dragons.size()] +
+		RiskDestroyingCardsWithoutKing[enemyLowerBattlefieldCards->size() + enemyUpperBattlefieldCards->size()]) / ExpectedValue;
+}
+
 BombGoblinModel::BombGoblinModel()
-	:BaseCardModel(3, "Bomb Goblin")
+	:BaseCardModel(3, "Bomb Goblin", 7)
 {
 }
 
@@ -140,7 +183,7 @@ BombGoblinModel::~BombGoblinModel()
 }
 
 WarriorModel::WarriorModel()
-	: BaseCardModel(4, "Warrior")
+	: BaseCardModel(4, "Warrior", 4)
 {
 }
 
@@ -149,7 +192,7 @@ WarriorModel::~WarriorModel()
 }
 
 OctoEyenormousModel::OctoEyenormousModel()
-	: BaseCardModel(7, "OctoEyenormous")
+	: BaseCardModel(7, "OctoEyenormous", 7)
 {
 }
 
@@ -160,7 +203,7 @@ OctoEyenormousModel::~OctoEyenormousModel()
 
 
 Scholar1Model::Scholar1Model()
-	: ScholarCardModel(1, "Scholar1")
+	: ScholarCardModel(1, "Scholar1", 5.52)
 {
 }
 
@@ -169,7 +212,7 @@ Scholar1Model::~Scholar1Model()
 }
 
 Scholar2Model::Scholar2Model()
-	: ScholarCardModel(1, "Scholar2")
+	: ScholarCardModel(1, "Scholar2", 5.52)
 {
 }
 
@@ -178,7 +221,7 @@ Scholar2Model::~Scholar2Model()
 }
 
 TinywingModel::TinywingModel()
-	: BaseCardModel(5, "Tinywing")
+	: BaseCardModel(5, "Tinywing", 5)
 {
 }
 
@@ -187,7 +230,7 @@ TinywingModel::~TinywingModel()
 }
 
 FireMageModel::FireMageModel()
-	: BaseCardModel(4, "Fire Mage")
+	: BaseCardModel(4, "Fire Mage", 4)
 {
 }
 
@@ -197,7 +240,7 @@ FireMageModel::~FireMageModel()
 
 
 GreenDragonModel::GreenDragonModel()
-	: DragonCardModel(6, "Green Dragon")
+	: DragonCardModel(6, "Green Dragon", 8)
 {
 }
 
@@ -207,7 +250,7 @@ GreenDragonModel::~GreenDragonModel()
 
 
 YellowDragonModel::YellowDragonModel()
-	: DragonCardModel(6, "Yellow Dragon")
+	: DragonCardModel(6, "Yellow Dragon", 8)
 {
 }
 
@@ -217,7 +260,7 @@ YellowDragonModel::~YellowDragonModel()
 
 
 RedDragonModel::RedDragonModel()
-	: DragonCardModel(6, "Red Dragon")
+	: DragonCardModel(6, "Red Dragon", 8)
 {
 }
 
@@ -226,7 +269,7 @@ RedDragonModel::~RedDragonModel()
 }
 
 MimicModel::MimicModel()
-	: BaseCardModel(5, "Mimic")
+	: BaseCardModel(5, "Mimic", 5)
 {
 }
 
@@ -235,7 +278,7 @@ MimicModel::~MimicModel()
 }
 
 DualBoxerModel::DualBoxerModel()
-	: BaseCardModel(4, "Dual Boxer")
+	: BaseCardModel(4, "Dual Boxer", 4)
 {
 }
 
@@ -244,7 +287,7 @@ DualBoxerModel::~DualBoxerModel()
 }
 
 MinotaurModel::MinotaurModel()
-	: BaseCardModel(5, "Minotaur")
+	: BaseCardModel(5, "Minotaur", 5)
 {
 }
 
@@ -253,7 +296,7 @@ MinotaurModel::~MinotaurModel()
 }
 
 SpiderMonkModel::SpiderMonkModel()
-	: BaseCardModel(3, "Spider Monk")
+	: BaseCardModel(3, "Spider Monk", 3)
 {
 }
 
@@ -262,7 +305,7 @@ SpiderMonkModel::~SpiderMonkModel()
 }
 
 DwarfModel::DwarfModel()
-	: BaseCardModel(5, "Dwarf")
+	: BaseCardModel(5, "Dwarf", 5)
 {
 }
 
@@ -271,7 +314,7 @@ DwarfModel::~DwarfModel()
 }
 
 VikingSlimeModel::VikingSlimeModel()
-	: BaseCardModel(2, "Viking Slime")
+	: BaseCardModel(2, "Viking Slime", 2)
 {
 }
 
@@ -280,7 +323,7 @@ VikingSlimeModel::~VikingSlimeModel()
 }
 
 CrystalMageModel::CrystalMageModel()
-	: BaseCardModel(4, "Crystal Mage")
+	: BaseCardModel(4, "Crystal Mage", 4)
 {
 }
 
@@ -289,7 +332,7 @@ CrystalMageModel::~CrystalMageModel()
 }
 
 ElfModel::ElfModel()
-	: BaseCardModel(4, "Elf")
+	: BaseCardModel(4, "Elf", 4)
 {
 }
 
@@ -298,7 +341,7 @@ ElfModel::~ElfModel()
 }
 
 PikemanModel::PikemanModel()
-	: BaseCardModel(3, "Pikeman")
+	: BaseCardModel(3, "Pikeman", 3)
 {
 }
 
@@ -315,7 +358,7 @@ void KingModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
 	ICardModel::CardsVector & enemyUpperBattlefieldCards,
 	ICardModel::CardsVector& enemyHandCards)
 {
-	//TRZEBA DODAÆ ENEMY HAND CARDSS ALBO ZROBIÆ COŒ INNEGO!!!
+	
 	if (!enemyHandCards->size())
 	{
 		BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
@@ -329,8 +372,20 @@ void KingModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
 	}
 }
 
+float KingModel::CalculatePlayCoefficient(shared_ptr<IGuiElement> card, BattleField battlefield, ICardModel::CardsVector & userHandCards, ICardModel::CardsVector & userLowerBattlefieldCards, ICardModel::CardsVector & userUpperBattlefieldCards, ICardModel::CardsVector & enemyLowerBattlefieldCards, ICardModel::CardsVector & enemyUpperBattlefieldCards, ICardModel::CardsVector & enemyHandCards)
+{
+	vector<shared_ptr<IGuiElement>> dragons = FindAllDragons(enemyLowerBattlefieldCards, enemyUpperBattlefieldCards);
+
+	float Impact = 4.52; // average card strength
+	return (Strength + 
+		Impact + 
+		RiskAllCards[enemyHandCards->size()][Strength-1] +
+		RiskDestroyingCardsDependingOnDragons[dragons.size()] +
+		RiskKingCard[enemyHandCards->size()]) / ExpectedValue		;
+}
+
 KingModel::KingModel()
-	: BaseCardModel(4, "King")
+	: BaseCardModel(4, "King", 8.52)
 {
 }
 
@@ -339,7 +394,7 @@ KingModel::~KingModel()
 }
 
 BloodyBlueModel::BloodyBlueModel()
-	: DemonLordAndBloodyBlueModel(8, "Bloody Blue")
+	: DemonLordAndBloodyBlueModel(8, "Bloody Blue", 14)
 {
 }
 
@@ -348,7 +403,7 @@ BloodyBlueModel::~BloodyBlueModel()
 }
 
 AdventurerModel::AdventurerModel()
-	: BaseCardModel(5, "Adventurer")
+	: BaseCardModel(5, "Adventurer", 5)
 {
 }
 
@@ -357,43 +412,20 @@ AdventurerModel::~AdventurerModel()
 }
 
 DemonLordModel::DemonLordModel()
-	: DemonLordAndBloodyBlueModel(8, "Demon Lord")
+	: DemonLordAndBloodyBlueModel(8, "Demon Lord", 14)
 {
 }
 
 DemonLordModel::~DemonLordModel()
 {
 }
-DragonCardModel::DragonCardModel(int strength, string name)
-	:BaseCardModel(strength, name)
-{
 
-}
 
-void DragonCardModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
-	BattleField battlefield, ICardModel::CardsVector & userHandCards,
-	ICardModel::CardsVector & userLowerBattlefieldCards,
-	ICardModel::CardsVector & userUpperBattlefieldCards,
-	ICardModel::CardsVector & enemyLowerBattlefieldCards,
-	ICardModel::CardsVector & enemyUpperBattlefieldCards, 
-	ICardModel::CardsVector& enemyHandCards)
+tuple<int, int, int> DragonCardModel::CalculateNumberOfDragons(vector<shared_ptr<IGuiElement>> dragons)
 {
-	BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
-	vector<shared_ptr<IGuiElement>> vect = *userLowerBattlefieldCards;
-	vect.insert(vect.begin(), userUpperBattlefieldCards->begin(), userUpperBattlefieldCards->end());
 	int yellowDragonCounter = 0;
 	int redDragonCounter = 0;
 	int greenDragonCounter = 0;
-
-	if (vect.size() <= 2)
-		return;
-
-	vector<shared_ptr<IGuiElement>> dragons;
-	copy_if(vect.begin(), vect.end(), back_inserter(dragons),
-		[](auto element)
-	{
-		return (static_pointer_cast<BaseCard>(element)->GetModel()->GetName().find("Dragon") != string::npos);
-	});
 
 	for (auto element : dragons)
 	{
@@ -412,6 +444,33 @@ void DragonCardModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
 		}
 	}
 
+	return { yellowDragonCounter, redDragonCounter, greenDragonCounter };
+}
+
+
+DragonCardModel::DragonCardModel(int strength, string name, float expectedValue)
+	:BaseCardModel(strength, name, expectedValue)
+{
+
+}
+
+void DragonCardModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
+	BattleField battlefield, ICardModel::CardsVector & userHandCards,
+	ICardModel::CardsVector & userLowerBattlefieldCards,
+	ICardModel::CardsVector & userUpperBattlefieldCards,
+	ICardModel::CardsVector & enemyLowerBattlefieldCards,
+	ICardModel::CardsVector & enemyUpperBattlefieldCards, 
+	ICardModel::CardsVector& enemyHandCards)
+{
+	BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
+
+	if (userLowerBattlefieldCards->size() + userUpperBattlefieldCards->size() <= 2)
+		return;
+
+	vector<shared_ptr<IGuiElement>> dragons = FindAllDragons(userLowerBattlefieldCards, userUpperBattlefieldCards);
+
+	auto [yellowDragonCounter, redDragonCounter, greenDragonCounter] = CalculateNumberOfDragons(dragons);
+
 	if (yellowDragonCounter && redDragonCounter && greenDragonCounter)
 	{
 		int whichRow = getRand(1);
@@ -427,8 +486,56 @@ void DragonCardModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
 	}
 }
 
-ScholarCardModel::ScholarCardModel(int strength, string name)
-	:BaseCardModel(strength,name)
+float DragonCardModel::CalculatePlayCoefficient(shared_ptr<IGuiElement> card, BattleField battlefield, ICardModel::CardsVector & userHandCards, ICardModel::CardsVector & userLowerBattlefieldCards, ICardModel::CardsVector & userUpperBattlefieldCards, ICardModel::CardsVector & enemyLowerBattlefieldCards, ICardModel::CardsVector & enemyUpperBattlefieldCards, ICardModel::CardsVector & enemyHandCards)
+{
+	vector<shared_ptr<IGuiElement>> dragons = FindAllDragons(userLowerBattlefieldCards, userUpperBattlefieldCards);
+	auto [yellowDragonCounter, redDragonCounter, greenDragonCounter] = CalculateNumberOfDragons(dragons);
+	
+	float averageImpact = 0;
+	auto name = GetName();
+	
+	if (name == "Yellow Dragon")
+	{
+		yellowDragonCounter++;
+	}
+	else if (name == "Red Dragon")
+	{
+		redDragonCounter++;
+	}
+	else if (name == "Green Dragon")
+	{
+		greenDragonCounter++;
+	}
+	
+	if (yellowDragonCounter && redDragonCounter && greenDragonCounter)
+	{
+		auto pointsLower = 0;
+		auto pointsUpper = 0;
+
+		for (auto element : *enemyLowerBattlefieldCards)
+		{
+			auto card = static_pointer_cast<BaseCard>(element);
+			pointsLower += card->GetModel()->GetStrength();
+		}
+		
+		for (auto element : *enemyUpperBattlefieldCards)
+		{
+			auto card = static_pointer_cast<BaseCard>(element);
+			pointsUpper += card->GetModel()->GetStrength();
+		}
+		averageImpact = (pointsLower + pointsUpper) / 2;
+		 
+	}
+
+	return (Strength +
+		averageImpact +
+		RiskAllCards[enemyHandCards->size()][Strength-1] +
+		RiskDestroyingCardsDependingOnDragons[dragons.size()] +
+		RiskDestroyingCardsWithoutKing[enemyLowerBattlefieldCards->size()+enemyUpperBattlefieldCards->size()])/ExpectedValue;
+}
+
+ScholarCardModel::ScholarCardModel(int strength, string name, float expectedValue)
+	:BaseCardModel(strength, name, expectedValue)
 {
 }
 
@@ -452,8 +559,17 @@ void ScholarCardModel::CardSpecialAbility(shared_ptr<IGuiElement> card,
 	userHandCards->push_back(newCard);
 }
 
-DemonLordAndBloodyBlueModel::DemonLordAndBloodyBlueModel(int strength, string name)
-	:BaseCardModel(strength, name)
+float ScholarCardModel::CalculatePlayCoefficient(shared_ptr<IGuiElement> card, BattleField battlefield, ICardModel::CardsVector & userHandCards, ICardModel::CardsVector & userLowerBattlefieldCards, ICardModel::CardsVector & userUpperBattlefieldCards, ICardModel::CardsVector & enemyLowerBattlefieldCards, ICardModel::CardsVector & enemyUpperBattlefieldCards, ICardModel::CardsVector & enemyHandCards)
+{
+	vector<shared_ptr<IGuiElement>> dragons = FindAllDragons(enemyLowerBattlefieldCards, enemyUpperBattlefieldCards);
+	float expectedImpact = 4.52; //average strength of card
+	return (Strength + expectedImpact + RiskAllCards[enemyHandCards->size()][Strength-1] +
+		RiskAddingCards[userLowerBattlefieldCards->size()+userUpperBattlefieldCards->size()] +
+		RiskNormalCardsDependingOnDragons[Strength-1][dragons.size()]) / ExpectedValue;
+}
+
+DemonLordAndBloodyBlueModel::DemonLordAndBloodyBlueModel(int strength, string name, float expectedValue)
+	:BaseCardModel(strength, name, expectedValue)
 {
 
 }
@@ -538,4 +654,66 @@ void DemonLordAndBloodyBlueModel::CardSpecialAbility(shared_ptr<IGuiElement> car
 	}
 	BaseCardModel::CardSpecialAbility(card, battlefield, userHandCards, userLowerBattlefieldCards, userUpperBattlefieldCards, enemyLowerBattlefieldCards, enemyUpperBattlefieldCards, enemyHandCards);
 
+}
+
+float DemonLordAndBloodyBlueModel::CalculatePlayCoefficient(shared_ptr<IGuiElement> card, BattleField battlefield, ICardModel::CardsVector & userHandCards, ICardModel::CardsVector & userLowerBattlefieldCards, ICardModel::CardsVector & userUpperBattlefieldCards, ICardModel::CardsVector & enemyLowerBattlefieldCards, ICardModel::CardsVector & enemyUpperBattlefieldCards, ICardModel::CardsVector & enemyHandCards)
+{
+
+	float Impact = 0;
+	vector<shared_ptr<IGuiElement>> dragons = FindAllDragons(enemyLowerBattlefieldCards, enemyUpperBattlefieldCards);
+	
+	vector<shared_ptr<IGuiElement>> vectU = *userLowerBattlefieldCards;
+	vectU.insert(vectU.begin(), userUpperBattlefieldCards->begin(), userUpperBattlefieldCards->end());
+	
+	vector<shared_ptr<IGuiElement>> vectE = *enemyLowerBattlefieldCards;
+	vectE.insert(vectE.begin(), enemyUpperBattlefieldCards->begin(), enemyUpperBattlefieldCards->end());
+
+	vector<shared_ptr<IGuiElement>> vectUber = vectU;
+	vectUber.insert(vectUber.begin(), vectE.begin(), vectE.end());
+	auto UberStrength = 0;
+	
+	for (auto element : vectUber)
+	{
+		auto strenght = static_pointer_cast<BaseCard>(element)->GetModel()->GetStrength();
+		if (strenght > UberStrength)
+			UberStrength = strenght;
+	}
+	
+	vector<shared_ptr<IGuiElement>> MyStronges, EnemyStrongest;
+
+	auto mySum = 0;
+	auto enemySum = 0;
+
+	for (auto element : vectU)
+	{
+		auto card = static_pointer_cast<BaseCard>(element);
+		auto strenght = card->GetModel()->GetStrength();
+		mySum += strenght;
+		if (strenght == UberStrength)
+			MyStronges.push_back(element);
+	}
+
+	for (auto element : vectE)
+	{
+		auto card = static_pointer_cast<BaseCard>(element);
+		auto strenght = card->GetModel()->GetStrength();
+		enemySum += strenght;
+		if (strenght == UberStrength)
+			EnemyStrongest.push_back(element);
+	}
+
+	float myImpact = (MyStronges.size()*UberStrength);
+	float enemyImpact = EnemyStrongest.size()*UberStrength;
+
+	Impact = enemyImpact - myImpact;
+
+	auto risk1 = RiskAllCards[enemyHandCards->size()][Strength - 1];
+	auto risk2 = RiskDestroyingCardsDependingOnDragons[dragons.size()];
+	auto risk3 = RiskDestroyingCardsWithoutKing[enemyLowerBattlefieldCards->size() + enemyUpperBattlefieldCards->size()];
+
+	return (Strength + 
+		Impact + 
+		RiskAllCards[enemyHandCards->size()][Strength-1] +
+		RiskDestroyingCardsDependingOnDragons[dragons.size()] +
+		RiskDestroyingCardsWithoutKing[enemyLowerBattlefieldCards->size() + enemyUpperBattlefieldCards->size()])/ExpectedValue;
 }

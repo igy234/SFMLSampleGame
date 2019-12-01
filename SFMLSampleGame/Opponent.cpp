@@ -25,8 +25,22 @@ void Opponent::MakeMove()
 {
 	if (!AiHandCards->size())
 		return;
-	int cardIndex = getRand(AiHandCards->size()-1);
+	
 	BattleField battlefield = static_cast<BattleField>(getRand(static_cast<int>(BattleField::Count)));
+	
+	vector<float> coefficients;
+	for (auto element : *AiHandCards) 
+	{
+		auto card = static_pointer_cast<BaseCard>(element);
+		auto coef = card->GetModel()->CalculatePlayCoefficient(element, battlefield, AiHandCards, LowerEnemyBattleField, UpperEnemyBattleField, LowerUserBattleField, UpperUserBattleField, EnemyHandCards);
+		coefficients.push_back(coef);
+
+		cout << " card name: " << card->GetModel()->GetName() << " coef: " << coef << endl;
+	}
+	cout << endl;
+	
+	auto maxCoefficient = max_element(begin(coefficients), end(coefficients)); // c++11
+	int cardIndex = maxCoefficient - coefficients.begin();
 	auto currentSelectedCard = (*AiHandCards)[cardIndex];
 	AiHandCards->erase(AiHandCards->begin() + cardIndex);
 	auto card = static_pointer_cast<BaseCard>(currentSelectedCard);

@@ -38,14 +38,8 @@ IngameStateManager::IngameStateManager(shared_ptr<RenderWindow> window, shared_p
 	TurnDisplayer->SetPadding(10);
 	TurnDisplayer->setOutlineThickness(2);
 
+	
 	opponent = make_shared<Opponent>(EnemyHandCards, LowerUserBattleField, UpperUserBattleField, LowerEnemyBattleField, UpperEnemyBattleField, UserHandCards);
-	IsPlayerTurn = static_cast<bool>(getRand(1));
-	if (!IsPlayerTurn)
-	{
-		opponent->MakeMove();
-		IsPlayerTurn = true;
-		//TurnDisplayer->SetText("Enemy turn");
-	}
 	
 	EnemyCardsCounter = make_shared<RectangleObject>(0, 0, 260, 60, Color(255, 0, 0, 50), "Enemy has " + to_string(opponent->GetNumberOfCards()) + " cards");
 	EnemyCardsCounter->SetPadding(10);
@@ -143,6 +137,13 @@ void IngameStateManager::OrganizeCards()
 
 void IngameStateManager::initialize()
 {
+	IsPlayerTurn = static_cast<bool>(getRand(2));
+	if (!IsPlayerTurn)
+	{
+		opponent->MakeMove();
+		IsPlayerTurn = true;
+		//TurnDisplayer->SetText("Enemy turn");
+	}
 	CurrentSelectedCard = nullptr;
 	OrganizeCards();
 }

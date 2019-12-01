@@ -4,10 +4,22 @@
 
 class DragonCardModel : public BaseCardModel
 {
+private:
+	tuple<int, int, int> CalculateNumberOfDragons(vector<shared_ptr<IGuiElement>> dragons);
 public:
-	DragonCardModel(int strength, string name);
+	DragonCardModel(int strength, string name, float expectedValue);
 	virtual void CardSpecialAbility(
 		shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
+	) override;
+
+	virtual float CalculatePlayCoefficient(shared_ptr<IGuiElement> card,
 		BattleField battlefield,
 		ICardModel::CardsVector& userHandCards,
 		ICardModel::CardsVector& userLowerBattlefieldCards,
@@ -21,7 +33,7 @@ public:
 class ScholarCardModel : public BaseCardModel
 {
 public:
-	ScholarCardModel(int strength, string name);
+	ScholarCardModel(int strength, string name, float expectedValue);
 	virtual void CardSpecialAbility(
 		shared_ptr<IGuiElement> card,
 		BattleField battlefield,
@@ -32,14 +44,36 @@ public:
 		ICardModel::CardsVector& enemyUpperBattlefieldCards,
 		ICardModel::CardsVector& enemyHandCards
 	) override;
+
+	virtual float CalculatePlayCoefficient(shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
+	) override;
+
+
 };
 
 class DemonLordAndBloodyBlueModel : public BaseCardModel
 {
 public:
-	DemonLordAndBloodyBlueModel(int strength, string name);
+	DemonLordAndBloodyBlueModel(int strength, string name, float expectedValue);
 	virtual void CardSpecialAbility(
 		shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
+	) override;
+
+	virtual float CalculatePlayCoefficient(shared_ptr<IGuiElement> card,
 		BattleField battlefield,
 		ICardModel::CardsVector& userHandCards,
 		ICardModel::CardsVector& userLowerBattlefieldCards,
@@ -70,6 +104,17 @@ public:
 		ICardModel::CardsVector& enemyUpperBattlefieldCards,
 		ICardModel::CardsVector& enemyHandCards
 	) override;
+
+	virtual float CalculatePlayCoefficient(shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
+	) override;
+
 	IceQueenModel();
 	~IceQueenModel();
 };
@@ -86,6 +131,16 @@ class BombGoblinModel : public BaseCardModel
 public:
 	virtual void CardSpecialAbility(
 		shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
+	) override;
+
+	virtual float CalculatePlayCoefficient(shared_ptr<IGuiElement> card,
 		BattleField battlefield,
 		ICardModel::CardsVector& userHandCards,
 		ICardModel::CardsVector& userLowerBattlefieldCards,
@@ -229,6 +284,16 @@ class KingModel : public BaseCardModel
 public:
 	virtual void CardSpecialAbility(
 		shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards
+	) override;
+
+	virtual float CalculatePlayCoefficient(shared_ptr<IGuiElement> card,
 		BattleField battlefield,
 		ICardModel::CardsVector& userHandCards,
 		ICardModel::CardsVector& userLowerBattlefieldCards,

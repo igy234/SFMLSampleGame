@@ -22,5 +22,13 @@ public:
 		CardsVector& enemyUpperBattlefieldCards, 
 		CardsVector& enemyHandCards
 	) = 0;
+	virtual float CalculatePlayCoefficient(shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		CardsVector& userHandCards,
+		CardsVector& userLowerBattlefieldCards,
+		CardsVector& userUpperBattlefieldCards,
+		CardsVector& enemyLowerBattlefieldCards,
+		CardsVector& enemyUpperBattlefieldCards,
+		CardsVector& enemyHandCards) = 0;
 };
 

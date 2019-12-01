@@ -3,15 +3,19 @@
 
 class BaseCardModel :public ICardModel
 {
-private: 
+protected: 
 	int Strength;
 	string Name;
+	float ExpectedValue;
+
+	vector<shared_ptr<IGuiElement>> FindAllDragons(ICardModel::CardsVector& LowerBattlefieldCards,
+		ICardModel::CardsVector& UpperBattlefieldCards);
 public:
 	virtual int GetStrength() override;
 	virtual string GetName() override;
 	virtual void SetStrength(int strength) override;
 	virtual void SetName(string name) override;
-	BaseCardModel(int strength, string name);
+	BaseCardModel(int strength, string name, float expectedValue);
 	~BaseCardModel();
 	virtual void CardSpecialAbility(
 		shared_ptr<IGuiElement> card,
@@ -22,18 +26,16 @@ public:
 		ICardModel::CardsVector& enemyLowerBattlefieldCards,
 		ICardModel::CardsVector& enemyUpperBattlefieldCards,
 		ICardModel::CardsVector& enemyHandCards
-	) override 	{
-		switch (battlefield)
-		{
-		case BattleField::Lower:
-			userLowerBattlefieldCards->push_back(card);
+	) override;
 
-			break;
-		case BattleField::Upper:
-			userUpperBattlefieldCards->push_back(card);
-			break;
-		}
-	};
+	virtual float CalculatePlayCoefficient(shared_ptr<IGuiElement> card,
+		BattleField battlefield,
+		ICardModel::CardsVector& userHandCards,
+		ICardModel::CardsVector& userLowerBattlefieldCards,
+		ICardModel::CardsVector& userUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyLowerBattlefieldCards,
+		ICardModel::CardsVector& enemyUpperBattlefieldCards,
+		ICardModel::CardsVector& enemyHandCards) override;
 
 };
 
