@@ -40,8 +40,12 @@ IngameStateManager::IngameStateManager(shared_ptr<RenderWindow> window, shared_p
 
 	
 	opponent = make_shared<Opponent>(EnemyHandCards, LowerUserBattleField, UpperUserBattleField, LowerEnemyBattleField, UpperEnemyBattleField, UserHandCards);
-	
-	EnemyCardsCounter = make_shared<RectangleObject>(0, 0, 260, 60, Color(255, 0, 0, 50), "Enemy has " + to_string(opponent->GetNumberOfCards()) + " cards");
+	playLayout->SetLowerUserBattlefieldCards(LowerUserBattleField);
+	playLayout->SetUpperUserBattlefieldCards(UpperUserBattleField);
+	playLayout->SetLowerEnemyBattlefieldCards(LowerEnemyBattleField);
+	playLayout->SetUpperEnemyBattlefieldCards(UpperEnemyBattleField);
+
+	EnemyCardsCounter = make_shared<RectangleObject>(0, 0, 320, 60, Color(255, 0, 0, 50), "Enemy has " + to_string(opponent->GetNumberOfCards()) + " cards");
 	EnemyCardsCounter->SetPadding(10);
 	EnemyCardsCounter->setOutlineThickness(2);
 }
@@ -81,6 +85,21 @@ void IngameStateManager::WhichBattlefield(BattleField battlefield)
 {
 	if (CurrentSelectedCard!=nullptr)
 	{
+		if (LowerUserBattleField->size() >= 7)
+		{
+			battlefield = BattleField::Upper;
+		}
+
+		if (UpperUserBattleField->size() >= 7)
+		{
+			battlefield = BattleField::Lower;
+		}
+
+		if (LowerUserBattleField->size() >= 7 && UpperUserBattleField->size() >= 7)
+		{
+			return;
+		}
+
 		auto it = find(UserHandCards->begin(), UserHandCards->end(), CurrentSelectedCard);
 		//if(it != UserHandCards->end())
 			UserHandCards->erase(it);
@@ -176,43 +195,41 @@ bool IngameStateManager::PlayCard(BattleField battlefield)
 
 	OrganizeCards();
 
-	if (!opponent->GetNumberOfCards() && !UserHandCards->size())
+	if ((!opponent->GetNumberOfCards() && !UserHandCards->size()) ||
+		(((LowerUserBattleField->size() + UpperUserBattleField ->size()) == 14) && ((LowerEnemyBattleField->size() + UpperEnemyBattleField->size()) ==14)) ||
+		(((LowerUserBattleField->size() + UpperUserBattleField->size()) == 14) && (!EnemyHandCards->size())) ||
+		((!UserHandCards->size()) && ((LowerEnemyBattleField->size() + UpperEnemyBattleField->size()) == 14)))
 	{
 		//shuffleCallback(MatchState::Shuffle);
 		if (UserSumOfPoints > EnemySumOfPoints)
 		{
 			RoundsWon++;
-			if (RoundsWon - RoundsLost < 3 || RoundsLost - RoundsWon < 3) 
+			if (RoundsWon - RoundsLost < 2 || RoundsLost - RoundsWon < 2) 
 			{
-				shared_ptr<RectangleObject> WinLoseRoundRectangle = make_shared<RectangleObject>(800, 425, 220, 50, Color(80, 33, 40), "Round won!");
-				WinLoseRoundRectangle->setOutlineThickness(2);
-				Layout->AddGuiElementToCurrentState(WinLoseRoundRectangle);
+				
+				ManageRoundsRectangle("Round won!");
 			}
 		}
 		else if(UserSumOfPoints == EnemySumOfPoints)
 		{
 			RoundsLost++;
 			RoundsWon++;
-			if (RoundsWon - RoundsLost < 3 || RoundsLost - RoundsWon < 3)
+			if (RoundsWon - RoundsLost < 2 || RoundsLost - RoundsWon < 2)
 			{
-				shared_ptr<RectangleObject> WinLoseRoundRectangle = make_shared<RectangleObject>(800, 425, 220, 50, Color(80, 33, 40), "Round Tied!");
-				WinLoseRoundRectangle->setOutlineThickness(2);
-				Layout->AddGuiElementToCurrentState(WinLoseRoundRectangle);
+				ManageRoundsRectangle("Round Tied!");
 			}
 		}
 		else
 		{
-			if (RoundsWon - RoundsLost < 3 || RoundsLost - RoundsWon < 3)
+			if (RoundsWon - RoundsLost < 2 || RoundsLost - RoundsWon < 2)
 			{
 				RoundsLost++;
-				shared_ptr<RectangleObject> WinLoseRoundRectangle = make_shared<RectangleObject>(800, 425, 220, 50, Color(80, 33, 40), "Round Lost!");
-				WinLoseRoundRectangle->setOutlineThickness(2);
-				Layout->AddGuiElementToCurrentState(WinLoseRoundRectangle);
+				ManageRoundsRectangle("Round Lost!");
 			}
 		}
 		UpdateRoundsRectangleText();
 
-		if (/*RoundsLost + RoundsWon >= 3 ||*/ RoundsWon-RoundsLost==3 || RoundsLost-RoundsWon==3) //advantage of 3
+		if ( RoundsWon-RoundsLost==2 || RoundsLost-RoundsWon==2) //advantage of 3
 		{
 			auto finishRound = [this]()
 			{
@@ -223,24 +240,14 @@ bool IngameStateManager::PlayCard(BattleField battlefield)
 			};
 			if (RoundsWon > RoundsLost)
 			{
-				shared_ptr<RectangleObject> WinLoseGameRectangle = make_shared<RectangleObject>(800, 425, 350, 50, Color(80, 33, 40), "Congratulations you won!");
-				WinLoseGameRectangle->setOutlineThickness(2);
-				Layout->AddGuiElementToCurrentState(WinLoseGameRectangle);
+				ManageGamesRectangle("Congratulations you won!");
 			}
-			/*else if (RoundsWon == RoundsLost)
-			{
-				shared_ptr<RectangleObject> WinLoseGameRectangle = make_shared<RectangleObject>(800, 425, 220, 50, Color(80, 33, 40), "Game tied...");
-				WinLoseGameRectangle->setOutlineThickness(2);
-				Layout->AddGuiElementToCurrentState(WinLoseGameRectangle);
-			} */
 			else
 			{
-				shared_ptr<RectangleObject> WinLoseGameRectangle = make_shared<RectangleObject>(800, 425, 220, 50, Color(80, 33, 40), "You Lost :(");
-				WinLoseGameRectangle->setOutlineThickness(2);
-				Layout->AddGuiElementToCurrentState(WinLoseGameRectangle);
+				ManageRoundsRectangle("You Lost :(");
 			}
 
-			shared_ptr<ButtonObject> NextRoundButton = make_shared<ButtonObject>("Restart Game", 800, 500, 220, 50, make_shared<ShuffleCallback>(finishRound), 200);
+			shared_ptr<ButtonObject> NextRoundButton = make_shared<ButtonObject>("Restart Game", 800, 500, 250, 50, make_shared<ShuffleCallback>(finishRound), 200);
 			NextRoundButton->SetSpecialBackgroundColor(Color(80, 33, 40));
 			Layout->AddGuiElementToCurrentState(NextRoundButton);
 			// runda ++
@@ -253,12 +260,13 @@ bool IngameStateManager::PlayCard(BattleField battlefield)
 				shuffleCallback(MatchState::Shuffle);
 			};
 
-			shared_ptr<ButtonObject> NextRoundButton = make_shared<ButtonObject>("Next Round", 800, 500, 200, 50, make_shared<ShuffleCallback>(finishRound), 200);
+			shared_ptr<ButtonObject> NextRoundButton = make_shared<ButtonObject>("Next Round", 800, 500, 250, 50, make_shared<ShuffleCallback>(finishRound), 200);
 			NextRoundButton->SetSpecialBackgroundColor(Color(80, 33, 40));
 			Layout->AddGuiElementToCurrentState(NextRoundButton);
 			// runda ++
 		}
-			
+		UserHandCards->clear();
+		EnemyHandCards->clear();
 		return true;
 	}
 
@@ -332,4 +340,20 @@ void IngameStateManager::InitNewRound() //with multithreads
 	rowMakerUserHandCards.SetStarterWidthPadding(10);
 	rowMakerUserHandCards.SetStarterHeightPadding(4);
 	rowMakerUserHandCards.OrganizePosition(*UserHandCards);
+}
+
+void IngameStateManager::ManageRoundsRectangle(string info)
+{
+	shared_ptr<RectangleObject> WinLoseRectangle = make_shared<RectangleObject>(800, 425, 220, 50, Color(80, 33, 40), info);
+	WinLoseRectangle->setOutlineThickness(2);
+	Layout->AddGuiElementToCurrentState(WinLoseRectangle);
+	
+	
+}
+
+void IngameStateManager::ManageGamesRectangle(string info)
+{
+	shared_ptr<RectangleObject> WinLoseGameRectangle = make_shared<RectangleObject>(800, 425, 420, 50, Color(80, 33, 40), info);
+	WinLoseGameRectangle->setOutlineThickness(2);
+	Layout->AddGuiElementToCurrentState(WinLoseGameRectangle);
 }

@@ -93,6 +93,9 @@ public:
 
 class IceQueenModel : public BaseCardModel
 {
+	void NormalInsertCards(shared_ptr<IGuiElement> card,
+		BattleField battlefield, ICardModel::CardsVector & userLowerBattlefieldCards,
+		ICardModel::CardsVector & userUpperBattlefieldCards);
 public:
 	virtual void CardSpecialAbility(
 		shared_ptr<IGuiElement> card,

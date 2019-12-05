@@ -16,8 +16,11 @@ protected:
 
 	PreviewCard CardPreview; //holding  object of PreviewCard class responsible for managing card preview
 	vector<RectangleObject> UiLines; //vecotr of rectangles creating UI lines
-	shared_ptr<vector<shared_ptr<IGuiElement>>> UserHandCards; //vector holding cards in user's hand
-	//vector<shared_ptr<IGuiElement>> TurnAndCardsInformationRectangles; //vector holding rectangles with information about how many cards does an AI has and who's turn is durring match
+	shared_ptr<vector<shared_ptr<IGuiElement>>> UserHandCards;
+	shared_ptr<vector<shared_ptr<IGuiElement>>> UserLowerBattlefieldCards;
+	shared_ptr<vector<shared_ptr<IGuiElement>>> UserUpperBattlefieldCards;
+	shared_ptr<vector<shared_ptr<IGuiElement>>> EnemyLowerBattlefieldCards;
+	shared_ptr<vector<shared_ptr<IGuiElement>>> EnemyUpperBattlefieldCards;//vector holding cards in user's hand
 	shared_ptr<IStateManager>& CurrentManager;
 	shared_ptr<vector<shared_ptr<IGuiElement>>> DrawOnlyVector;
 public:
@@ -25,7 +28,8 @@ public:
 	void Show() override;
 	
 	// loading background texture, creation of all gui elements used in play state and setting their postion
-	PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards, shared_ptr<IStateManager>& currentManager); //vector holding cards in user's hand);
+	PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards,
+		shared_ptr<IStateManager>& currentManager); //vector holding cards in user's hand);
 	
 	~PlayLayout();
 	
@@ -34,5 +38,10 @@ public:
 
 	void ObtainVector(vector<shared_ptr<IGuiElement>> V) override; //obtaing vector of gui elements and puuting them below each other by using columnmaker
 	shared_ptr<vector<shared_ptr<IGuiElement>>> GetDrawOnlyContents();
+
+	void SetLowerUserBattlefieldCards(shared_ptr<vector<shared_ptr<IGuiElement>>> cards);
+	void SetUpperUserBattlefieldCards(shared_ptr<vector<shared_ptr<IGuiElement>>> cards);
+	void SetLowerEnemyBattlefieldCards(shared_ptr<vector<shared_ptr<IGuiElement>>> cards);
+	void SetUpperEnemyBattlefieldCards(shared_ptr<vector<shared_ptr<IGuiElement>>> cards);
 };
 

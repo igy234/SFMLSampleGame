@@ -35,6 +35,10 @@ class IngameStateManager : public BaseStateManager, public ICardOperator
 	int CalculateSumOfPoints(shared_ptr<vector<shared_ptr<IGuiElement>>> currentBattleField);
 	void ArrangeCards(shared_ptr<vector<shared_ptr<IGuiElement>>> currentBattleField, EnumScreenFields fieldX, EnumScreenFields fieldY);
 	void InitNewRound();
+
+	void ManageGamesRectangle(string info);
+
+	void ManageRoundsRectangle(string info);
 public:
 	virtual void DrawWindowContents() override;
 	IngameStateManager(shared_ptr<RenderWindow> window, 

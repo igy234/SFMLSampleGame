@@ -28,6 +28,21 @@ void Opponent::MakeMove()
 	
 	BattleField battlefield = static_cast<BattleField>(getRand(static_cast<int>(BattleField::Count)));
 	
+	if (LowerEnemyBattleField->size() >= 7)
+	{
+		battlefield = BattleField::Upper;
+	}
+
+	if (UpperEnemyBattleField->size() >= 7)
+	{
+		battlefield = BattleField::Lower;
+	}
+
+	if (LowerEnemyBattleField->size() >= 7 && UpperEnemyBattleField->size() >= 7)
+	{
+		return;
+	}
+	
 	vector<float> coefficients;
 	for (auto element : *AiHandCards) 
 	{

@@ -18,8 +18,7 @@ private:
 	shared_ptr<IStateManager> CurrentManager;
 	shared_ptr<vector<shared_ptr<IGuiElement>>> UserHandCards; //vector holding cards in user's hand
 	shared_ptr<vector<shared_ptr<IGuiElement>>> EnemyHandCards; //vector holding cards in AI's hand
-	shared_ptr<vector<shared_ptr<IGuiElement>>> FirstUserBattleField;
-	shared_ptr<vector<shared_ptr<IGuiElement>>> SecondUserBattleField;
+
 	shared_ptr<RectangleObject> RoundsRectangle;
 public:
 	void StateSwitch();

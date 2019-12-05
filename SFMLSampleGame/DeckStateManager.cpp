@@ -39,7 +39,6 @@ void DeckStateManager::HandleEvent(const Event& evnt)
 	case Event::KeyReleased:
 		switch (evnt.key.code)
 		{
-
 		case Keyboard::Return:
 			break;
 		}
@@ -57,18 +56,7 @@ void DeckStateManager::DrawWindowContents()
 
 void DeckStateManager::HandleMouseEvent(const Event& evnt)
 {
-	if (evnt.mouseButton.button == sf::Mouse::Right)
-	{
-		cout << "the right button was pressed" << endl;
-		cout << "mouse x: " << evnt.mouseButton.x << endl;
-		cout << "mouse y: " << evnt.mouseButton.y << endl;
-	}
 
-
-	if (evnt.mouseButton.button == sf::Mouse::Left)
-	{
-
-	}
 
 	deckLayout.HandleMouseEvent(evnt);
 }

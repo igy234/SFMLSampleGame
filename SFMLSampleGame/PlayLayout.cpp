@@ -8,6 +8,7 @@
 #include "CardFactory.h"
 #include "ICardOperator.h"
 #include "Opponent.h"
+#include "IngameStateManager.h"
 
 PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared_ptr<IGuiElement>>> userHandCards, shared_ptr<IStateManager>& currentManager) //vector holding cards in user's hand)
 	:BaseLayout(window),	
@@ -35,17 +36,10 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared
 	BackDrop.setOutlineThickness(Thickness);
 	UiLines.push_back(BackDrop);
 	
-
 	RowMaker rowMakerUserHandCards(window->getSize().x, window->getSize().y, EnumScreenFields::FieldTwo, EnumScreenFields::FieldNine);
 	rowMakerUserHandCards.SetStarterWidthPadding(10);
 	rowMakerUserHandCards.SetStarterHeightPadding(4);
 	rowMakerUserHandCards.OrganizePosition(*UserHandCards);
-
-	//region information rectangles
-	#pragma region InfoRectangles
-	
-	
-#pragma endregion InfoRectangles 
 
 	//region UiLines
 	#pragma region GridLayout
@@ -121,7 +115,6 @@ void PlayLayout::Show()
 		element->Draw(Window);
 	}
 
-	
 	for (auto element : *UserHandCards)
 	{
 		element->Draw(Window);
@@ -143,11 +136,7 @@ void PlayLayout::Show()
 
 void PlayLayout::ObtainVector(vector<shared_ptr<IGuiElement>> V)
 {
-	//auto vect = GuiElements;
 	BaseLayout::ObtainVector(V); //saved for later (eventually)
-
-
-	//GuiElements.insert(GuiElements.end(), vect.begin(), vect.end());
 }
 
 shared_ptr<vector<shared_ptr<IGuiElement>>> PlayLayout::GetDrawOnlyContents()
@@ -185,10 +174,33 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 				else
 				{
 					element->Unhighlight();
-				
 				}
 			}
-		
+
+
+			vector<shared_ptr<IGuiElement>> vectAllBattlefields = *UserLowerBattlefieldCards;
+			vectAllBattlefields.insert(vectAllBattlefields.begin(), UserUpperBattlefieldCards->begin(), UserUpperBattlefieldCards->end());
+			vectAllBattlefields.insert(vectAllBattlefields.begin(), EnemyLowerBattlefieldCards->begin(), EnemyLowerBattlefieldCards->end());
+			vectAllBattlefields.insert(vectAllBattlefields.begin(), EnemyUpperBattlefieldCards->begin(), EnemyUpperBattlefieldCards->end());
+			for (auto element : vectAllBattlefields)
+			{
+				GuiElementPositionX = element->GetPositionX();
+				GuiElementPositionY = element->GetPositionY();
+				GuiElementWidth = element->GetWidth();
+				GuiElementHeight = element->GetHeight();
+				if ((evnt.mouseButton.x >= GuiElementPositionX && evnt.mouseButton.x < (GuiElementPositionX + GuiElementWidth)) && // quick maths
+					(evnt.mouseButton.y >= GuiElementPositionY && evnt.mouseButton.y <= (GuiElementPositionY + GuiElementHeight)))
+				{
+					CardPreview.SetTexture(element->GetTexture());
+					element->Highlight();
+					WasCardHighlighted = true;
+				}
+				else
+				{
+					element->Unhighlight();
+				}
+			}
+
 			vector<reference_wrapper<RectangleObject>> TwoFieldRectangles; //zwyk³y wektor tworzy kopie obiektów, dlatego potrzebuje reference wrappera który bierze referencje na dane obiekty
 			TwoFieldRectangles.push_back(UiLines[3]);
 			TwoFieldRectangles.push_back(UiLines[4]);
@@ -203,16 +215,10 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 				if ((evnt.mouseButton.x >= (GuiElementPositionX) && evnt.mouseButton.x < (GuiElementPositionX + GuiElementWidth)) && // quick maths
 					(evnt.mouseButton.y >= (GuiElementPositionY) && evnt.mouseButton.y <= (GuiElementPositionY + GuiElementHeight)))
 				{
-					//trzeba jakos sprawdzic w którym battlefieldzie by³o klikniete, dodac karte do wektora odpowiedniego battlefieldu, 
 					if (auto cardOperator = dynamic_pointer_cast<ICardOperator>(CurrentManager))
 					{
 						cardOperator->WhichBattlefield(static_cast<BattleField>(i));
 					}
-					//Battlefield.get().Highlight();
-				}
-				else
-				{
-					//Battlefield.get().Unhighlight();
 				}
 			}
 
@@ -254,31 +260,34 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 		vector<reference_wrapper<RectangleObject>> TwoFieldRectangles; //zwyk³y wektor tworzy kopie obiektów, dlatego potrzebuje reference wrappera który bierze referencje na dane obiekty
 		TwoFieldRectangles.push_back(UiLines[3]);
 		TwoFieldRectangles.push_back(UiLines[4]);
-		
-		for (auto card : *UserHandCards) {
-				
-			if (card->GetIsHighlighted())
+		if (auto whichState = dynamic_pointer_cast<IngameStateManager>(CurrentManager))
+		{
+			for (auto card : *UserHandCards)
 			{
-				NoCardsHighlighted = false;
-				for (auto element : TwoFieldRectangles)
+
+				if (card->GetIsHighlighted())
 				{
-					GuiElementPositionX = element.get().getPosition().x;
-					GuiElementPositionY = element.get().getPosition().y;
-					GuiElementWidth = element.get().getSize().x;
-					GuiElementHeight = element.get().getSize().y;
-					if ((evnt.mouseMove.x >= (GuiElementPositionX) && evnt.mouseMove.x < (GuiElementPositionX + GuiElementWidth)) && // quick maths
-						(evnt.mouseMove.y >= (GuiElementPositionY) && evnt.mouseMove.y <= (GuiElementPositionY + GuiElementHeight)))
+					NoCardsHighlighted = false;
+					for (auto element : TwoFieldRectangles)
 					{
-						element.get().Highlight();
-					}
-					else
-					{
-						element.get().Unhighlight();
+						GuiElementPositionX = element.get().getPosition().x;
+						GuiElementPositionY = element.get().getPosition().y;
+						GuiElementWidth = element.get().getSize().x;
+						GuiElementHeight = element.get().getSize().y;
+						if ((evnt.mouseMove.x >= (GuiElementPositionX) && evnt.mouseMove.x < (GuiElementPositionX + GuiElementWidth)) && // quick maths
+							(evnt.mouseMove.y >= (GuiElementPositionY) && evnt.mouseMove.y <= (GuiElementPositionY + GuiElementHeight)))
+						{
+
+							element.get().Highlight();
+						}
+						else
+						{
+							element.get().Unhighlight();
+						}
 					}
 				}
 			}
 		}
-
 		if (NoCardsHighlighted)
 		{
 			for (auto element : TwoFieldRectangles)
@@ -291,3 +300,23 @@ void PlayLayout::HandleMouseEvent(const Event& evnt)
 	}
 }
 
+
+void PlayLayout::SetLowerUserBattlefieldCards(shared_ptr<vector<shared_ptr<IGuiElement>>> cards)
+{
+	UserLowerBattlefieldCards = cards;
+}
+
+void PlayLayout::SetUpperUserBattlefieldCards(shared_ptr<vector<shared_ptr<IGuiElement>>> cards)
+{
+	UserUpperBattlefieldCards = cards;
+}
+
+void PlayLayout::SetLowerEnemyBattlefieldCards(shared_ptr<vector<shared_ptr<IGuiElement>>> cards)
+{
+	EnemyLowerBattlefieldCards = cards;
+}
+
+void PlayLayout::SetUpperEnemyBattlefieldCards(shared_ptr<vector<shared_ptr<IGuiElement>>> cards)
+{
+	EnemyUpperBattlefieldCards = cards;
+}

@@ -5,7 +5,7 @@
 
 FontProvider::FontProvider()
 {
-	if (!font.loadFromFile("Resources/Fonts/GWINT_Font.ttf"))
+	if (!font.loadFromFile("Resources/Fonts/akashi.ttf"))
 	{
 		cerr << "Error while loading font" << endl; //error handling
 		system("pause");

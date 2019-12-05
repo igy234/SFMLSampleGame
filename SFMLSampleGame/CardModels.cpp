@@ -16,15 +16,9 @@ LoremIpsumModel::~LoremIpsumModel()
 {
 }
 
-void IceQueenModel::CardSpecialAbility(
-	shared_ptr<IGuiElement> card,
-	BattleField battlefield,
-	ICardModel::CardsVector & userHandCards,
-	ICardModel::CardsVector & userLowerBattlefieldCards,
-	ICardModel::CardsVector & userUpperBattlefieldCards,
-	ICardModel::CardsVector & enemyLowerBattlefieldCards,
-	ICardModel::CardsVector & enemyUpperBattlefieldCards,
-	ICardModel::CardsVector& enemyHandCards)
+void IceQueenModel::NormalInsertCards(shared_ptr<IGuiElement> card,
+	BattleField battlefield, ICardModel::CardsVector & userLowerBattlefieldCards,
+	ICardModel::CardsVector & userUpperBattlefieldCards)
 {
 	ICardModel::CardsVector cardsVector = make_shared<vector<shared_ptr<IGuiElement>>>();
 	auto nix = make_shared<BaseCard>(make_shared<NixModel>());
@@ -32,10 +26,11 @@ void IceQueenModel::CardSpecialAbility(
 	auto nix2 = make_shared<BaseCard>(make_shared<NixModel>());
 	nix2->SetPadding(10);
 	card->SetPadding(10);
+
 	cardsVector->push_back(nix);
 	cardsVector->push_back(card);
 	cardsVector->push_back(nix2);
-	
+
 	switch (battlefield)
 	{
 	case BattleField::Lower:
@@ -46,6 +41,73 @@ void IceQueenModel::CardSpecialAbility(
 		userUpperBattlefieldCards->insert(userUpperBattlefieldCards->end(), cardsVector->begin(), cardsVector->end());
 		break;
 
+	}
+}
+
+
+
+void IceQueenModel::CardSpecialAbility(
+	shared_ptr<IGuiElement> card,
+	BattleField battlefield,
+	ICardModel::CardsVector & userHandCards,
+	ICardModel::CardsVector & userLowerBattlefieldCards,
+	ICardModel::CardsVector & userUpperBattlefieldCards,
+	ICardModel::CardsVector & enemyLowerBattlefieldCards,
+	ICardModel::CardsVector & enemyUpperBattlefieldCards,
+	ICardModel::CardsVector& enemyHandCards)
+{
+
+	if ((battlefield == BattleField::Lower && userLowerBattlefieldCards->size() <= 4) ||
+		(battlefield == BattleField::Upper && userUpperBattlefieldCards->size() <= 4))
+	{
+		NormalInsertCards(card, battlefield, userLowerBattlefieldCards, userUpperBattlefieldCards);
+		return;
+	}
+	else if ((battlefield == BattleField::Lower && userLowerBattlefieldCards->size() > 4) ||
+		(battlefield == BattleField::Upper && userUpperBattlefieldCards->size() > 4))
+	{
+		ICardModel::CardsVector cardsVector = make_shared<vector<shared_ptr<IGuiElement>>>();
+		auto nix = make_shared<BaseCard>(make_shared<NixModel>());
+		nix->SetPadding(10);
+		auto nix2 = make_shared<BaseCard>(make_shared<NixModel>());
+		nix2->SetPadding(10);
+		card->SetPadding(10);
+
+		
+		cardsVector->push_back(nix);
+		cardsVector->push_back(nix2);
+		cardsVector->push_back(card);
+
+		switch (battlefield)
+		{
+		case BattleField::Lower:
+			while (userLowerBattlefieldCards->size() < 7 && cardsVector->size())
+			{
+				userLowerBattlefieldCards->push_back(cardsVector->back());
+				cardsVector->pop_back();
+			}
+			while (userUpperBattlefieldCards->size() < 7 && cardsVector->size())
+			{
+				userUpperBattlefieldCards->push_back(cardsVector->back());
+				cardsVector->pop_back();
+			}
+			break;
+
+		case BattleField::Upper:
+			
+			while (userUpperBattlefieldCards->size() < 7 && cardsVector->size())
+			{
+				userUpperBattlefieldCards->push_back(cardsVector->back());
+				cardsVector->pop_back();
+			}
+			while (userLowerBattlefieldCards->size() < 7 && cardsVector->size())
+			{
+				userLowerBattlefieldCards->push_back(cardsVector->back());
+				cardsVector->pop_back();
+			}
+			break;
+
+		}
 	}
 }
 
