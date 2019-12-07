@@ -45,13 +45,6 @@ void MenuStateManager::DrawWindowContents()
 }
 
 void MenuStateManager::HandleMouseEvent(const Event& evnt)
-{
-	if (evnt.mouseButton.button == sf::Mouse::Right)
-	{
-				cout << "the right button was pressed" << endl;
-				cout << "mouse x: " << evnt.mouseButton.x << endl;
-				cout << "mouse y: " << evnt.mouseButton.y << endl;
-	}
-	
+{	
 	menuLayout.HandleMouseEvent(evnt);
 }

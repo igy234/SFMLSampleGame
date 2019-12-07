@@ -172,6 +172,7 @@
     <ClInclude Include="CardFactory.h" />
     <ClInclude Include="BaseCardModel.h" />
     <ClInclude Include="CardModels.h" />
+    <ClInclude Include="ChangeGalleryPageCallback.h" />
     <ClInclude Include="CloseWindowCallback.h" />
     <ClInclude Include="ColumnMaker.h" />
     <ClInclude Include="DeckCallback.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="EndgameStateManager.h" />
     <ClInclude Include="EnumBattlefield.h" />
     <ClInclude Include="EnumCardName.h" />
+    <ClInclude Include="EnumGalleryPages.h" />
     <ClInclude Include="EnumScreenFields.h" />
     <ClInclude Include="FontProvider.h" />
     <ClInclude Include="Game.h" />
@@ -198,6 +200,7 @@
     <ClInclude Include="MenuCallback.h" />
     <ClInclude Include="MenuLayout.h" />
     <ClInclude Include="MenuStateManager.h" />
+    <ClInclude Include="MusicProvider.h" />
     <ClInclude Include="Opponent.h" />
     <ClInclude Include="PlayCallback.h" />
     <ClInclude Include="PlayLayout.h" />
@@ -220,6 +223,7 @@
     <ClCompile Include="CardFactory.cpp" />
     <ClCompile Include="BaseCardModel.cpp" />
     <ClCompile Include="CardModels.cpp" />
+    <ClCompile Include="ChangeGalleryPageCallback.cpp" />
     <ClCompile Include="CloseWindowCallback.cpp" />
     <ClCompile Include="ColumnMaker.cpp" />
     <ClCompile Include="DeckCallback.cpp" />
@@ -234,6 +238,7 @@
     <ClCompile Include="MenuCallback.cpp" />
     <ClCompile Include="MenuLayout.cpp" />
     <ClCompile Include="MenuStateManager.cpp" />
+    <ClCompile Include="MusicProvider.cpp" />
     <ClCompile Include="Opponent.cpp" />
     <ClCompile Include="PlayCallback.cpp" />
     <ClCompile Include="PlayLayout.cpp" />

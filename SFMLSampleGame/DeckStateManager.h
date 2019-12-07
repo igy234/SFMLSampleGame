@@ -1,11 +1,13 @@
 #pragma once
 #include "BaseStateManager.h"
 #include "DeckLayout.h"
+#include "EnumGalleryPages.h"
 //class not used yet
 class DeckStateManager : public BaseStateManager
 {
 protected:
-	DeckLayout deckLayout;
+	shared_ptr<DeckLayout> deckLayout;
+	shared_ptr<CardsPage> Page;
 
 public:
 	void HandleEvent(const Event& evnt) override;

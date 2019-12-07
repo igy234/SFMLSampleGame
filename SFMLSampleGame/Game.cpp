@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "StateOperator.h"
+#include "MusicProvider.h"
 
 Game::Game()
 	: StateHandler(make_shared<StateOperator<GameState>>())
@@ -34,12 +35,14 @@ void Game::Run()
 		CurrentManager->DrawWindowContents();
 		Window->display();
 		StateSwitch();
+		MusicProvider::instance().CheckMusicStatus();
 	}
 }
 
 void Game::StateSwitch()
 {
-	switch (StateHandler->GetCurrentState())
+	auto CurrentState = StateHandler->GetCurrentState();
+	switch (CurrentState)
 	{
 	case GameState::Menu:
 		CurrentManager = MenuManager;
@@ -51,4 +54,5 @@ void Game::StateSwitch()
 		CurrentManager = PlayManager;
 		break;
 	}
+	MusicProvider::instance().play(CurrentState);
 }

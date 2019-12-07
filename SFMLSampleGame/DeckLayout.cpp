@@ -4,10 +4,12 @@
 #include "RowMaker.h"
 #include "Utils.h"
 #include "CardFactory.h"
+#include "ChangeGalleryPageCallback.h"
 
-DeckLayout::DeckLayout(shared_ptr<RenderWindow> window)
- :BaseLayout(window),
-  CardPreview(0, 0, 0, 0)
+DeckLayout::DeckLayout(shared_ptr<RenderWindow> window, shared_ptr<CardsPage> page)
+	:BaseLayout(window),
+	CardPreview(0, 0, 0, 0),
+	Page(page)
 {
 	if (!this->BackgroundTexture.loadFromFile("Resources/Images/Forest.png"))
 	{
@@ -29,7 +31,6 @@ DeckLayout::DeckLayout(shared_ptr<RenderWindow> window)
 
 
 
-
 	InfoRectangle = make_shared<RectangleObject>(0, 0, 750, 50, Color(255, 0, 0, 50), "Please Click the card you want to check out...");
 	InfoRectangle->setOutlineThickness(2);
 	InfoRectangle->SetPadding(0);
@@ -45,7 +46,7 @@ DeckLayout::DeckLayout(shared_ptr<RenderWindow> window)
 	CardPreview.SetPositionY(FieldY);
 
 	CardFactory factory;
-	for (int i = 0; i <= static_cast<int>(EnumCardName::COUNT); i++)
+	for (int i = 0; i < static_cast<int>(EnumCardName::COUNT); i++)
 	{
 		if (i < 5)
 		{
@@ -65,12 +66,24 @@ DeckLayout::DeckLayout(shared_ptr<RenderWindow> window)
 			card->SetPadding(10);
 			ThirdCardsVector.push_back(card);
 		}
-		/*else if (i >= 18 && i < 26)
+		else if (i >= 15 && i < 20)
 		{
 			auto card = factory.CreateCard(static_cast<EnumCardName>(i));
 			card->SetPadding(10);
 			FourthCardsVector.push_back(card);
-		}*/
+		}
+		else if (i >= 20 && i < 25)
+		{
+			auto card = factory.CreateCard(static_cast<EnumCardName>(i));
+			card->SetPadding(10);
+			FifthCardsVector.push_back(card);
+		}
+		else 
+		{
+			auto card = factory.CreateCard(static_cast<EnumCardName>(i));
+			card->SetPadding(10);
+			SixthCardsVector.push_back(card);
+		}
 
 	}
 
@@ -89,11 +102,24 @@ DeckLayout::DeckLayout(shared_ptr<RenderWindow> window)
 	rowMakerThirdCardsVector.SetStarterHeightPadding(4);
 	rowMakerThirdCardsVector.OrganizePosition(ThirdCardsVector);
 
-	RowMaker rowMakerFourthCardsVector(window->getSize().x, window->getSize().y, EnumScreenFields::FieldTwo, EnumScreenFields::FieldNine);
+	RowMaker rowMakerFourthCardsVector(window->getSize().x, window->getSize().y, EnumScreenFields::FieldTwo, EnumScreenFields::FieldThree);
 	rowMakerFourthCardsVector.SetStarterWidthPadding(10);
 	rowMakerFourthCardsVector.SetStarterHeightPadding(4);
 	rowMakerFourthCardsVector.OrganizePosition(FourthCardsVector);
 
+	RowMaker rowMakerFifthCardsVector(window->getSize().x, window->getSize().y, EnumScreenFields::FieldTwo, EnumScreenFields::FieldFive);
+	rowMakerFifthCardsVector.SetStarterWidthPadding(10);
+	rowMakerFifthCardsVector.SetStarterHeightPadding(4);
+	rowMakerFifthCardsVector.OrganizePosition(FifthCardsVector);
+
+	RowMaker rowMakerSixthCardsVector(window->getSize().x, window->getSize().y, EnumScreenFields::FieldTwo, EnumScreenFields::FieldSeven);
+	rowMakerSixthCardsVector.SetStarterWidthPadding(10);
+	rowMakerSixthCardsVector.SetStarterHeightPadding(4);
+	rowMakerSixthCardsVector.OrganizePosition(SixthCardsVector);
+
+
+
+	
 }
 
 
@@ -118,36 +144,53 @@ void DeckLayout::Show()
 	{
 		element->Draw(Window);
 	}
-
-	for (auto element : FirstCardsVector)
+	if (*Page == CardsPage::First)
 	{
-		element->Draw(Window);
+		for (auto element : FirstCardsVector)
+		{
+			element->Draw(Window);
+		}
+
+		for (auto element : SecondCardsVector)
+		{
+			element->Draw(Window);
+		}
+
+		for (auto element : ThirdCardsVector)
+		{
+			element->Draw(Window);
+		}
+	} 
+	else 
+	{
+		for (auto element : FourthCardsVector)
+		{
+			element->Draw(Window);
+		}
+
+		for (auto element : FifthCardsVector)
+		{
+			element->Draw(Window);
+		}
+
+		for (auto element : SixthCardsVector)
+		{
+			element->Draw(Window);
+		}
 	}
 
-	for (auto element : SecondCardsVector)
-	{
-		element->Draw(Window);
-	}
-
-	for (auto element : ThirdCardsVector)
-	{
-		element->Draw(Window);
-	}
-
-	for (auto element : FourthCardsVector)
+	for (auto element : Buttons)
 	{
 		element->Draw(Window);
 	}
 
 	CardPreview.Draw(Window);
-
 }
 
 void DeckLayout::ObtainVector(vector<shared_ptr<IGuiElement>> V)
 {
 	BaseLayout::ObtainVector(V); //zapisuje sobie na pó¿niej (ewentualnie)
-	RowMaker rowMaker(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldFive, EnumScreenFields::FieldEleven);
-	rowMaker.OrganizePosition(V);
+	
 }
 
 void DeckLayout::HandleMouseEvent(const Event & evnt)
@@ -158,11 +201,20 @@ void DeckLayout::HandleMouseEvent(const Event & evnt)
 	case Event::MouseButtonPressed:
 		if (evnt.mouseButton.button == sf::Mouse::Left)
 		{
-			vector<shared_ptr<IGuiElement>> vectAllCards = FirstCardsVector;
-			vectAllCards.insert(vectAllCards.begin(), SecondCardsVector.begin(), SecondCardsVector.end());
-			vectAllCards.insert(vectAllCards.begin(), ThirdCardsVector.begin(), ThirdCardsVector.end());
-			vectAllCards.insert(vectAllCards.begin(), FourthCardsVector.begin(), FourthCardsVector.end());
-
+			vector<shared_ptr<IGuiElement>> vectAllCards;
+			if (*Page == CardsPage::First)
+			{
+				vectAllCards = FirstCardsVector;
+				vectAllCards.insert(vectAllCards.begin(), SecondCardsVector.begin(), SecondCardsVector.end());
+				vectAllCards.insert(vectAllCards.begin(), ThirdCardsVector.begin(), ThirdCardsVector.end());
+				
+			}
+			else
+			{
+				vectAllCards = FourthCardsVector;
+				vectAllCards.insert(vectAllCards.begin(), FifthCardsVector.begin(), FifthCardsVector.end());
+				vectAllCards.insert(vectAllCards.begin(), SixthCardsVector.begin(), SixthCardsVector.end());
+			}
 
 			float GuiElementWidth, GuiElementHeight, GuiElementPositionX, GuiElementPositionY;
 			for (auto element : vectAllCards)
@@ -179,7 +231,6 @@ void DeckLayout::HandleMouseEvent(const Event & evnt)
 				}
 				else
 				{
-
 					element->Unhighlight();
 				}
 			}

@@ -38,7 +38,7 @@ void ShuffleStateManager::PerformCardOperation(shared_ptr<IGuiElement> card, Mou
 {
 	if (click == Mouse::Button::Right)
 	{
-		if (--ExchangeCount < 1)
+		if (--ExchangeCount < 0)
 		{
 			ingameCallback->action();
 			return;

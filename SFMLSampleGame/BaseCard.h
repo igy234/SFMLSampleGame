@@ -2,10 +2,7 @@
 #include "ICard.h"
 #include "RectangleObject.h"
 #include "ICardModel.h"
-
-
 //base class for card entity, holding cards sprite, texture
-
 class BaseCard : public RectangleObject 
 {
 protected:

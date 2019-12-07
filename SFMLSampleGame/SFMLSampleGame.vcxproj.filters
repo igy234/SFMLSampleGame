@@ -152,6 +152,15 @@
     <ClInclude Include="ShuffleCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ChangeGalleryPageCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumGalleryPages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -254,6 +263,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ShuffleCallback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeGalleryPageCallback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicProvider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
