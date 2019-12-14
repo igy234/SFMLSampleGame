@@ -50,9 +50,9 @@ void Opponent::MakeMove()
 		auto coef = card->GetModel()->CalculatePlayCoefficient(element, battlefield, AiHandCards, LowerEnemyBattleField, UpperEnemyBattleField, LowerUserBattleField, UpperUserBattleField, EnemyHandCards);
 		coefficients.push_back(coef);
 
-		cout << " card name: " << card->GetModel()->GetName() << " coef: " << coef << endl;
+		//cout << " card name: " << card->GetModel()->GetName() << " coef: " << coef << endl; for debbuging purposes
 	}
-	cout << endl;
+	//cout << endl;
 	
 	auto maxCoefficient = max_element(begin(coefficients), end(coefficients)); // c++11
 	int cardIndex = maxCoefficient - coefficients.begin();

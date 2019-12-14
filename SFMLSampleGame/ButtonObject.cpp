@@ -15,7 +15,7 @@ ButtonObject::ButtonObject(string label, int positionX, int positionY, float obj
 	setPosition(positionX, positionY); //sets the first point of convex
 	setPointCount(6); // sets total number of oconvex points
 	setFillColor(Color(255, 0, 0, opacity)); // color 
-	setOrigin(objectWidth / 2, 0); //sprawia ¿e œrodek buttona rysuje nam siê w koordynatach startowych pola siatki
+	setOrigin(objectWidth / 2, 0); 
 	
 	FloatRect textRect = ButtonLabel.getLocalBounds(); //make a rectangle around text
 	ButtonLabel.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f); //set the origin in rectangle
@@ -45,7 +45,6 @@ void ButtonObject::SetPositionX(float x)
 	setPosition(x, PositionY);
 	ButtonLabel.setPosition(x, PositionY);
 	BaseGuiElement::SetPositionX(x);
-	
 }
 void ButtonObject::SetPositionY(float y)
 {
@@ -69,6 +68,7 @@ void ButtonObject::SetPoints()
 	setPoint(4, Vector2f(ObjectWidth - HalfButtonHeight, -HalfButtonHeight)); //top right
 	setPoint(5, Vector2f(HalfButtonHeight, -HalfButtonHeight)); //top left
 }
+
 Text& ButtonObject::GetText()
 {
 	return ButtonLabel;

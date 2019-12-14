@@ -179,18 +179,12 @@ void DeckLayout::Show()
 		}
 	}
 
-	for (auto element : Buttons)
-	{
-		element->Draw(Window);
-	}
-
 	CardPreview.Draw(Window);
 }
 
 void DeckLayout::ObtainVector(vector<shared_ptr<IGuiElement>> V)
 {
-	BaseLayout::ObtainVector(V); //zapisuje sobie na pó¿niej (ewentualnie)
-	
+	BaseLayout::ObtainVector(V); //saves for later (eventually)
 }
 
 void DeckLayout::HandleMouseEvent(const Event & evnt)

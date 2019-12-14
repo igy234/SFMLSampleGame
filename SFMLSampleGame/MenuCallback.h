@@ -1,14 +1,19 @@
 #pragma once
 #include "ICallback.h"
 #include "IStateOperator.h"
-//class managing callback to the menu state manager
+///Callback class managing callback to the menu state manager
 class MenuCallback : public ICallback
 {
 protected:
-	shared_ptr<IStateOperator<GameState>> CurrentManager; //used for holding the current manager
+	///used for holding the current manager
+	shared_ptr<IStateOperator<GameState>> CurrentManager; 
 public:
-	MenuCallback(shared_ptr<IStateOperator<GameState>> currentManager); // setting CurrentManager as currentManager
+	///@brief constructor setting CurrentManager attribute as currentManager
+	///@param "currentManager" representing state of the program
+	MenuCallback(shared_ptr<IStateOperator<GameState>> currentManager); 
 	~MenuCallback();
-	virtual void action() override; // method seting Currentmanager state to menu state 
+
+	///@brief method seting Currentmanager's state to menu state 
+	virtual void action() override; 
 };
 

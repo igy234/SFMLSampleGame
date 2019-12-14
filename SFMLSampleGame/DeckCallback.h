@@ -2,14 +2,18 @@
 #include "ICallback.h"
 #include "IStateOperator.h"
 
-//class managing callback to the deck state manager
+///Callback class managing callback to the deck state manager
 class DeckCallback : public ICallback
 {
 protected:
+	///shared pointer to IStateOperator managing the game state
 	shared_ptr<IStateOperator<GameState>> CurrentManager; 
 public:
-	DeckCallback(shared_ptr<IStateOperator<GameState>> currentManager); //assigning current manager to the atribute of the class
+	///@brief assigning current manager to the atribute of the class
+	///@param "currentManager" representing state of the program
+	DeckCallback(shared_ptr<IStateOperator<GameState>> currentManager); 
 	~DeckCallback();
-	virtual void action() override; //assigning deck gamestate to the CurrentManager attribute
+	///@brief assigning deck(gallery) game state to the CurrentManager attribute
+	virtual void action() override; 
 };
 

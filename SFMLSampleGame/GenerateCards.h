@@ -2,13 +2,16 @@
 #include "stdafx.h"
 #include "EnumCardName.h"
 
-// no use yet
+///Class responsible for generation of random enum names for cards
 class GenerateCards 
 {
 protected:
 
 public:
+	///@brief method generating random number in range 0-25
+	///@return appropriate enum value for generated number
 	EnumCardName GenerateRandomCardNameEnum();
+
 	GenerateCards();
 	~GenerateCards();
 	

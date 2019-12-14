@@ -8,7 +8,6 @@ BaseCardModel::BaseCardModel(int strength, string name, float expectedValue)
 {
 }
 
-
 BaseCardModel::~BaseCardModel()
 {
 
@@ -53,14 +52,17 @@ int BaseCardModel::GetStrength()
 {
 	return Strength;
 }
+
 string BaseCardModel::GetName()
 {
 	return Name;
 }
+
 void BaseCardModel::SetStrength(int strength)
 {
 	Strength = strength;
 }
+
 void BaseCardModel::SetName(string name)
 {
 	Name = name;

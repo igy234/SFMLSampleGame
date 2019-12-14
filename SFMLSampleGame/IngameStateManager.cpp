@@ -57,7 +57,6 @@ IngameStateManager::~IngameStateManager()
 
 void IngameStateManager::DrawWindowContents()
 {
-
 	Layout->Show();
 }
 
@@ -77,7 +76,6 @@ void IngameStateManager::PerformCardOperation(shared_ptr<IGuiElement> card, Mous
 	if (click == Mouse::Button::Left)
 	{
 		CurrentSelectedCard = card;
-		//cout << CurrentSelectedCard << endl;
 	}
 }
 
@@ -101,13 +99,9 @@ void IngameStateManager::WhichBattlefield(BattleField battlefield)
 		}
 
 		auto it = find(UserHandCards->begin(), UserHandCards->end(), CurrentSelectedCard);
-		//if(it != UserHandCards->end())
 			UserHandCards->erase(it);
-
-		bool end = PlayCard(battlefield);
-
-		//if (!end)
-			//OrganizeCards();
+		
+			PlayCard(battlefield);
 	}
 }
 
@@ -161,7 +155,6 @@ void IngameStateManager::initialize()
 	{
 		opponent->MakeMove();
 		IsPlayerTurn = true;
-		//TurnDisplayer->SetText("Enemy turn");
 	}
 	CurrentSelectedCard = nullptr;
 	OrganizeCards();
@@ -178,7 +171,7 @@ void IngameStateManager::UpdateRoundsRectangleText()
 	RoundsRectangle->SetText("Won rounds: " + to_string(RoundsWon) + " Lost Rounds: " + to_string(RoundsLost) + " Win Ratio: " + to_string(RoundsWon) + "/" + to_string(RoundsLost + RoundsWon));
 }
 
-bool IngameStateManager::PlayCard(BattleField battlefield)
+void IngameStateManager::PlayCard(BattleField battlefield)
 {
 	
 	auto card = static_pointer_cast<BaseCard>(CurrentSelectedCard);
@@ -200,7 +193,6 @@ bool IngameStateManager::PlayCard(BattleField battlefield)
 		(((LowerUserBattleField->size() + UpperUserBattleField->size()) == 14) && (!EnemyHandCards->size())) ||
 		((!UserHandCards->size()) && ((LowerEnemyBattleField->size() + UpperEnemyBattleField->size()) == 14)))
 	{
-		//shuffleCallback(MatchState::Shuffle);
 		if (UserSumOfPoints > EnemySumOfPoints)
 		{
 			RoundsWon++;
@@ -250,7 +242,7 @@ bool IngameStateManager::PlayCard(BattleField battlefield)
 			shared_ptr<ButtonObject> NextRoundButton = make_shared<ButtonObject>("Restart Game", 800, 500, 250, 50, make_shared<ShuffleCallback>(finishRound), 200);
 			NextRoundButton->SetSpecialBackgroundColor(Color(80, 33, 40));
 			Layout->AddGuiElementToCurrentState(NextRoundButton);
-			// runda ++
+			// round ++
 		}
 		else
 		{
@@ -263,14 +255,11 @@ bool IngameStateManager::PlayCard(BattleField battlefield)
 			shared_ptr<ButtonObject> NextRoundButton = make_shared<ButtonObject>("Next Round", 800, 500, 250, 50, make_shared<ShuffleCallback>(finishRound), 200);
 			NextRoundButton->SetSpecialBackgroundColor(Color(80, 33, 40));
 			Layout->AddGuiElementToCurrentState(NextRoundButton);
-			// runda ++
+			// round ++
 		}
 		UserHandCards->clear();
 		EnemyHandCards->clear();
-		return true;
 	}
-
-	return false;
 }
 
 int IngameStateManager::CalculateSumOfPoints(shared_ptr<vector<shared_ptr<IGuiElement>>> currentBattleField)

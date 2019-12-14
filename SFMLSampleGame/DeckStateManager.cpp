@@ -12,22 +12,17 @@ DeckStateManager::DeckStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	Page(make_shared<CardsPage>(CardsPage::First))
 {
 	deckLayout = make_shared<DeckLayout>(window, Page);
-	shared_ptr<ButtonObject> b1 = make_shared<ButtonObject>("Play", 0, 0, 200, 50, make_shared<PlayCallback>(currentManager)); // taki nowy konstruktor
+	shared_ptr<ButtonObject> b1 = make_shared<ButtonObject>("Play", 0, 0, 200, 50, make_shared<PlayCallback>(currentManager)); 
 	shared_ptr<ButtonObject> b2 = make_shared<ButtonObject>("Menu", 0, 0, 200, 50, make_shared<MenuCallback>(currentManager));
 	shared_ptr<ButtonObject> b3 = make_shared<ButtonObject>("Quit", 0, 0, 200, 50, make_shared<CloseWindowCallback>(Window));
 	b1->SetPadding(25);
 	b2->SetPadding(25);
 	b3->SetPadding(25);
 	
-
-	
 	RowMaker rowMaker(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldFive, EnumScreenFields::FieldEleven);
 	rowMaker.OrganizePosition({b1,b2,b3});
-	cout << Window->getSize().x << " " << Window->getSize().y << endl;
 
-
-	
-	shared_ptr<ButtonObject> b4 = make_shared<ButtonObject>("Previous", 0, 0, 200, 50, make_shared<ChangeGalleryPageCallback>(Page, CardsPage::First)); // taki nowy konstruktor
+	shared_ptr<ButtonObject> b4 = make_shared<ButtonObject>("Previous", 0, 0, 200, 50, make_shared<ChangeGalleryPageCallback>(Page, CardsPage::First)); 
 	shared_ptr<ButtonObject> b5 = make_shared<ButtonObject>("Next", 0, 0, 200, 50, make_shared<ChangeGalleryPageCallback>(Page, CardsPage::Second));
 	b4->SetPadding(25);
 	b5->SetPadding(25);
@@ -44,7 +39,6 @@ DeckStateManager::DeckStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 	V.push_back(b5);
 
 	deckLayout->ObtainVector(V);
-
 }
 
 
@@ -56,19 +50,10 @@ void DeckStateManager::HandleEvent(const Event& evnt)
 {
 	switch (evnt.type)
 	{
-	case Event::Closed: //jeœli zamknij x to zamknij okno
+	case Event::Closed: //if x then close window
 		Window->close();
 		break;
-	case Event::KeyReleased:
-		switch (evnt.key.code)
-		{
-		case Keyboard::Return:
-			break;
-		}
-		break;
-
 	}
-
 	HandleMouseEvent(evnt);
 }
 

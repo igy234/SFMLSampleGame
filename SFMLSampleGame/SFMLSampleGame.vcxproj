@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -96,6 +96,7 @@
       <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\Interfaces;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\HeaderFiles;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\CppFiles;$(SFMLDirectory)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,6 +114,7 @@
       <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\Interfaces;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\HeaderFiles;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\CppFiles;$(SFMLDirectory)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,6 +134,7 @@
       <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\Interfaces;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\HeaderFiles;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\CppFiles;$(SFMLDirectory)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,6 +156,7 @@
       <PreprocessorDefinitions>SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\Interfaces;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\HeaderFiles;C:\Users\Ignac\source\repos\SFMLSampleGame\SFMLSampleGame\CppFiles;$(SFMLDirectory)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,7 +171,6 @@
     <ClInclude Include="BaseCard.h" />
     <ClInclude Include="BaseGuiElement.h" />
     <ClInclude Include="BaseStateManager.h" />
-    <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonObject.h" />
     <ClInclude Include="CardFactory.h" />
     <ClInclude Include="BaseCardModel.h" />
@@ -178,7 +181,6 @@
     <ClInclude Include="DeckCallback.h" />
     <ClInclude Include="DeckLayout.h" />
     <ClInclude Include="DeckStateManager.h" />
-    <ClInclude Include="EndgameStateManager.h" />
     <ClInclude Include="EnumBattlefield.h" />
     <ClInclude Include="EnumCardName.h" />
     <ClInclude Include="EnumGalleryPages.h" />
@@ -186,7 +188,6 @@
     <ClInclude Include="FontProvider.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="ICallback.h" />
-    <ClInclude Include="ICard.h" />
     <ClInclude Include="ICardModel.h" />
     <ClInclude Include="ICardOperator.h" />
     <ClInclude Include="IGuiElement.h" />
@@ -218,7 +219,6 @@
   <ItemGroup>
     <ClCompile Include="BaseCard.cpp" />
     <ClCompile Include="BaseGuiElement.cpp" />
-    <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonObject.cpp" />
     <ClCompile Include="CardFactory.cpp" />
     <ClCompile Include="BaseCardModel.cpp" />
@@ -229,7 +229,6 @@
     <ClCompile Include="DeckCallback.cpp" />
     <ClCompile Include="DeckLayout.cpp" />
     <ClCompile Include="DeckStateManager.cpp" />
-    <ClCompile Include="EndgameStateManager.cpp" />
     <ClCompile Include="FontProvider.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="BaseLayout.cpp" />
@@ -257,6 +256,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

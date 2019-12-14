@@ -5,13 +5,13 @@
 
 Game::Game()
 	: StateHandler(make_shared<StateOperator<GameState>>())
-	, Window(make_shared<RenderWindow>(VideoMode(WindowSizeX, WindowSizeY), "Game development in progress...", Style::Titlebar | Style::Close)) //lista inicjalizacyjna "doklejenie konstruktora"
+	, Window(make_shared<RenderWindow>(VideoMode(WindowSizeX, WindowSizeY), "Cardogemu Fantasy", Style::Titlebar | Style::Close | Style::Fullscreen)) 
 	, MenuManager(make_shared<MenuStateManager>(Window, StateHandler))
 	, DeckManager(make_shared<DeckStateManager>(Window, StateHandler))
 	, PlayManager(make_shared<PlayStateManager>(Window, StateHandler))
-	
-	
 {
+	Window->setVerticalSyncEnabled(true); //frame limit set to refresh rate of the monitor
+	//Window->setFramerateLimit(80);
 	StateHandler->SetNewState(GameState::Menu); //default state is menu
 	StateSwitch();
 }

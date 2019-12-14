@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "FontProvider.h"
 
-
-
 FontProvider::FontProvider()
 {
 	if (!font.loadFromFile("Resources/Fonts/akashi.ttf"))

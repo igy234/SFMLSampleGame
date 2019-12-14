@@ -56,7 +56,7 @@ PlayLayout::PlayLayout(shared_ptr<RenderWindow> window, shared_ptr<vector<shared
 	HandRectangle.setPosition(FieldX+ThicknessShift, FieldY - ThicknessShift);
 	HandRectangle.setOutlineThickness(Thickness);
 	HandRectangle.SetWidth(FieldX + WidthFactor * (static_cast<int>(EnumScreenFields::FieldSix) + 1));
-	HandRectangle.SetHeight(HeightFactor*(static_cast<int>(EnumScreenFields::FieldThree) + 1) - ThicknessShift);
+	HandRectangle.SetHeight(10+HeightFactor*(static_cast<int>(EnumScreenFields::FieldThree) + 1) - ThicknessShift);
 	UiLines.push_back(HandRectangle);
 
 	tie(FieldX, FieldY, WidthFactor, HeightFactor) = CalcualteStartingPoint(WindowSizeX, WindowSizeY, EnumScreenFields::FieldTwo, EnumScreenFields::FieldSeven);

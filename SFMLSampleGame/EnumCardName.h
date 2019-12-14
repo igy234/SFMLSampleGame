@@ -1,4 +1,6 @@
 #pragma once
+///\file
+///Enum class holding desrciptions for cards' names
 enum class EnumCardName
 {
 	LoremIpsum,

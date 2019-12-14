@@ -8,7 +8,6 @@ BaseLayout::BaseLayout(shared_ptr<RenderWindow> window)
 
 }
 
-
 BaseLayout::~BaseLayout()
 {
 
@@ -59,6 +58,7 @@ void BaseLayout::HandleMouseEvent(const Event& evnt)
 			}
 		}
 		break;
+
 	case Event::MouseMoved:
 		for (auto element : GuiElements)
 		{
@@ -70,12 +70,10 @@ void BaseLayout::HandleMouseEvent(const Event& evnt)
 			if ((evnt.mouseMove.x >= (GuiElementPositionX - GuiElementWidth / 2) && evnt.mouseMove.x < (GuiElementPositionX + GuiElementWidth / 2)) && // quick maths
 				(evnt.mouseMove.y >= (GuiElementPositionY - GuiElementHeight / 2) && evnt.mouseMove.y <= (GuiElementPositionY + GuiElementHeight / 2)))
 			{
-				//cout << " dzia³a h" << endl;
 				element->Highlight();
 			}
 			else
 			{
-				//cout << " niedzia³a h" << endl;
 				element->Unhighlight();
 			}
 		}
@@ -95,12 +93,10 @@ void BaseLayout::HandleMouseEvent(const Event& evnt)
 			if ((evnt.mouseMove.x >= (GuiElementPositionX - GuiElementWidth / 2) && evnt.mouseMove.x < (GuiElementPositionX + GuiElementWidth / 2)) && // quick maths
 				(evnt.mouseMove.y >= (GuiElementPositionY - GuiElementHeight / 2) && evnt.mouseMove.y <= (GuiElementPositionY + GuiElementHeight / 2)))
 			{
-				//cout << " dzia³a h" << endl;
 				element->Highlight();
 			}
 			else
 			{
-				//cout << " niedzia³a h" << endl;
 				element->Unhighlight();
 			}
 		}
@@ -114,7 +110,6 @@ void BaseLayout::SetGuiElementsForCurrentState(vector<shared_ptr<IGuiElement>> V
 }
 
 void BaseLayout::AddGuiElementToCurrentState(shared_ptr<IGuiElement> E)
-
 {
 	GuiElemtnsForCurrentState.push_back(E);
 }

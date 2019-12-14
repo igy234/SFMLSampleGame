@@ -60,9 +60,8 @@ void ShuffleStateManager::PerformCardOperation(shared_ptr<IGuiElement> card, Mou
 
 void ShuffleStateManager::initialize()
 {
-	ExchangeCount = 5;
-	ExchangeCardsInfo = make_shared<RectangleObject>(0, 0, 650, 100, Color(255, 0, 0, 50), "Exchange your cards, exchanges left: 5");
-
+	ExchangeCount = 3;
+	ExchangeCardsInfo = make_shared<RectangleObject>(0, 0, 650, 100, Color(255, 0, 0, 50), "Exchange your cards, exchanges left: 3");
 	b3 = make_shared<ButtonObject>("End Exchange", 0, 0, 275, 50, ingameCallback);
 	vector<shared_ptr<IGuiElement>> TempVec;
 	TempVec.push_back(ExchangeCardsInfo);

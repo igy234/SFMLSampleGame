@@ -6,50 +6,19 @@ CardFactory::CardFactory()
 {
 }
 
-
 CardFactory::~CardFactory()
 {
 }
 
 shared_ptr<BaseCard> CardFactory::CreateCard(EnumCardName cardName)
 {
-
 	auto CardName = EnumCardNameToModel(cardName);
 	auto card = make_shared<BaseCard>(CardName);
-	//card->SetPadding(0);
 	return card;
 }
 
 shared_ptr<ICardModel> CardFactory::EnumCardNameToModel(EnumCardName enumName)
 {
-	//return enumName == EnumCardName::LoremIpsum ? make_shared<LoremIpsumModel>() :
-	//	enumName == EnumCardName::IceQueen ? make_shared<IceQueenModel>() :
-	//	enumName == EnumCardName::Nix ? make_shared<NixModel>() :
-	//	enumName == EnumCardName::BombGoblin ? make_shared<BombGoblinModel>() :
-	//	enumName == EnumCardName::Warrior ? make_shared<WarriorModel>() :
-	//	enumName == EnumCardName::OctoEyenormous ? make_shared<OctoEyenormousModel>() :
-	//	enumName == EnumCardName::Scholar1 ? make_shared<Scholar1Model>() :
-	//	enumName == EnumCardName::Scholar2 ? make_shared<Scholar2Model>() :
-	//	enumName == EnumCardName::Tinywing ? make_shared<TinywingModel>() :
-	//	enumName == EnumCardName::FireMage ? make_shared<FireMageModel>() :
-	//	enumName == EnumCardName::GreenDragon ? make_shared<GreenDragonModel>() :
-	//	enumName == EnumCardName::YellowDragon ? make_shared<YellowDragonModel>() :
-	//	enumName == EnumCardName::RedDragon ? make_shared<RedDragonModel>() :
-	//	enumName == EnumCardName::Mimic ? make_shared<MimicModel>() :
-	//	enumName == EnumCardName::DualBoxer ? make_shared<DualBoxerModel>() :
-	//	enumName == EnumCardName::Minotaur ? make_shared<MinotaurModel>() :
-	//	enumName == EnumCardName::SpiderMonk ? make_shared<SpiderMonkModel>() :
-	//	enumName == EnumCardName::Dwarf ? make_shared<DwarfModel>() :
-	//	enumName == EnumCardName::VikingSlime ? make_shared<VikingSlimeModel>() :
-	//	enumName == EnumCardName::CrystalMage ? make_shared<CrystalMageModel>() :
-	//	enumName == EnumCardName::Elf ? make_shared<ElfModel>() :
-	//	enumName == EnumCardName::Pikeman ? make_shared<PikemanModel>() :
-	//	enumName == EnumCardName::King ? make_shared<KingModel>() :
-	//	enumName == EnumCardName::BloodyBlue ? make_shared<BloodyBlueModel>() :
-	//	enumName == EnumCardName::Adventurer ? make_shared<AdventurerModel>() :
-	//	enumName == EnumCardName::DemonLord ? make_shared<DemonLordModel>() :
-	//	nullptr;
-
 	switch (enumName)
 	{
 	case EnumCardName::LoremIpsum:
@@ -132,5 +101,4 @@ shared_ptr<ICardModel> CardFactory::EnumCardNameToModel(EnumCardName enumName)
 		break;
 	}
 	return nullptr;
-
 }

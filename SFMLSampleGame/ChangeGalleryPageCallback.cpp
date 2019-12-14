@@ -12,6 +12,7 @@ Value(value)
 
 ChangeGalleryPageCallback::~ChangeGalleryPageCallback()
 {
+
 }
 
 void ChangeGalleryPageCallback::action()

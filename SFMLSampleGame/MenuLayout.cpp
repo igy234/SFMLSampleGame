@@ -13,8 +13,6 @@ MenuLayout::MenuLayout(shared_ptr<RenderWindow> window)
 	}
 	
 	BackgroundSprite.setTexture(BackgroundTexture);
-	
-	
 }
 
 
@@ -33,7 +31,7 @@ void MenuLayout::Show()
 
 void MenuLayout::ObtainVector(vector<shared_ptr<IGuiElement>> V)
 {
-	BaseLayout::ObtainVector(V); //zapisuje sobie na pó¿niej (ewentualnie)
+	BaseLayout::ObtainVector(V); //saves for later eventually
 	ColumnMaker columnMaker(Window->getSize().x, Window->getSize().y, EnumScreenFields::FieldSix, EnumScreenFields::FieldEight);
 	columnMaker.OrganizePosition(V);
 }

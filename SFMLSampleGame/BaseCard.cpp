@@ -6,7 +6,6 @@ BaseCard::BaseCard(shared_ptr<ICardModel> model, int positionX, int positionY, f
 	: RectangleObject(positionX, positionY, objectWidth, objectHeight, color),
 	Model(model)
 {
-
 	if (!this->CardTexture.loadFromFile("Resources/Images/" + Model->GetName() + ".jpg"))
 	{
 		cerr << "Error while loading Menu Texture" << endl; //error handling
@@ -17,14 +16,11 @@ BaseCard::BaseCard(shared_ptr<ICardModel> model, int positionX, int positionY, f
 	CardSprite.setTexture(CardTexture);
 	CardSprite.setPosition(positionX, positionY);
 	
-	 //below rescaling to ideal size
+	//below rescaling to ideal size
 	CardSprite.setScale(
 		objectWidth / CardSprite.getLocalBounds().width,
 		objectHeight / CardSprite.getLocalBounds().height);
-	
-	
 }
-
 
 BaseCard::~BaseCard()
 {

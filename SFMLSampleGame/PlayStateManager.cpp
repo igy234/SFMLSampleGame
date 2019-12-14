@@ -56,7 +56,6 @@ PlayStateManager::PlayStateManager(shared_ptr<RenderWindow> window, shared_ptr<I
 		
 	ShuffleManager = make_shared<ShuffleStateManager>(Window, StateHandler, playLayout, UserHandCards, ingameCallback);
 	IngameManager = make_shared<IngameStateManager>(Window, StateHandler, playLayout, UserHandCards, EnemyHandCards, changeInternalState, RoundsRectangle);
-	EndgameManager = make_shared<EndgameStateManager>(Window, StateHandler, playLayout);
 
 	vector<shared_ptr<IGuiElement>> V;
 	V.push_back(b1);
@@ -77,24 +76,21 @@ void PlayStateManager::HandleEvent(const Event& evnt)
 {
 	switch (evnt.type)
 	{
-	case Event::Closed: //jeœli zamknij x to zamknij okno
+	case Event::Closed: 
 		Window->close();
 		break;
 	}
 
 	HandleMouseEvent(evnt);
-
 }
 
 void PlayStateManager::DrawWindowContents()
 {
-	//playLayout.Show();
 	CurrentManager->DrawWindowContents();
 }
 
 void PlayStateManager::HandleMouseEvent(const Event& evnt)
 {
-	//playLayout.HandleMouseEvent(evnt);
 	CurrentManager->HandleMouseEvent(evnt);
 }
 
@@ -108,9 +104,6 @@ void PlayStateManager::StateSwitch()
 		break;
 	case MatchState::Ingame:
 		CurrentManager = IngameManager;
-		break;
-	case MatchState::Endgame:
-		CurrentManager = EndgameManager;
 		break;
 	}
 }

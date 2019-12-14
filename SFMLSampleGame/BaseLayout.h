@@ -2,23 +2,48 @@
 #include "ILayout.h"
 #include "IGuiElement.h"
 
-// Base layout of window holding window, background texture and spirte. Vector of GuiElements and map of buttons
+///Base class managing layout of the window.
 class BaseLayout : public ILayout
 {
 protected:
+	///holding shared pointer to window
 	shared_ptr<RenderWindow> Window;
+
+	///holding background texture
 	Texture BackgroundTexture; 
+
+	///holding spirte
 	Sprite BackgroundSprite;
+
+	///Vector holding GuiElements
 	vector <shared_ptr<IGuiElement>> GuiElements;
-	map<string, shared_ptr<ButtonObject>> ButtonObjectsMap;
+
+	///vector holding gui elements used in current state
 	vector <shared_ptr<IGuiElement>> GuiElemtnsForCurrentState;
+
 public:
+	///@brief method managing drawning of contents
 	virtual void Show() = 0;
+
+	///@biref constructor
+	///@param "window" window of the program
 	BaseLayout(shared_ptr<RenderWindow> window);
-	virtual void ObtainVector(vector<shared_ptr<IGuiElement>> V) override; // obtains vector of gui elements
-	virtual void HandleMouseEvent(const Event& evnt) override; //handling mouse movement (highlighting gui elements and calling callbacks for state managers)
+
+	///@brief obtains vector of gui elements
+	///@param "V" vector of gui elements 
+	virtual void ObtainVector(vector<shared_ptr<IGuiElement>> V) override;
+
+	///@brief method handling mouse movement, highlighting gui elements and calling callbacks for state managers
+	///@param "evnt" parameter describing event type for mouse handling
+	virtual void HandleMouseEvent(const Event& evnt) override; 
+
+	///@brief setter for vector of gui elements for current state of the program
+	///@param "V" vector of gui elements 
 	virtual void SetGuiElementsForCurrentState(vector<shared_ptr<IGuiElement>> V) override;
-	virtual void AddGuiElementToCurrentState(shared_ptr<IGuiElement> E) override;
+
+	///@brief adding a single gui element to vector of elements for current state
+	///@param "E" single gui element
+	virtual void AddGuiElementToCurrentState(shared_ptr<IGuiElement> E) override; 
 	~BaseLayout();
 };
 
