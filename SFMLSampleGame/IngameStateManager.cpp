@@ -99,9 +99,12 @@ void IngameStateManager::WhichBattlefield(BattleField battlefield)
 		}
 
 		auto it = find(UserHandCards->begin(), UserHandCards->end(), CurrentSelectedCard);
+		if (it != UserHandCards->end()) 
+		{
 			UserHandCards->erase(it);
-		
 			PlayCard(battlefield);
+		}
+			
 	}
 }
 

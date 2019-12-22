@@ -6,7 +6,6 @@ RectangleObject::RectangleObject(int positionX, int positionY, float objectWidth
 	:BaseGuiElement(positionX, positionY, objectWidth, objectHeight), RectangleSize(objectWidth, objectHeight)
 {
 	setPosition(positionX, positionY);
-	//setOrigin(positionX / 2, positionY / 2);
 	setFillColor(color);
 	setSize(RectangleSize);
 	
